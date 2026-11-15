@@ -209,6 +209,40 @@ function SectionHeader({
   )
 }
 
+const BETA_DOWNLOAD_URL = 'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
+const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
+
+function GameDownloads() {
+  return (
+    <section id="descargas" className="spido-container spido-section" aria-labelledby="downloads-title">
+      <p className="spido-eyebrow">TU PRÓXIMA MISIÓN</p>
+      <h2 id="downloads-title" className="spido-download-title">Descarga los juegos</h2>
+      <div className="spido-download-grid">
+        <article className="spido-download-card" aria-labelledby="main-game-title">
+          <p className="spido-eyebrow">BETA DISPONIBLE</p>
+          <h3 id="main-game-title">SPIDOCODE</h3>
+          <p>El juego principal. Programa junto a Spid y explora su mundo espacial.</p>
+          <p className="spido-download-meta">v1.0.0-beta · Windows x64 · Aproximadamente 100 MB</p>
+          <div className="spido-actions">
+            <a href={BETA_DOWNLOAD_URL} className="spido-button" aria-label="Descargar Beta de SPIDOCODE para Windows x64, archivo ZIP">Descargar Beta <span aria-hidden="true">↓</span></a>
+            <a href={BETA_RELEASE_URL} target="_blank" rel="noopener noreferrer" className="spido-button spido-button-secondary" aria-label="Ver Release en GitHub, se abre en una pestaña nueva">Ver Release <span aria-hidden="true">↗</span></a>
+          </div>
+          <ol className="spido-download-steps">
+            <li>Descarga el archivo ZIP.</li>
+            <li>Extrae la carpeta SPIDOCODE completa.</li>
+            <li>Abre la carpeta y ejecuta <code>SpidoCode.exe</code>. Conserva juntos todos los archivos extraídos.</li>
+          </ol>
+        </article>
+        <article className="spido-download-card spido-download-upcoming" aria-labelledby="prequel-title">
+          <p className="spido-eyebrow">PRÓXIMAMENTE</p>
+          <h3 id="prequel-title">SPIDOCODE Precuela</h3>
+          <p>Una nueva forma de comenzar la aventura. La descarga estará disponible cuando se publique su Release oficial.</p>
+        </article>
+      </div>
+    </section>
+  )
+}
+
 function Hero() {
   return (
     <section id="inicio" className="spido-hero">
@@ -221,12 +255,11 @@ function Hero() {
             <h1>Aprende programación.<br /><span>Explora un nuevo mundo.</span></h1>
             <p>Programa junto a Spid. Explora un entorno espacial, resuelve misiones y aprende con cada intento.</p>
         <div className="spido-actions">
-          <a href="#juego" className="spido-button">Conocer el juego <span aria-hidden="true">↗</span></a>
-          <a href="https://github.com/LeaGaj04/spido-code" target="_blank" rel="noopener noreferrer" className="spido-button spido-button-secondary" aria-label="Ver el proyecto oficial de SpidoCode en GitHub, se abre en una pestaña nueva">Ver proyecto del juego <span aria-hidden="true">↗</span></a>
+          <a href={BETA_DOWNLOAD_URL} className="spido-button" aria-label="Descargar Beta de SPIDOCODE para Windows x64, archivo ZIP">Descargar Beta <span aria-hidden="true">↓</span></a>
+          <a href="#descargas" className="spido-button spido-button-secondary">Ver los juegos <span aria-hidden="true">↓</span></a>
           <a href="/docs" className="spido-button spido-button-docs" aria-label="Abrir Archivo A.D.A., centro de documentación de SpidoCode">📚 Ver documentación <span aria-hidden="true">↗</span></a>
         </div>
-            <p className="spido-game-availability" role="note">El juego está en desarrollo. El enlace al proyecto muestra su código y avances; todavía no es una descarga ni una versión jugable.</p>
-            <p className="spido-game-availability">Descarga del juego: próximamente</p>
+            <p className="spido-game-availability" role="note">Beta v1.0.0-beta disponible para Windows x64 · Aproximadamente 100 MB. Descarga, extrae el ZIP y ejecuta SpidoCode.exe.</p>
             <div className="spido-hero-companion"><span>SPID / TU COMPAÑERO</span><p>Un pequeño robot con aspecto de computador y patas. Una gran aventura por descubrir.</p></div>
           </div>
         <figure className="spido-capture">
@@ -1512,6 +1545,7 @@ function LandingPage() {
       <Nav />
       <main id="contenido" tabIndex={-1}>
         <Hero />
+        <GameDownloads />
         <GameExperience />
         <div className="spido-campaign"><HowToPlayAndMissionsSection /></div>
         <DocumentationNotice />
