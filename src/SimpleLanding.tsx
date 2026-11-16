@@ -292,90 +292,106 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: CONTENIDO 2 (MECÁNICAS Y CÓDIGO - DEGRADÉ CON PINTAS VERDES NEÓN)
+            SECCIÓN 3: CONTENIDO 2 (ESTILO LIGHTBOT SHOWCASE)
             Degradé de gris claro al oscuro con pintas verdes neón
-            Cara 3: Spid Guiño / Astuto (spid-wink.jpg)
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
           <NeonSpeckles count={20} />
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
-            <div className="sec-section-header">
-              <span className="sec-section-tag">Lógica Educativa</span>
-              <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
-              <p className="sec-section-desc">
-                Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
-                pantalla. Aprende computación paso a paso mediante resolución de problemas.
-              </p>
-            </div>
-
-            {/* 3 Bloques de conceptos estilo Lightbot */}
-            <div className="sec-mechanics-grid">
-              <div className="sec-mechanic-card">
-                <div className="sec-mechanic-icon">01</div>
-                <h4>Secuencias y Comandos</h4>
-                <p>
-                  Aprende la base del pensamiento algorítmico: planifica paso a paso cómo Spid debe
-                  avanzar, girar e interactuar con el entorno.
+            <div className="lightbot-showcase-grid">
+              {/* Fila 1 - Izquierda: Texto Intro estilo Lightbot */}
+              <div className="lightbot-card lightbot-text-card">
+                <h2 className="lightbot-title">
+                  ¡Resuelve puzzles usando <span>programación!</span>
+                </h2>
+                <p className="lightbot-desc">
+                  <strong>SPIDOCODE</strong> es un juego educativo basado en código: aprenderás
+                  lógica de programación paso a paso de forma natural y divertida mientras juegas y
+                  exploras asteroides espaciales.
                 </p>
-                <div className="sec-code-box">
-                  <span className="code-fn">rover.avanzar</span>(2)<br />
-                  <span className="code-fn">rover.girar_derecha</span>()<br />
-                  <span className="code-green">rover.minar</span>()
+              </div>
+
+              {/* Fila 1 - Derecha: Screenshot 1 (Mundo 3D) */}
+              <div className="lightbot-card">
+                <div className="lightbot-img-frame">
+                  <img
+                    src="/images/spidocode/screenshot-world.jpg"
+                    alt="Spid en el entorno espacial frente a la estación y depósitos"
+                    className="lightbot-img"
+                    width="447"
+                    height="379"
+                  />
                 </div>
               </div>
 
-              <div className="sec-mechanic-card">
-                <div className="sec-mechanic-icon">02</div>
-                <h4>Bucles y Repetición</h4>
-                <p>
-                  Optimiza tu código evitando repetir las mismas órdenes. Usa bucles para recolectar
-                  minerales de múltiples depósitos de forma automática.
-                </p>
-                <div className="sec-code-box">
-                  <span className="code-keyword">while</span> <span className="code-fn">rover.tiene_energia</span>():<br />
-                  &nbsp;&nbsp;<span className="code-fn">rover.avanzar</span>(1)<br />
-                  &nbsp;&nbsp;<span className="code-green">rover.transferir</span>()
+              {/* Fila 2 - Izquierda: Screenshot 2 (Interfaz con A.D.A. y consola) */}
+              <div className="lightbot-card">
+                <div className="lightbot-img-frame">
+                  <img
+                    src="/images/spidocode/screenshot-ui.jpg"
+                    alt="Interfaz de juego con consola Spid, radar y asistente A.D.A."
+                    className="lightbot-img"
+                    width="869"
+                    height="462"
+                  />
                 </div>
               </div>
 
-              <div className="sec-mechanic-card">
-                <div className="sec-mechanic-icon">03</div>
-                <h4>Condicionales y Sensores</h4>
-                <p>
-                  Haz que tu rover tome decisiones según los obstáculos y el estado de la nave. Si
-                  encuentras un cráter o mineral, reacciona en tiempo real.
-                </p>
-                <div className="sec-code-box">
-                  <span className="code-keyword">if</span> <span className="code-fn">rover.detecta_roca</span>():<br />
-                  &nbsp;&nbsp;<span className="code-fn">rover.esquivar</span>()<br />
-                  <span className="code-keyword">else</span>:<br />
-                  &nbsp;&nbsp;<span className="code-green">rover.continuar</span>()
+              {/* Fila 2 - Derecha: Screenshot 3 (Cuadrícula táctica y bloques) */}
+              <div className="lightbot-card">
+                <div className="lightbot-img-frame">
+                  <img
+                    src="/images/spidocode/screenshot-puzzle.jpg"
+                    alt="Modo puzzle con cuadrícula espacial, paleta de bloques y ejecución paso a paso"
+                    className="lightbot-img"
+                    width="845"
+                    height="475"
+                  />
                 </div>
               </div>
-            </div>
 
-            {/* Banner resumen didáctico con Spid */}
-            <div className="sec-mechanics-summary">
-              <div className="sec-mechanics-summary-face">
-                <img
-                  src="/images/spidocode/spid-smile.png"
-                  alt="Spid con expresión alegre al resolver el código"
-                  className="sec-mechanics-face-img"
-                  width="1024"
-                  height="788"
-                />
+              {/* Fila 3 - Izquierda: Spid con globo de diálogo estilo Lightbot */}
+              <div className="lightbot-card lightbot-companion-card">
+                <div className="lightbot-companion-face">
+                  <img
+                    src="/images/spidocode/spid-smile.png"
+                    alt="Spid sonriendo listo para resolver misiones"
+                    width="1024"
+                    height="788"
+                  />
+                </div>
+                <div className="lightbot-speech-bubble">
+                  <strong>Pista de A.D.A.:</strong>
+                  <p>¡Usa las instrucciones para avanzar por la cuadrícula y recolectar las piezas antes de que se agote la energía!</p>
+                </div>
               </div>
-              <div className="sec-mechanics-summary-text">
-                <h5>Cada instrucción le enseña algo nuevo a Spid</h5>
-                <p>
-                  Consulta el Archivo A.D.A. para profundizar en la documentación pedagógica, guías
-                  de bucles, condicionales y diseño del juego.
-                </p>
+
+              {/* Fila 3 - Derecha: Lo que aprenderás estilo Lightbot */}
+              <div className="lightbot-card lightbot-text-card">
+                <h3 className="lightbot-learn-title">Lo que aprenderás</h3>
+                <ul className="lightbot-learn-list">
+                  <li className="lightbot-learn-item">
+                    <span className="lightbot-learn-dot" /> Secuenciación y comandos directos
+                  </li>
+                  <li className="lightbot-learn-item">
+                    <span className="lightbot-learn-dot" /> Bucles y optimización de repeticiones
+                  </li>
+                  <li className="lightbot-learn-item">
+                    <span className="lightbot-learn-dot" /> Procedimientos y automatización
+                  </li>
+                  <li className="lightbot-learn-item">
+                    <span className="lightbot-learn-dot" /> Condicionales y toma de decisiones
+                  </li>
+                  <li className="lightbot-learn-item">
+                    <span className="lightbot-learn-dot" /> Asistencia y orientación en vivo con A.D.A.
+                  </li>
+                </ul>
+
+                <a href="/docs" className="sec-mechanics-docs-link">
+                  Consultar Archivo A.D.A.
+                </a>
               </div>
-              <a href="/docs" className="sec-mechanics-docs-link">
-                Consultar Archivo A.D.A.
-              </a>
             </div>
           </div>
         </section>

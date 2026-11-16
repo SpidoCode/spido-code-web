@@ -532,139 +532,169 @@
   color: #d1d7e2;
 }
 
-/* Lightbot style game mechanics cards */
-.sec-mechanics-grid {
+/* Lightbot Showcase Grid */
+.lightbot-showcase-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 48px;
-  position: relative;
-  z-index: 2;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px;
+  align-items: center;
 }
 
-.sec-mechanic-card {
-  background: rgba(26, 31, 42, 0.82);
+.lightbot-card {
+  position: relative;
+  background: rgba(22, 26, 36, 0.75);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(0, 255, 102, 0.25);
-  border-radius: 16px;
-  padding: 28px 24px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 255, 102, 0.22);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
+  justify-content: center;
   transition: all 0.3s ease;
 }
 
-.sec-mechanic-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(0, 255, 102, 0.6);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 20px rgba(0, 255, 102, 0.18);
+.lightbot-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0, 255, 102, 0.5);
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.45), 0 0 24px rgba(0, 255, 102, 0.15);
 }
 
-.sec-mechanic-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  background: rgba(0, 255, 102, 0.12);
-  border: 1px solid rgba(0, 255, 102, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-neon-green);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.sec-mechanic-card h4 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 10px;
-}
-
-.sec-mechanic-card p {
-  font-size: 14px;
-  color: #b5bfcf;
-  line-height: 1.65;
-  margin: 0 0 20px;
-  flex-grow: 1;
-}
-
-/* Educational Code Snippet Box (Lightbot style) */
-.sec-code-box {
-  background: #0f131c;
-  border: 1px solid #232c3f;
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 12px;
-  line-height: 1.6;
-  color: #93a4b9;
-}
-
-.sec-code-box .code-keyword {
-  color: #f472b6;
-}
-
-.sec-code-box .code-fn {
-  color: #38bdf8;
-}
-
-.sec-code-box .code-green {
-  color: var(--color-neon-green);
-}
-
-/* Interactive Educational Simulation Banner with Face 3 (Spid Wink) */
-.sec-mechanics-summary {
-  margin-top: 48px;
-  background: rgba(18, 22, 31, 0.9);
-  border: 1px solid rgba(0, 255, 102, 0.35);
-  border-radius: 18px;
-  padding: 24px 32px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 28px;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 0 32px rgba(0, 255, 102, 0.1);
-}
-
-.sec-mechanics-summary-face {
-  width: 95px;
+.lightbot-text-card {
   background: transparent;
   border: none;
   box-shadow: none;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 12px;
 }
 
-.sec-mechanics-face-img {
+.lightbot-text-card:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.lightbot-title {
+  font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  line-height: 1.15;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 18px;
+  letter-spacing: 0.01em;
+}
+
+.lightbot-title span {
+  color: var(--color-neon-green);
+}
+
+.lightbot-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  color: #d1d7e2;
+  margin: 0;
+}
+
+.lightbot-img-frame {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(124, 187, 137, 0.45);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+  background: #090d16;
+}
+
+.lightbot-img {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 0 16px rgba(0, 255, 102, 0.45));
-  transition: transform 0.3s ease;
+  object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-.sec-mechanics-face-img:hover {
-  transform: scale(1.08);
+.lightbot-img:hover {
+  transform: scale(1.02);
 }
 
-.sec-mechanics-summary-text h5 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  margin: 0 0 6px;
+.lightbot-companion-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
 }
 
-.sec-mechanics-summary-text p {
+.lightbot-companion-face {
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.lightbot-companion-face img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 102, 0.4));
+}
+
+.lightbot-speech-bubble {
+  background: #0e121a;
+  border: 1px solid rgba(0, 255, 102, 0.3);
+  border-radius: 14px;
+  padding: 16px 20px;
+  position: relative;
+}
+
+.lightbot-speech-bubble strong {
+  display: block;
+  font-size: 12px;
+  color: var(--color-neon-green);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+}
+
+.lightbot-speech-bubble p {
   font-size: 14px;
-  color: #a1adbe;
+  color: #e2e8f0;
+  line-height: 1.6;
   margin: 0;
+}
+
+.lightbot-learn-title {
+  font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
+  font-size: clamp(2rem, 3.8vw, 2.9rem);
+  font-weight: 700;
+  color: var(--color-neon-green);
+  margin: 0 0 20px;
+  letter-spacing: 0.01em;
+}
+
+.lightbot-learn-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lightbot-learn-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f1f4f9;
+}
+
+.lightbot-learn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-neon-green);
+  box-shadow: 0 0 8px var(--color-neon-green);
+  flex-shrink: 0;
 }
 
 .sec-mechanics-docs-link {
@@ -675,7 +705,8 @@
   background: rgba(0, 255, 102, 0.14);
   border: 1px solid var(--color-neon-green);
   color: var(--color-neon-green);
-  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
@@ -816,12 +847,13 @@
     gap: 28px;
   }
   .sec-steps-grid,
-  .sec-mechanics-grid {
+  .lightbot-showcase-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
-  .sec-mechanics-summary {
-    grid-template-columns: 1fr;
-    text-align: left;
+  .lightbot-companion-card {
+    flex-direction: column;
+    text-align: center;
   }
   .sec-footer-top {
     grid-template-columns: 1fr 1fr;
