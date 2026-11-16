@@ -1,5 +1,40 @@
 /* Simple Lightbot-style Landing Styles for SpidoCode */
 
+/* Motion Experience V1: contenido visible por defecto, sin capas que intercepten enlaces. */
+.motion-label { position:relative; display:inline-block; }
+.motion-label > span:first-child { opacity:0; }
+.motion-label-display { position:absolute; inset:0; }
+.motion-experience a:focus-visible,
+.motion-experience button:focus-visible { outline:3px solid var(--color-soft-green-dark); outline-offset:5px; }
+.motion-star-border { position:relative; isolation:isolate; }
+.motion-star-border::before { content:''; position:absolute; inset:-2px; border-radius:inherit; padding:2px; pointer-events:none; background:linear-gradient(110deg,#7cbb8944 25%,#b7f5c3aa 45%,#7cbb8944 65%); background-size:300% 100%; mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; }
+@media (prefers-reduced-motion:no-preference) {
+  .motion-experience .sec-hero-title { animation:motion-hero-title 650ms cubic-bezier(.2,.7,.3,1) both; }
+  .motion-experience .sec-hero-subtitle { animation:motion-arrive 550ms 120ms ease-out both; }
+  .motion-experience .sec-hero-actions { animation:motion-arrive 550ms 220ms ease-out both; }
+  .motion-experience .sec-hero-face-standalone { animation:motion-float 7s ease-in-out infinite; }
+  .motion-experience .motion-star-border::before { animation:motion-star 6s linear infinite; }
+  .motion-experience a,
+  .motion-experience button { transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
+  .motion-experience a:active,
+  .motion-experience button:active { transform:translateY(1px); }
+  .motion-experience .sec-hero-copy:focus-within .sec-hero-actions { animation:none; }
+}
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+  .motion-experience [data-motion-card] { transition:transform 180ms ease-out,box-shadow 180ms ease-out; }
+  .motion-experience [data-motion-card]:hover { box-shadow:0 12px 26px #16182118; }
+  .motion-experience [data-motion-card]:focus-within { transform:none !important; }
+}
+@keyframes motion-hero-title { from { opacity:0; filter:blur(5px); transform:translateY(8px); } to { opacity:1; filter:blur(0); transform:translateY(0); } }
+@keyframes motion-arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes motion-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+@keyframes motion-star { to { background-position:150% 0; } }
+@media (prefers-reduced-motion:reduce) {
+  .motion-experience { scroll-behavior:auto; }
+  .motion-experience *, .motion-experience *::before, .motion-experience *::after { animation:none !important; transition:none !important; }
+  .motion-experience [data-motion-card] { transform:none !important; }
+}
+
 :root {
   --color-light-gray: #9ea0b3;
   --color-light-bg: #eef1f6;

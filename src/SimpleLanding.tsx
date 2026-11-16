@@ -7,6 +7,36 @@ const BETA_DOWNLOAD_URL =
   'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
 const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
+// El texto real siempre permanece en el árbol accesible; solo cambia su copia decorativa.
+function EncryptedLabel({ text }: { text: string }) {
+  const label = useRef<HTMLSpanElement>(null)
+  const [display, setDisplay] = useState(text)
+  useEffect(() => {
+    const element = label.current
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!element || reduced.matches || !('IntersectionObserver' in window)) return
+    let timer: ReturnType<typeof setInterval> | undefined
+    const finish = () => { clearInterval(timer); setDisplay(text) }
+    const observer = new IntersectionObserver(entries => {
+      if (!entries.some(entry => entry.isIntersecting)) return
+      observer.disconnect()
+      let step = 0
+      timer = setInterval(() => {
+        step += 1
+        if (step >= 9) { finish(); return }
+        setDisplay([...text].map((character, index) =>
+          character === ' ' || index < text.length * step / 9
+            ? character : '01<>/+'[(index + step) % 6]).join(''))
+      }, 45)
+    }, { threshold: 0.5 })
+    const onPreference = () => { if (reduced.matches) { observer.disconnect(); finish() } }
+    reduced.addEventListener('change', onPreference)
+    observer.observe(element)
+    return () => { observer.disconnect(); clearInterval(timer); reduced.removeEventListener('change', onPreference) }
+  }, [text])
+  return <span ref={label} className="motion-label"><span>{text}</span><span aria-hidden="true" className="motion-label-display">{display}</span></span>
+}
+
 // Generador de pintas y destellos verdes neón para la Sección 3
 function NeonSpeckles({ count = 16 }: { count?: number }) {
   const speckles = useMemo(
@@ -135,12 +165,75 @@ function Nav() {
 }
 
 export default function SimpleLanding() {
+  const site = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const root = site.current
+    if (!root) return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const pointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const revealed = new WeakSet<Element>()
+    let dispose = () => {}
+    const setup = () => {
+      dispose()
+      if (reduced.matches) { dispose = () => {}; return }
+      const animations: Animation[] = []
+      const cleanups: Array<() => void> = []
+      if ('IntersectionObserver' in window && typeof root.animate === 'function') {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return
+            observer.unobserve(entry.target)
+            if (revealed.has(entry.target)) return
+            revealed.add(entry.target)
+            if (entry.target.contains(document.activeElement)) return
+            animations.push(entry.target.animate([
+              { opacity: 0, transform: 'translateY(12px)' },
+              { opacity: 1, transform: 'translateY(0)' },
+            ], { duration: 520, easing: 'cubic-bezier(.2,.7,.3,1)' }))
+          })
+        }, { threshold: 0.08 })
+        root.querySelectorAll('main > section:not(#inicio)').forEach(section => observer.observe(section))
+        cleanups.push(() => observer.disconnect())
+      }
+      if (pointer.matches) root.querySelectorAll<HTMLElement>('[data-motion-card]').forEach(card => {
+        let frame = 0
+        let bounds: DOMRect | undefined
+        const reset = () => { cancelAnimationFrame(frame); card.style.removeProperty('transform'); bounds = undefined }
+        const move = (event: PointerEvent) => {
+          if (event.pointerType !== 'mouse' || card.matches(':focus-within')) return
+          bounds ??= card.getBoundingClientRect()
+          const x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1))
+          const y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1))
+          cancelAnimationFrame(frame)
+          frame = requestAnimationFrame(() => { card.style.transform = `perspective(1000px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg)` })
+        }
+        card.addEventListener('pointermove', move)
+        card.addEventListener('pointerleave', reset)
+        card.addEventListener('pointercancel', reset)
+        card.addEventListener('focusin', reset)
+        cleanups.push(() => {
+          reset()
+          card.removeEventListener('pointermove', move)
+          card.removeEventListener('pointerleave', reset)
+          card.removeEventListener('pointercancel', reset)
+          card.removeEventListener('focusin', reset)
+        })
+      })
+      const stopOnFocus = () => animations.forEach(animation => animation.cancel())
+      root.addEventListener('focusin', stopOnFocus)
+      dispose = () => { cleanups.forEach(cleanup => cleanup()); stopOnFocus(); root.removeEventListener('focusin', stopOnFocus) }
+    }
+    setup()
+    reduced.addEventListener('change', setup)
+    pointer.addEventListener('change', setup)
+    return () => { dispose(); reduced.removeEventListener('change', setup); pointer.removeEventListener('change', setup) }
+  }, [])
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <div className="simple-site">
+    <div ref={site} className="simple-site motion-experience">
       <Nav />
 
       <main id="contenido">
@@ -205,7 +298,7 @@ export default function SimpleLanding() {
 
             <div className="games-apps-grid">
               {/* Juego 1: SpidoCode 0 (Bloques) */}
-              <div className="game-app-card">
+              <div className="game-app-card" data-motion-card>
                 <div className="game-app-icon-slot">
                   {/* Espacio reservado para la imagen de SpidoCode 0 */}
                   <div
@@ -221,7 +314,7 @@ export default function SimpleLanding() {
                   <h3 className="game-app-name">
                     <a href="/spidocode-0">SpidoCode 0</a>
                   </h3>
-                  <span className="game-app-pill">Programación con Bloques</span>
+                  <span className="game-app-pill"><EncryptedLabel text="Programación con Bloques" /></span>
                   <p className="game-app-desc">
                     Una aventura interactiva basada en bloques visuales. Ideal para dar los primeros
                     pasos, conectar órdenes lógicas y resolver acertijos espaciales sin preocuparse por
@@ -234,7 +327,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Juego 2: SpidoCode (Código Real) */}
-              <div className="game-app-card">
+              <div className="game-app-card" data-motion-card>
                 <div className="game-app-icon-slot">
                   {/* Espacio reservado para la imagen de SpidoCode */}
                   <div
@@ -250,7 +343,7 @@ export default function SimpleLanding() {
                   <h3 className="game-app-name">
                     <a href="/spidocode">SpidoCode</a>
                   </h3>
-                  <span className="game-app-pill">Programación con Código Real</span>
+                  <span className="game-app-pill"><EncryptedLabel text="Programación con Código Real" /></span>
                   <p className="game-app-desc">
                     El juego educativo completo con lenguaje GDScript en texto. Escribe comandos
                     directos, controla bucles <code>while</code>, condiciones <code>if</code> y
@@ -308,7 +401,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Bloque 4 (Abajo Derecha): "Lo que aprenderás" + Descarga Beta */}
-              <div className="lightbot-four-text">
+              <div className="lightbot-four-text" data-motion-card>
                 <h3 className="lightbot-four-title">
                   Lo que <span>aprenderás</span>
                 </h3>
@@ -333,7 +426,7 @@ export default function SimpleLanding() {
                 <div className="sec-download-btn-group" style={{ marginTop: '10px' }}>
                   <a
                     href={BETA_DOWNLOAD_URL}
-                    className="btn-download-hero"
+                    className="btn-download-hero motion-star-border"
                     aria-label="Descargar Beta de SPIDOCODE para Windows x64"
                   >
                     Descargar Beta para Windows x64
@@ -361,7 +454,7 @@ export default function SimpleLanding() {
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="sec-section-header">
-              <span className="sec-section-tag">Lógica Educativa</span>
+              <span className="sec-section-tag"><EncryptedLabel text="Lógica Educativa" /></span>
               <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
               <p className="sec-section-desc">
                 Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
