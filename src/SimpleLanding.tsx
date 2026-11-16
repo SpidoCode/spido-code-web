@@ -98,8 +98,8 @@ function Nav() {
 
         <nav className="simple-nav-links" aria-label="Navegación principal">
           <a href="#inicio">Inicio</a>
-          <a href="#descargas">Juegos</a>
-          <a href="#mecanicas">Cómo se juega</a>
+          <a href="#juegos">Juegos</a>
+          <a href="#como-se-juega">Cómo se juega</a>
           <a href="/docs">A.D.A</a>
         </nav>
 
@@ -163,11 +163,11 @@ export default function SimpleLanding() {
                 </p>
 
                 <div className="sec-hero-actions">
-                  <a href="#descargas" className="simple-btn-primary" style={{ padding: '14px 26px' }}>
-                    Ir a la descarga
+                  <a href="#juegos" className="simple-btn-primary" style={{ padding: '14px 26px' }}>
+                    Ver Juegos
                   </a>
-                  <a href="/docs" className="simple-btn-ghost" style={{ padding: '13px 22px' }}>
-                    Ver documentación
+                  <a href="#como-se-juega" className="simple-btn-ghost" style={{ padding: '13px 22px' }}>
+                    Cómo se juega
                   </a>
                 </div>
               </div>
@@ -188,11 +188,90 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 2: CONTENIDO 1 (CUADRADO INTERCALADO TEXTO - FOTO)
+            SECCIÓN 2: JUEGOS (SPIDOCODE 0 Y SPIDOCODE)
+            Estilo horizontal tipo Lightbot con iconos redondeados y
+            links directos a la información de cada versión
+            ======================================================== */}
+        <section id="juegos" className="sec-games">
+          <div className="simple-container">
+            <div className="sec-section-header">
+              <span className="sec-section-tag">Nuestras Experiencias</span>
+              <h2 className="sec-section-title">Juegos SpidoCode</h2>
+              <p className="sec-section-desc">
+                Explora nuestras dos modalidades de aprendizaje: desde la lógica visual con bloques
+                hasta la programación real con código escrito.
+              </p>
+            </div>
+
+            <div className="games-apps-grid">
+              {/* Juego 1: SpidoCode 0 (Bloques) */}
+              <div className="game-app-card">
+                <div className="game-app-icon-slot">
+                  {/* Espacio reservado para la imagen de SpidoCode 0 */}
+                  <div
+                    className="game-app-icon-placeholder"
+                    title="Icono SpidoCode 0 (espacio vacío listo para tu imagen)"
+                  >
+                    <span className="game-app-icon-badge">0</span>
+                    <span className="game-app-icon-hint">SpidoCode 0</span>
+                  </div>
+                </div>
+
+                <div className="game-app-info">
+                  <h3 className="game-app-name">
+                    <a href="/spidocode-0">SpidoCode 0</a>
+                  </h3>
+                  <span className="game-app-pill">Programación con Bloques</span>
+                  <p className="game-app-desc">
+                    Una aventura interactiva basada en bloques visuales. Ideal para dar los primeros
+                    pasos, conectar órdenes lógicas y resolver acertijos espaciales sin preocuparse por
+                    la sintaxis.
+                  </p>
+                  <a href="/spidocode-0" className="game-app-read-more">
+                    Conocer SpidoCode 0
+                  </a>
+                </div>
+              </div>
+
+              {/* Juego 2: SpidoCode (Código Real) */}
+              <div className="game-app-card">
+                <div className="game-app-icon-slot">
+                  {/* Espacio reservado para la imagen de SpidoCode */}
+                  <div
+                    className="game-app-icon-placeholder"
+                    title="Icono SpidoCode (espacio vacío listo para tu imagen)"
+                  >
+                    <span className="game-app-icon-badge">&lt;/&gt;</span>
+                    <span className="game-app-icon-hint">SpidoCode</span>
+                  </div>
+                </div>
+
+                <div className="game-app-info">
+                  <h3 className="game-app-name">
+                    <a href="/spidocode">SpidoCode</a>
+                  </h3>
+                  <span className="game-app-pill">Programación con Código Real</span>
+                  <p className="game-app-desc">
+                    El juego educativo completo con lenguaje GDScript en texto. Escribe comandos
+                    directos, controla bucles <code>while</code>, condiciones <code>if</code> y
+                    automatiza la exploración en asteroides 3D.
+                  </p>
+                  <a href="/spidocode" className="game-app-read-more">
+                    Conocer SpidoCode
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================
+            SECCIÓN 3: CÓMO SE JUEGA & DESCARGA BETA
+            Cuadrado 2x2 intercalado (Texto - Foto)
             Fila 1: [Texto] [Foto 1: Consola de Código]
             Fila 2: [Foto 2: Gameplay Cuadrícula] [Texto con Descarga Beta]
             ======================================================== */}
-        <section id="descargas" className="sec-download">
+        <section id="como-se-juega" className="sec-download">
           <div className="simple-container">
             <div className="square-interleaved-grid">
               {/* Celda 1 (Arriba Izquierda): Texto estilo Lightbot */}
@@ -369,10 +448,10 @@ export default function SimpleLanding() {
                     <a href="#inicio">Inicio</a>
                   </li>
                   <li>
-                    <a href="#descargas">Juegos</a>
+                    <a href="#juegos">Juegos</a>
                   </li>
                   <li>
-                    <a href="#mecanicas">Cómo se juega</a>
+                    <a href="#como-se-juega">Cómo se juega</a>
                   </li>
                   <li>
                     <a

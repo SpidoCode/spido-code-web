@@ -5,6 +5,8 @@ import DocsPage from './docs/DocsPage'
 import PlayerHub from './PlayerHub'
 import WebAuth from './WebAuth'
 import SimpleLanding from './SimpleLanding'
+import SpidoCodeZeroPage from './SpidoCodeZeroPage'
+import SpidoCodeGamePage from './SpidoCodeGamePage'
 
 const brand = {
   bg: '#07111F',
@@ -1575,5 +1577,7 @@ export default function App() {
   if (pathname === '/perfil') return <PlayerHub />
   if (pathname === '/registro') return <WebAuth mode="register" />
   if (pathname === '/login') return <WebAuth mode="login" />
+  if (pathname === '/spidocode-0') return <SpidoCodeZeroPage />
+  if (pathname === '/spidocode') return <SpidoCodeGamePage />
   return <SimpleLanding />
 }
