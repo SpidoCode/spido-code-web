@@ -8,32 +8,56 @@ const BETA_DOWNLOAD_URL =
 const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
 // El texto real siempre permanece en el árbol accesible; solo cambia su copia decorativa.
-function EncryptedLabel({ text }: { text: string }) {
+function EncryptedLabel({ text, duration = 405, immediate = false, title = false }: {
+  text: string; duration?: number; immediate?: boolean; title?: boolean
+}) {
   const label = useRef<HTMLSpanElement>(null)
   const [display, setDisplay] = useState(text)
   useEffect(() => {
     const element = label.current
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
-    if (!element || reduced.matches || !('IntersectionObserver' in window)) return
+    if (!element || reduced.matches) return
     let timer: ReturnType<typeof setInterval> | undefined
+    let started = false
     const finish = () => { clearInterval(timer); setDisplay(text) }
-    const observer = new IntersectionObserver(entries => {
-      if (!entries.some(entry => entry.isIntersecting)) return
-      observer.disconnect()
+    const steps = Math.ceil(duration / 45)
+    const scramble = (step: number) => setDisplay([...text].map((character, index) =>
+      /\s/.test(character) || index < text.length * step / steps
+        ? character : '01<>/+'[Math.floor(Math.random() * 6)]).join(''))
+    const play = () => {
+      if (started) return
+      started = true
       let step = 0
+      scramble(step)
       timer = setInterval(() => {
         step += 1
-        if (step >= 9) { finish(); return }
-        setDisplay([...text].map((character, index) =>
-          character === ' ' || index < text.length * step / 9
-            ? character : '01<>/+'[(index + step) % 6]).join(''))
+        if (step >= steps) { finish(); return }
+        scramble(step)
       }, 45)
-    }, { threshold: 0.5 })
-    const onPreference = () => { if (reduced.matches) { observer.disconnect(); finish() } }
+    }
+    let observer: IntersectionObserver | undefined
+    if (immediate) play()
+    else if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return
+        observer?.disconnect()
+        play()
+      }, { threshold: 0.15 })
+      observer.observe(element)
+    }
+    const onPreference = () => { if (reduced.matches) { observer?.disconnect(); finish() } }
     reduced.addEventListener('change', onPreference)
-    observer.observe(element)
-    return () => { observer.disconnect(); clearInterval(timer); reduced.removeEventListener('change', onPreference) }
-  }, [text])
+    return () => { observer?.disconnect(); clearInterval(timer); reduced.removeEventListener('change', onPreference) }
+  }, [text, duration, immediate])
+  if (title) {
+    let offset = 0
+    return <span ref={label} className="motion-title-text"><span className="motion-title-accessible">{text}</span><span aria-hidden="true">{text.split(/(\s+)/).map((word, wordIndex) => {
+      if (/^\s+$/.test(word)) { offset += word.length; return word }
+      const start = offset
+      offset += word.length
+      return <span className="motion-title-word" key={wordIndex}>{[...word].map((character, index) => <span className="motion-title-glyph" key={index}><span className="motion-title-reserve">{character}</span><span className="motion-title-display">{display[start + index]}</span></span>)}</span>
+    })}</span></span>
+  }
   return <span ref={label} className="motion-label"><span>{text}</span><span aria-hidden="true" className="motion-label-display">{display}</span></span>
 }
 
@@ -252,7 +276,7 @@ export default function SimpleLanding() {
             <div className="sec-hero-grid">
               <div className="sec-hero-copy">
                 <h1 className="sec-hero-title">
-                  Aprende a programar <span>explorando el espacio.</span>
+                  <EncryptedLabel text="Aprende a programar" duration={1100} immediate title /> <span><EncryptedLabel text="explorando el espacio." duration={1100} immediate title /></span>
                 </h1>
                 <p className="sec-hero-subtitle">
                   Guía a <strong>Spid</strong>, un robot explorador con aspecto de computador y patas.
@@ -294,7 +318,7 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="sec-section-header">
               <span className="sec-section-tag">Nuestras Experiencias</span>
-              <h2 className="sec-section-title">Juegos SpidoCode</h2>
+              <h2 className="sec-section-title"><EncryptedLabel text="Juegos SpidoCode" duration={650} title /></h2>
               <p className="sec-section-desc">
                 Explora nuestras dos modalidades de aprendizaje: desde la lógica visual con bloques
                 hasta la programación real con código escrito.
@@ -374,7 +398,7 @@ export default function SimpleLanding() {
               {/* Bloque 1 (Arriba Izquierda): Texto explicativo propio de SpidoCode */}
               <div className="lightbot-four-text">
                 <h2 className="lightbot-four-title">
-                  ¡Aprende programación y <span>algoritmos jugando!</span>
+                  <EncryptedLabel text="¡Aprende programación y" duration={650} title /> <span><EncryptedLabel text="algoritmos jugando!" duration={650} title /></span>
                 </h2>
                 <p className="lightbot-four-desc">
                   En <strong>SPIDOCODE</strong> la programación cobra vida a través de la exploración espacial.
@@ -460,7 +484,7 @@ export default function SimpleLanding() {
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="sec-section-header">
               <span className="sec-section-tag"><EncryptedLabel text="Lógica Educativa" /></span>
-              <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
+              <h2 className="sec-section-title"><EncryptedLabel text="De instrucciones simples a algoritmos espaciales" duration={650} title /></h2>
               <p className="sec-section-desc">
                 Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
                 pantalla. Aprende computación paso a paso mediante resolución de problemas.

@@ -4,6 +4,12 @@
 .motion-label { position:relative; display:inline-block; }
 .motion-label > span:first-child { opacity:0; }
 .motion-label-display { position:absolute; inset:0; }
+.motion-experience .motion-title-text, .motion-experience .motion-title-text span { color:inherit; }
+.motion-title-word { display:inline-block; white-space:nowrap; }
+.motion-title-glyph { position:relative; display:inline-block; }
+.motion-title-reserve { visibility:hidden; }
+.motion-title-display { position:absolute; inset:0; text-align:center; }
+.motion-title-accessible { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 .motion-experience a:focus-visible,
 .motion-experience button:focus-visible { outline:3px solid var(--color-soft-green-dark); outline-offset:5px; }
 .motion-star-border { position:relative; isolation:isolate; }
