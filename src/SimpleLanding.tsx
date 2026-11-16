@@ -153,10 +153,6 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="sec-hero-grid">
               <div className="sec-hero-copy">
-                <div className="sec-hero-badge">
-                  <span className="sec-hero-badge-dot" />
-                  Videojuego Educativo Espacial
-                </div>
                 <h1 className="sec-hero-title">
                   Aprende a programar <span>explorando el espacio.</span>
                 </h1>
@@ -174,45 +170,17 @@ export default function SimpleLanding() {
                     Ver documentación
                   </a>
                 </div>
-
-                <div className="sec-hero-features-list">
-                  <div className="sec-hero-feature-item">
-                    <span className="sec-hero-feature-dot" /> Puzzles de lógica y secuencias
-                  </div>
-                  <div className="sec-hero-feature-item">
-                    <span className="sec-hero-feature-dot" /> Bucles y automatización
-                  </div>
-                  <div className="sec-hero-feature-item">
-                    <span className="sec-hero-feature-dot" /> Asistencia de A.D.A. en misiones
-                  </div>
-                </div>
               </div>
 
               <div className="sec-hero-visual">
-                <div className="sec-hero-card">
-                  <div className="sec-hero-card-header">
-                    <div className="sec-hero-card-dots">
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                    <span>SPID / COMPAÑERO DE MISIÓN</span>
-                  </div>
-                  <div className="sec-hero-face-container">
-                    <img
-                      src="/images/spidocode/spid-smile.png"
-                      alt="Spid con expresión alegre y sonriente listo para programar"
-                      className="sec-hero-face-img"
-                      width="1024"
-                      height="788"
-                    />
-                  </div>
-                  <div className="sec-hero-card-footer">
-                    <div className="sec-hero-card-status">
-                      <span>Spid Rover activo</span>
-                      <small style={{ color: '#717789' }}>Misión de inicio</small>
-                    </div>
-                  </div>
+                <div className="sec-hero-face-standalone">
+                  <img
+                    src="/images/spidocode/spid-smile.png"
+                    alt="Spid con expresión alegre y sonriente listo para programar"
+                    className="sec-hero-face-img"
+                    width="1024"
+                    height="788"
+                  />
                 </div>
               </div>
             </div>
@@ -493,7 +461,7 @@ export default function SimpleLanding() {
 
             <div className="sec-footer-bottom">
               <div>
-                © 2026 <strong>SPIDOCODE</strong>. Desarrollado con Godot 4, React y Supabase.
+                © 2026 <strong>SPIDOCODE</strong>
               </div>
               <button
                 type="button"
