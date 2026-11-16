@@ -7,6 +7,60 @@ const BETA_DOWNLOAD_URL =
   'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
 const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
+// El texto real siempre permanece en el árbol accesible; solo cambia su copia decorativa.
+function EncryptedLabel({ text, duration = 405, immediate = false, title = false }: {
+  text: string; duration?: number; immediate?: boolean; title?: boolean
+}) {
+  const label = useRef<HTMLSpanElement>(null)
+  const [display, setDisplay] = useState(text)
+  useEffect(() => {
+    const element = label.current
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    if (!element || reduced.matches) return
+    let timer: ReturnType<typeof setInterval> | undefined
+    let started = false
+    const finish = () => { clearInterval(timer); setDisplay(text) }
+    const steps = Math.ceil(duration / 45)
+    const scramble = (step: number) => setDisplay([...text].map((character, index) =>
+      /\s/.test(character) || index < text.length * step / steps
+        ? character : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'[Math.floor(Math.random() * 36)]).join(''))
+    const play = () => {
+      if (started) return
+      started = true
+      let step = 0
+      scramble(step)
+      timer = setInterval(() => {
+        step += 1
+        if (step >= steps) { finish(); return }
+        scramble(step)
+      }, 45)
+    }
+    let observer: IntersectionObserver | undefined
+    if (immediate) play()
+    else if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return
+        observer?.disconnect()
+        play()
+      }, { threshold: 0.15 })
+      observer.observe(element)
+    }
+    const onPreference = () => { if (reduced.matches) { observer?.disconnect(); finish() } }
+    reduced.addEventListener('change', onPreference)
+    return () => { observer?.disconnect(); clearInterval(timer); reduced.removeEventListener('change', onPreference) }
+  }, [text, duration, immediate])
+  if (title) {
+    let offset = 0
+    return <span ref={label} className="motion-title-text"><span className="motion-title-accessible">{text}</span><span aria-hidden="true">{text.split(/(\s+)/).map((word, wordIndex) => {
+      if (/^\s+$/.test(word)) { offset += word.length; return word }
+      const start = offset
+      offset += word.length
+      return <span className="motion-title-word" key={wordIndex}>{[...word].map((character, index) => <span className="motion-title-glyph" key={index}><span className="motion-title-reserve">{character}</span><span className="motion-title-display">{display[start + index]}</span></span>)}</span>
+    })}</span></span>
+  }
+  return <span ref={label} className="motion-label"><span>{text}</span><span aria-hidden="true" className="motion-label-display">{display}</span></span>
+}
+
 // Generador de pintas y destellos verdes neón para la Sección 3
 function NeonSpeckles({ count = 16 }: { count?: number }) {
   const speckles = useMemo(
@@ -92,7 +146,7 @@ function Nav() {
   return (
     <header className="simple-nav">
       <div className="simple-container simple-nav-inner">
-        <a href="#inicio" className="simple-brand" aria-label="SPIDOCODE">
+        <a href="#inicio" className="simple-brand" aria-label="SPIDOCODE" data-motion-card="2">
           SPIDO<span>CODE</span>
         </a>
 
@@ -135,12 +189,95 @@ function Nav() {
 }
 
 export default function SimpleLanding() {
+  const site = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const root = site.current
+    if (!root) return
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const pointer = window.matchMedia('(hover: hover) and (pointer: fine)')
+    const revealed = new WeakSet<Element>()
+    let dispose = () => {}
+    const setup = () => {
+      dispose()
+      if (reduced.matches) { dispose = () => {}; return }
+      const animations: Animation[] = []
+      const cleanups: Array<() => void> = []
+      if ('IntersectionObserver' in window && typeof root.animate === 'function') {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return
+            observer.unobserve(entry.target)
+            if (revealed.has(entry.target)) return
+            revealed.add(entry.target)
+            if (entry.target.contains(document.activeElement)) return
+            animations.push(entry.target.animate([
+              { opacity: 0.15, transform: 'translateY(22px)' },
+              { opacity: 1, transform: 'translateY(0)' },
+            ], { duration: 700, easing: 'cubic-bezier(.2,.7,.3,1)' }))
+          })
+        }, { threshold: 0.15 })
+        // Solo contenido: las secciones y sus degradados nunca se vuelven transparentes.
+        root.querySelectorAll([
+          '.sec-section-header', '.game-app-info', '.game-app-icon-slot',
+          '.lightbot-four-title', '.lightbot-four-img',
+          '.lightbot-learn-list-clean', '.sec-download-btn-group',
+          '.lightbot-card > img', '.lightbot-companion-face img', '.lightbot-speech-bubble',
+          '.lightbot-card > h3', '.lightbot-card > p', '.lightbot-card > a',
+        ].join(',')).forEach(content => observer.observe(content))
+        cleanups.push(() => observer.disconnect())
+      }
+      if (pointer.matches) root.querySelectorAll<HTMLElement>('[data-motion-card]:not(.motion-info-block)').forEach(card => {
+        const maximum = Math.min(5, Math.max(0, Number(card.dataset.motionCard) || 3))
+        const lift = card.classList.contains('game-app-card') ? 4 : 2
+        let frame = 0
+        let bounds: DOMRect | undefined
+        const reset = () => {
+          cancelAnimationFrame(frame)
+          card.style.removeProperty('transform')
+          card.style.removeProperty('--motion-shadow-x')
+          card.style.removeProperty('--motion-shadow-y')
+          bounds = undefined
+        }
+        const move = (event: PointerEvent) => {
+          if (event.pointerType !== 'mouse') { reset(); return }
+          if (card.matches(':focus-visible') || card.querySelector(':focus-visible')) return
+          bounds ??= card.getBoundingClientRect()
+          const x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1))
+          const y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1))
+          cancelAnimationFrame(frame)
+          frame = requestAnimationFrame(() => {
+            card.style.transform = `perspective(950px) translateY(-${lift}px) rotateX(${-y * maximum}deg) rotateY(${x * maximum}deg)`
+            card.style.setProperty('--motion-shadow-x', `${-x * 7}px`)
+            card.style.setProperty('--motion-shadow-y', `${16 - y * 4}px`)
+          })
+        }
+        card.addEventListener('pointermove', move)
+        card.addEventListener('pointerleave', reset)
+        card.addEventListener('pointercancel', reset)
+        card.addEventListener('focusin', reset)
+        cleanups.push(() => {
+          reset()
+          card.removeEventListener('pointermove', move)
+          card.removeEventListener('pointerleave', reset)
+          card.removeEventListener('pointercancel', reset)
+          card.removeEventListener('focusin', reset)
+        })
+      })
+      const stopOnFocus = () => animations.forEach(animation => animation.cancel())
+      root.addEventListener('focusin', stopOnFocus)
+      dispose = () => { cleanups.forEach(cleanup => cleanup()); stopOnFocus(); root.removeEventListener('focusin', stopOnFocus) }
+    }
+    setup()
+    reduced.addEventListener('change', setup)
+    pointer.addEventListener('change', setup)
+    return () => { dispose(); reduced.removeEventListener('change', setup); pointer.removeEventListener('change', setup) }
+  }, [])
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   return (
-    <div className="simple-site">
+    <div ref={site} className="simple-site motion-experience">
       <Nav />
 
       <main id="contenido">
@@ -154,7 +291,7 @@ export default function SimpleLanding() {
             <div className="sec-hero-grid">
               <div className="sec-hero-copy">
                 <h1 className="sec-hero-title">
-                  Aprende a programar <span>explorando el espacio.</span>
+                  <EncryptedLabel text="Aprende a programar" duration={1100} immediate title /> <span><EncryptedLabel text="explorando el espacio." duration={1100} immediate title /></span>
                 </h1>
                 <p className="sec-hero-subtitle">
                   Guía a <strong>Spid</strong>, un robot explorador con aspecto de computador y patas.
@@ -172,7 +309,7 @@ export default function SimpleLanding() {
                 </div>
               </div>
 
-              <div className="sec-hero-visual">
+              <div className="sec-hero-visual" data-motion-card="3">
                 <div className="sec-hero-face-standalone">
                   <img
                     src="/images/spidocode/spid-smile.png"
@@ -196,7 +333,7 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="sec-section-header">
               <span className="sec-section-tag">Nuestras Experiencias</span>
-              <h2 className="sec-section-title">Juegos SpidoCode</h2>
+              <h2 className="sec-section-title"><EncryptedLabel text="Juegos SpidoCode" duration={650} title /></h2>
               <p className="sec-section-desc">
                 Explora nuestras dos modalidades de aprendizaje: desde la lógica visual con bloques
                 hasta la programación real con código escrito.
@@ -205,7 +342,7 @@ export default function SimpleLanding() {
 
             <div className="games-apps-grid">
               {/* Juego 1: SpidoCode 0 (Bloques) */}
-              <div className="game-app-card">
+              <div className="game-app-card" data-motion-card="5">
                 <div className="game-app-icon-slot">
                   {/* Espacio reservado para la imagen de SpidoCode 0 */}
                   <div
@@ -234,7 +371,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Juego 2: SpidoCode (Código Real) */}
-              <div className="game-app-card">
+              <div className="game-app-card" data-motion-card="5">
                 <div className="game-app-icon-slot">
                   {/* Espacio reservado para la imagen de SpidoCode */}
                   <div
@@ -274,9 +411,9 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="lightbot-four-grid">
               {/* Bloque 1 (Arriba Izquierda): Texto explicativo propio de SpidoCode */}
-              <div className="lightbot-four-text">
+              <div className="lightbot-four-text motion-info-block">
                 <h2 className="lightbot-four-title">
-                  ¡Aprende programación y <span>algoritmos jugando!</span>
+                  <EncryptedLabel text="¡Aprende programación y" duration={650} title /> <span><EncryptedLabel text="algoritmos jugando!" duration={650} title /></span>
                 </h2>
                 <p className="lightbot-four-desc">
                   En <strong>SPIDOCODE</strong> la programación cobra vida a través de la exploración espacial.
@@ -286,7 +423,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Bloque 2 (Arriba Derecha): Foto Widescreen - Portada SpidoCode 0 */}
-              <div className="lightbot-four-image-frame">
+              <div className="lightbot-four-image-frame" data-motion-card="2.5">
                 <img
                   src="/images/spidocode/spidocode-0-cover.jpg"
                   alt="Portada oficial de SpidoCode 0 con Spid y el astronauta en el hangar"
@@ -297,7 +434,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Bloque 3 (Abajo Izquierda): Foto Widescreen - Portada SpidoCode */}
-              <div className="lightbot-four-image-frame">
+              <div className="lightbot-four-image-frame" data-motion-card="2.5">
                 <img
                   src="/images/spidocode/spidocode-cover.jpg"
                   alt="Portada oficial de SpidoCode con Spid sobre el asteroide con cristales"
@@ -308,7 +445,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Bloque 4 (Abajo Derecha): "Lo que aprenderás" + Descarga Beta */}
-              <div className="lightbot-four-text">
+              <div className="lightbot-four-text motion-info-block">
                 <h3 className="lightbot-four-title">
                   Lo que <span>aprenderás</span>
                 </h3>
@@ -333,7 +470,7 @@ export default function SimpleLanding() {
                 <div className="sec-download-btn-group" style={{ marginTop: '10px' }}>
                   <a
                     href={BETA_DOWNLOAD_URL}
-                    className="btn-download-hero"
+                    className="btn-download-hero motion-star-border"
                     aria-label="Descargar Beta de SPIDOCODE para Windows x64"
                   >
                     Descargar Beta para Windows x64
@@ -361,8 +498,8 @@ export default function SimpleLanding() {
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="sec-section-header">
-              <span className="sec-section-tag">Lógica Educativa</span>
-              <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
+              <span className="sec-section-tag"><EncryptedLabel text="Lógica Educativa" /></span>
+              <h2 className="sec-section-title"><EncryptedLabel text="De instrucciones simples a algoritmos espaciales" duration={650} title /></h2>
               <p className="sec-section-desc">
                 Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
                 pantalla. Aprende computación paso a paso mediante resolución de problemas.
@@ -371,7 +508,7 @@ export default function SimpleLanding() {
 
             <div className="lightbot-showcase-grid">
               {/* Columna Izquierda: Consola de Código GDScript */}
-              <div className="lightbot-card" style={{ padding: '0', overflow: 'hidden' }}>
+              <div className="lightbot-card" data-motion-card="2.5" style={{ padding: '0', overflow: 'hidden' }}>
                 <img
                   src="/images/spidocode/spid-code-console.png"
                   alt="Consola GDScript de SpidoCode con bucles while y condiciones if"
@@ -382,8 +519,8 @@ export default function SimpleLanding() {
 
               {/* Columna Derecha: Tarjeta A.D.A. + Información del Editor */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div className="lightbot-card lightbot-companion-card">
-                  <div className="lightbot-companion-face">
+                <div className="lightbot-card lightbot-companion-card motion-info-block">
+                  <div className="lightbot-companion-face" data-motion-card="2.5">
                     <img
                       src="/images/spidocode/spid-smile.png"
                       alt="Spid sonriendo listo para resolver misiones"
@@ -400,7 +537,7 @@ export default function SimpleLanding() {
                   </div>
                 </div>
 
-                <div className="lightbot-card" style={{ padding: '28px' }}>
+                <div className="lightbot-card motion-info-block" style={{ padding: '28px' }}>
                   <h3
                     style={{
                       fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
