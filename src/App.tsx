@@ -7,6 +7,7 @@ import WebAuth from './WebAuth'
 import SimpleLanding from './SimpleLanding'
 import SpidoCodeZeroPage from './SpidoCodeZeroPage'
 import SpidoCodeGamePage from './SpidoCodeGamePage'
+import './InteriorTheme.css'
 
 const brand = {
   bg: '#07111F',
