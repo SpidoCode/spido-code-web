@@ -98,9 +98,9 @@ function Nav() {
 
         <nav className="simple-nav-links" aria-label="Navegación principal">
           <a href="#inicio">Inicio</a>
-          <a href="#descargas">Descarga Beta</a>
+          <a href="#descargas">Juegos</a>
           <a href="#mecanicas">Cómo se juega</a>
-          <a href="/docs">Archivo A.D.A.</a>
+          <a href="/docs">A.D.A</a>
         </nav>
 
         <div className="simple-nav-cta-group">
@@ -363,13 +363,13 @@ export default function SimpleLanding() {
               </div>
 
               <div className="sec-footer-col">
-                <h5>Juego</h5>
+                <h5>Juegos</h5>
                 <ul>
                   <li>
                     <a href="#inicio">Inicio</a>
                   </li>
                   <li>
-                    <a href="#descargas">Descargar Beta</a>
+                    <a href="#descargas">Juegos</a>
                   </li>
                   <li>
                     <a href="#mecanicas">Cómo se juega</a>
@@ -387,7 +387,7 @@ export default function SimpleLanding() {
               </div>
 
               <div className="sec-footer-col">
-                <h5>Documentación</h5>
+                <h5>A.D.A</h5>
                 <ul>
                   <li>
                     <a href="/docs">Archivo A.D.A.</a>
