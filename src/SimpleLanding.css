@@ -27,8 +27,15 @@
   .motion-experience .sec-hero-copy:focus-within .sec-hero-actions { animation:none; }
 }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
-  .motion-experience [data-motion-card] { transition:transform 180ms ease-out,box-shadow 180ms ease-out; }
-  .motion-experience [data-motion-card]:hover { box-shadow:0 18px 34px #1618212b; }
+  .motion-experience [data-motion-card] { transform:perspective(950px) translateY(0) rotateX(0deg) rotateY(0deg); transition:transform 260ms ease-out,box-shadow 260ms ease-out; }
+  .motion-experience [data-motion-card]:hover { transform:perspective(950px) translateY(0) rotateX(0deg) rotateY(0deg); }
+  .motion-experience .game-app-card { transform-style:preserve-3d; }
+  .motion-experience .game-app-card:hover,
+  .motion-experience .lightbot-four-image-frame:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 34px #1618212b; }
+  .motion-experience .lightbot-card:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 38px #0005; }
+  .motion-experience .game-app-icon-placeholder { transition:transform 260ms ease-out; }
+  .motion-experience .game-app-card:hover .game-app-icon-placeholder { transform:translateZ(10px); }
+  .motion-experience .game-app-card:focus-within .game-app-icon-placeholder { transform:none; }
   .motion-experience [data-motion-card]:focus-within { transform:none !important; }
 }
 @keyframes motion-hero-title { from { opacity:0; filter:blur(8px); transform:translateY(14px); } to { opacity:1; filter:blur(0); transform:translateY(0); } }
