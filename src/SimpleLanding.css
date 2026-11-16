@@ -31,12 +31,13 @@
   .motion-experience [data-motion-card]:hover { transform:perspective(950px) translateY(0) rotateX(0deg) rotateY(0deg); }
   .motion-experience .game-app-card { transform-style:preserve-3d; }
   .motion-experience .game-app-card:hover,
-  .motion-experience .lightbot-four-image-frame:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 34px #1618212b; }
-  .motion-experience .lightbot-card:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 38px #0005; }
+  .motion-experience .lightbot-four-image-frame[data-motion-card]:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 34px #1618212b; }
+  .motion-experience .lightbot-card[data-motion-card]:hover { box-shadow:var(--motion-shadow-x,0px) var(--motion-shadow-y,16px) 38px #0005; }
   .motion-experience .game-app-icon-placeholder { transition:transform 260ms ease-out; }
   .motion-experience .game-app-card:hover .game-app-icon-placeholder { transform:translateZ(10px); }
-  .motion-experience .game-app-card:focus-within .game-app-icon-placeholder { transform:none; }
-  .motion-experience [data-motion-card]:focus-within { transform:none !important; }
+  .motion-experience .game-app-card:has(:focus-visible) .game-app-icon-placeholder { transform:none; }
+  .motion-experience [data-motion-card]:focus-visible,
+  .motion-experience [data-motion-card]:has(:focus-visible) { transform:none !important; }
 }
 @keyframes motion-hero-title { from { opacity:0; filter:blur(8px); transform:translateY(14px); } to { opacity:1; filter:blur(0); transform:translateY(0); } }
 @keyframes motion-arrive { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
@@ -328,11 +329,12 @@
 }
 
 .game-app-card:hover {
-  transform: translateY(-4px);
   background: #ffffff;
   border-color: rgba(124, 187, 137, 0.85);
   box-shadow: 0 18px 40px rgba(76, 81, 95, 0.12);
 }
+
+.game-app-card:not([data-motion-card]):hover { transform:translateY(-4px); }
 
 .game-app-icon-slot {
   flex-shrink: 0;
@@ -355,7 +357,7 @@
   transition: all 0.25s ease;
 }
 
-.game-app-card:hover .game-app-icon-placeholder {
+.game-app-card:not([data-motion-card]):hover .game-app-icon-placeholder {
   border-color: var(--color-soft-green-dark);
   border-style: solid;
   transform: scale(1.04);
@@ -546,7 +548,7 @@
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.lightbot-four-image-frame:hover {
+.lightbot-four-image-frame:not([data-motion-card]):hover {
   transform: translateY(-4px) scale(1.015);
   box-shadow: 0 22px 48px rgba(76, 81, 95, 0.22);
   border-color: var(--color-soft-green);
@@ -809,7 +811,7 @@
   transition: all 0.3s ease;
 }
 
-.lightbot-card:hover {
+.lightbot-card:not([data-motion-card]):not(.motion-info-block):hover {
   transform: translateY(-3px);
   border-color: rgba(0, 255, 102, 0.5);
   box-shadow: 0 16px 42px rgba(0, 0, 0, 0.45), 0 0 24px rgba(0, 255, 102, 0.15);

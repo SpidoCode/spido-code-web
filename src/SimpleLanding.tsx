@@ -221,12 +221,12 @@ export default function SimpleLanding() {
           '.sec-section-header', '.game-app-info', '.game-app-icon-slot',
           '.lightbot-four-title', '.lightbot-four-img',
           '.lightbot-learn-list-clean', '.sec-download-btn-group',
-          '.lightbot-card > img', '.lightbot-companion-face', '.lightbot-speech-bubble',
+          '.lightbot-card > img', '.lightbot-companion-face img', '.lightbot-speech-bubble',
           '.lightbot-card > h3', '.lightbot-card > p', '.lightbot-card > a',
         ].join(',')).forEach(content => observer.observe(content))
         cleanups.push(() => observer.disconnect())
       }
-      if (pointer.matches) root.querySelectorAll<HTMLElement>('[data-motion-card]').forEach(card => {
+      if (pointer.matches) root.querySelectorAll<HTMLElement>('[data-motion-card]:not(.motion-info-block)').forEach(card => {
         const maximum = Math.min(5, Math.max(0, Number(card.dataset.motionCard) || 3))
         const lift = card.classList.contains('game-app-card') ? 4 : 2
         let frame = 0
@@ -239,7 +239,8 @@ export default function SimpleLanding() {
           bounds = undefined
         }
         const move = (event: PointerEvent) => {
-          if (event.pointerType !== 'mouse' || card.matches(':focus-within')) return
+          if (event.pointerType !== 'mouse') { reset(); return }
+          if (card.matches(':focus-visible') || card.querySelector(':focus-visible')) return
           bounds ??= card.getBoundingClientRect()
           const x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1))
           const y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1))
@@ -410,7 +411,7 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="lightbot-four-grid">
               {/* Bloque 1 (Arriba Izquierda): Texto explicativo propio de SpidoCode */}
-              <div className="lightbot-four-text">
+              <div className="lightbot-four-text motion-info-block">
                 <h2 className="lightbot-four-title">
                   <EncryptedLabel text="¡Aprende programación y" duration={650} title /> <span><EncryptedLabel text="algoritmos jugando!" duration={650} title /></span>
                 </h2>
@@ -444,7 +445,7 @@ export default function SimpleLanding() {
               </div>
 
               {/* Bloque 4 (Abajo Derecha): "Lo que aprenderás" + Descarga Beta */}
-              <div className="lightbot-four-text">
+              <div className="lightbot-four-text motion-info-block">
                 <h3 className="lightbot-four-title">
                   Lo que <span>aprenderás</span>
                 </h3>
@@ -518,8 +519,8 @@ export default function SimpleLanding() {
 
               {/* Columna Derecha: Tarjeta A.D.A. + Información del Editor */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div className="lightbot-card lightbot-companion-card" data-motion-card="2.5">
-                  <div className="lightbot-companion-face">
+                <div className="lightbot-card lightbot-companion-card motion-info-block">
+                  <div className="lightbot-companion-face" data-motion-card="2.5">
                     <img
                       src="/images/spidocode/spid-smile.png"
                       alt="Spid sonriendo listo para resolver misiones"
@@ -536,7 +537,7 @@ export default function SimpleLanding() {
                   </div>
                 </div>
 
-                <div className="lightbot-card" data-motion-card="2.5" style={{ padding: '28px' }}>
+                <div className="lightbot-card motion-info-block" style={{ padding: '28px' }}>
                   <h3
                     style={{
                       fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
