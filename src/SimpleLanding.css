@@ -283,34 +283,93 @@
   margin: 0;
 }
 
-/* Big Hero Download Box with Spid */
-.sec-download-box {
-  background: #ffffff;
-  border: 2px solid rgba(124, 187, 137, 0.45);
-  border-radius: 20px;
-  padding: clamp(28px, 4vw, 40px);
-  box-shadow: 0 20px 48px rgba(76, 81, 95, 0.15);
-  margin-bottom: 48px;
+/* Interleaved Square Grid in Section 2 (Texto - Foto / Foto - Texto) */
+.square-interleaved-grid {
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
-  gap: 36px;
-  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  align-items: stretch;
 }
 
-.sec-download-main h3 {
+.square-cell {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(158, 160, 179, 0.35);
+  box-shadow: 0 14px 36px rgba(76, 81, 95, 0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.square-cell:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(76, 81, 95, 0.18);
+}
+
+.square-text-cell {
+  padding: clamp(28px, 3.5vw, 42px);
+}
+
+.square-cell-title {
   font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
-  font-size: 2.3rem;
+  font-size: clamp(2rem, 3.6vw, 2.8rem);
+  line-height: 1.15;
   font-weight: 700;
-  letter-spacing: 0.01em;
   color: #1e222d;
-  margin: 0 0 12px;
+  margin: 0 0 16px;
+  letter-spacing: 0.01em;
 }
 
-.sec-download-main p {
-  font-size: 15px;
+.square-cell-title span {
+  color: var(--color-soft-green-dark);
+}
+
+.square-cell-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
   color: #4c515f;
-  line-height: 1.65;
-  margin: 0 0 24px;
+  margin: 0;
+}
+
+.square-cell-desc strong {
+  color: #1e222d;
+}
+
+.square-cell-desc code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #f0f3f8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #2b7a48;
+  font-weight: 600;
+}
+
+.square-photo-cell {
+  background: #090e17;
+  border: 2px solid rgba(124, 187, 137, 0.45);
+  padding: 0;
+  position: relative;
+  min-height: 320px;
+}
+
+.square-cell-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.square-photo-cell:hover .square-cell-img {
+  transform: scale(1.03);
+}
+
+.square-download-cell {
+  border: 2px solid rgba(124, 187, 137, 0.5);
+  background: linear-gradient(135deg, #ffffff 0%, #f7faf7 100%);
 }
 
 .sec-download-btn-group {
@@ -357,127 +416,6 @@
 .btn-download-release:hover {
   background: #e4e9f3;
   color: #1a1e28;
-}
-
-.sec-download-side {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.sec-download-face-wrap {
-  width: 100%;
-  max-width: 250px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  margin-inline: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sec-download-face-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 10px 22px rgba(76, 81, 95, 0.2));
-  transition: transform 0.3s ease;
-}
-
-.sec-download-face-img:hover {
-  transform: scale(1.04);
-}
-
-.sec-download-specs {
-  background: #f8fafc;
-  border-radius: 12px;
-  padding: 18px 20px;
-  border: 1px solid #e7ecf3;
-}
-
-.sec-download-specs h4 {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #717789;
-  margin: 0 0 12px;
-}
-
-.sec-download-specs ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.sec-download-specs li {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  color: #4c515f;
-  padding-bottom: 6px;
-  border-bottom: 1px solid #eef2f7;
-}
-
-.sec-download-specs li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.sec-download-specs strong {
-  color: #1e222d;
-}
-
-/* 3 Quick Steps */
-.sec-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.sec-step-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  border-radius: 14px;
-  border: 1px solid rgba(158, 160, 179, 0.35);
-  padding: 24px;
-  transition: transform 0.2s ease;
-}
-
-.sec-step-card:hover {
-  transform: translateY(-3px);
-  background: #ffffff;
-}
-
-.sec-step-badge {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  text-align: center;
-  border-radius: 8px;
-  background: var(--color-soft-green);
-  color: #ffffff;
-  font-weight: 800;
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-
-.sec-step-card h4 {
-  font-size: 17px;
-  font-weight: 700;
-  color: #1e222d;
-  margin: 0 0 8px;
-}
-
-.sec-step-card p {
-  font-size: 14px;
-  color: #5b6274;
-  line-height: 1.6;
-  margin: 0;
 }
 
 /* ========================================================
@@ -842,11 +780,7 @@
     grid-template-columns: 1fr;
     gap: 36px;
   }
-  .sec-download-box {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-  .sec-steps-grid,
+  .square-interleaved-grid,
   .lightbot-showcase-grid {
     grid-template-columns: 1fr;
     gap: 24px;

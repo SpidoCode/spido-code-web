@@ -188,30 +188,58 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 2: CONTENIDO 1 (DESCARGA DE LA BETA & PASOS)
-            Gris claro continuando con el Botón Principal de la Beta
-            Cara 2: Spid Curioso / Atento (spid-curious.jpg)
+            SECCIÓN 2: CONTENIDO 1 (CUADRADO INTERCALADO TEXTO - FOTO)
+            Fila 1: [Texto] [Foto 1]
+            Fila 2: [Foto 2] [Texto con Descarga Beta]
             ======================================================== */}
         <section id="descargas" className="sec-download">
           <div className="simple-container">
-            <div className="sec-section-header">
-              <span className="sec-section-tag">Acceso Oficial</span>
-              <h2 className="sec-section-title">Descarga la Beta de SPIDOCODE</h2>
-              <p className="sec-section-desc">
-                La versión preliminar oficial ya está disponible para Windows. Descarga el paquete,
-                descomprímelo y comienza a programar tu primera misión en cuestión de segundos.
-              </p>
-            </div>
-
-            {/* Caja de descarga con botón protagonista y Cara 2 */}
-            <div className="sec-download-box">
-              <div className="sec-download-main">
-                <h3>SPIDOCODE v1.0.0-beta</h3>
-                <p>
-                  Construido sobre Godot 4. Incluye los primeros sectores de exploración, el editor
-                  de comandos para Spid y el sistema de asistencia pedagógica A.D.A.
+            <div className="square-interleaved-grid">
+              {/* Celda 1 (Arriba Izquierda): Texto estilo Lightbot */}
+              <div className="square-cell square-text-cell">
+                <h2 className="square-cell-title">
+                  ¡Aprende a programar <span>jugando!</span>
+                </h2>
+                <p className="square-cell-desc">
+                  <strong>SPIDOCODE</strong> es un juego educativo de puzzles basado en lógica y
+                  código. Aprenderás programación de forma visual, paso a paso y divertida mientras
+                  guías a Spid a través de misiones en asteroides espaciales.
                 </p>
-                <div className="sec-download-btn-group">
+              </div>
+
+              {/* Celda 2 (Arriba Derecha): Primera Foto (Spid en mundo 3D) */}
+              <div className="square-cell square-photo-cell">
+                <img
+                  src="/images/spidocode/screenshot-world.jpg"
+                  alt="Spid en el entorno espacial frente a la estación"
+                  className="square-cell-img"
+                  width="447"
+                  height="379"
+                />
+              </div>
+
+              {/* Celda 3 (Abajo Izquierda): Segunda Foto (Interfaz con A.D.A. y consola) */}
+              <div className="square-cell square-photo-cell">
+                <img
+                  src="/images/spidocode/screenshot-ui.jpg"
+                  alt="Interfaz de juego con consola y asistente A.D.A."
+                  className="square-cell-img"
+                  width="869"
+                  height="462"
+                />
+              </div>
+
+              {/* Celda 4 (Abajo Derecha): Más Texto con Botón de Descarga Beta */}
+              <div className="square-cell square-text-cell square-download-cell">
+                <h3 className="square-cell-title">
+                  Descarga la <span>Beta oficial</span>
+                </h3>
+                <p className="square-cell-desc">
+                  Versión preliminar <strong>v1.0.0-beta</strong> disponible para Windows x64.
+                  Descarga el archivo ZIP, descomprime la carpeta y ejecuta{' '}
+                  <code>SpidoCode.exe</code> para comenzar a resolver desafíos.
+                </p>
+                <div className="sec-download-btn-group" style={{ marginTop: '22px' }}>
                   <a
                     href={BETA_DOWNLOAD_URL}
                     className="btn-download-hero"
@@ -229,145 +257,62 @@ export default function SimpleLanding() {
                   </a>
                 </div>
               </div>
-
-              <div className="sec-download-side">
-                <div className="sec-download-face-wrap">
-                  <img
-                    src="/images/spidocode/spid-smile.png"
-                    alt="Spid con expresión alegre listo para la descarga"
-                    className="sec-download-face-img"
-                    width="1024"
-                    height="788"
-                  />
-                </div>
-                <div className="sec-download-specs">
-                  <h4>Ficha técnica</h4>
-                  <ul>
-                    <li>
-                      <span>Sistema operativo:</span>
-                      <strong>Windows 10 / 11 (64-bit)</strong>
-                    </li>
-                    <li>
-                      <span>Tamaño del archivo:</span>
-                      <strong>Aproximadamente 100 MB</strong>
-                    </li>
-                    <li>
-                      <span>Modo de uso:</span>
-                      <strong>Portable (sin instalador)</strong>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* 3 Pasos rápidos para jugar */}
-            <div className="sec-steps-grid">
-              <div className="sec-step-card">
-                <span className="sec-step-badge">1</span>
-                <h4>Descarga el archivo ZIP</h4>
-                <p>
-                  Haz clic en el botón superior para bajar el paquete comprimido oficial de la
-                  beta.
-                </p>
-              </div>
-
-              <div className="sec-step-card">
-                <span className="sec-step-badge">2</span>
-                <h4>Extrae la carpeta</h4>
-                <p>
-                  Descomprime el archivo en tu escritorio conservando todos sus componentes en la
-                  misma carpeta.
-                </p>
-              </div>
-
-              <div className="sec-step-card">
-                <span className="sec-step-badge">3</span>
-                <h4>Ejecuta SpidoCode.exe</h4>
-                <p>
-                  Abre el archivo ejecutable y comienza a resolver tus primeros desafíos junto a Spid.
-                </p>
-              </div>
             </div>
           </div>
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: CONTENIDO 2 (ESTILO LIGHTBOT SHOWCASE)
+            SECCIÓN 3: CONTENIDO 2 (CONCEPTOS & LO QUE APRENDERÁS)
             Degradé de gris claro al oscuro con pintas verdes neón
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
           <NeonSpeckles count={20} />
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
+            <div className="sec-section-header">
+              <span className="sec-section-tag">Lógica Educativa</span>
+              <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
+              <p className="sec-section-desc">
+                Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
+                pantalla. Aprende computación paso a paso mediante resolución de problemas.
+              </p>
+            </div>
+
             <div className="lightbot-showcase-grid">
-              {/* Fila 1 - Izquierda: Texto Intro estilo Lightbot */}
-              <div className="lightbot-card lightbot-text-card">
-                <h2 className="lightbot-title">
-                  ¡Resuelve puzzles usando <span>programación!</span>
-                </h2>
-                <p className="lightbot-desc">
-                  <strong>SPIDOCODE</strong> es un juego educativo basado en código: aprenderás
-                  lógica de programación paso a paso de forma natural y divertida mientras juegas y
-                  exploras asteroides espaciales.
-                </p>
-              </div>
+              {/* Columna Izquierda: Captura del Puzzle + Spid con diálogo de A.D.A. */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div className="lightbot-card">
+                  <div className="lightbot-img-frame">
+                    <img
+                      src="/images/spidocode/screenshot-puzzle.jpg"
+                      alt="Modo puzzle con cuadrícula espacial, paleta de bloques y ejecución paso a paso"
+                      className="lightbot-img"
+                      width="845"
+                      height="475"
+                    />
+                  </div>
+                </div>
 
-              {/* Fila 1 - Derecha: Screenshot 1 (Mundo 3D) */}
-              <div className="lightbot-card">
-                <div className="lightbot-img-frame">
-                  <img
-                    src="/images/spidocode/screenshot-world.jpg"
-                    alt="Spid en el entorno espacial frente a la estación y depósitos"
-                    className="lightbot-img"
-                    width="447"
-                    height="379"
-                  />
+                <div className="lightbot-card lightbot-companion-card">
+                  <div className="lightbot-companion-face">
+                    <img
+                      src="/images/spidocode/spid-smile.png"
+                      alt="Spid sonriendo listo para resolver misiones"
+                      width="1024"
+                      height="788"
+                    />
+                  </div>
+                  <div className="lightbot-speech-bubble">
+                    <strong>Pista de A.D.A.:</strong>
+                    <p>
+                      ¡Usa las instrucciones para avanzar por la cuadrícula y recolectar las piezas
+                      antes de que se agote la energía!
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              {/* Fila 2 - Izquierda: Screenshot 2 (Interfaz con A.D.A. y consola) */}
-              <div className="lightbot-card">
-                <div className="lightbot-img-frame">
-                  <img
-                    src="/images/spidocode/screenshot-ui.jpg"
-                    alt="Interfaz de juego con consola Spid, radar y asistente A.D.A."
-                    className="lightbot-img"
-                    width="869"
-                    height="462"
-                  />
-                </div>
-              </div>
-
-              {/* Fila 2 - Derecha: Screenshot 3 (Cuadrícula táctica y bloques) */}
-              <div className="lightbot-card">
-                <div className="lightbot-img-frame">
-                  <img
-                    src="/images/spidocode/screenshot-puzzle.jpg"
-                    alt="Modo puzzle con cuadrícula espacial, paleta de bloques y ejecución paso a paso"
-                    className="lightbot-img"
-                    width="845"
-                    height="475"
-                  />
-                </div>
-              </div>
-
-              {/* Fila 3 - Izquierda: Spid con globo de diálogo estilo Lightbot */}
-              <div className="lightbot-card lightbot-companion-card">
-                <div className="lightbot-companion-face">
-                  <img
-                    src="/images/spidocode/spid-smile.png"
-                    alt="Spid sonriendo listo para resolver misiones"
-                    width="1024"
-                    height="788"
-                  />
-                </div>
-                <div className="lightbot-speech-bubble">
-                  <strong>Pista de A.D.A.:</strong>
-                  <p>¡Usa las instrucciones para avanzar por la cuadrícula y recolectar las piezas antes de que se agote la energía!</p>
-                </div>
-              </div>
-
-              {/* Fila 3 - Derecha: Lo que aprenderás estilo Lightbot */}
+              {/* Columna Derecha: Lo que aprenderás estilo Lightbot */}
               <div className="lightbot-card lightbot-text-card">
                 <h3 className="lightbot-learn-title">Lo que aprenderás</h3>
                 <ul className="lightbot-learn-list">
