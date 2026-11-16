@@ -4,6 +4,7 @@ import { supabase } from './lib/supabase'
 import DocsPage from './docs/DocsPage'
 import PlayerHub from './PlayerHub'
 import WebAuth from './WebAuth'
+import SimpleLanding from './SimpleLanding'
 
 const brand = {
   bg: '#07111F',
@@ -1574,5 +1575,5 @@ export default function App() {
   if (pathname === '/perfil') return <PlayerHub />
   if (pathname === '/registro') return <WebAuth mode="register" />
   if (pathname === '/login') return <WebAuth mode="login" />
-  return <LandingPage />
+  return <SimpleLanding />
 }
