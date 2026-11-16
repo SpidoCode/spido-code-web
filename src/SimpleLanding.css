@@ -7,13 +7,13 @@
 .motion-experience a:focus-visible,
 .motion-experience button:focus-visible { outline:3px solid var(--color-soft-green-dark); outline-offset:5px; }
 .motion-star-border { position:relative; isolation:isolate; }
-.motion-star-border::before { content:''; position:absolute; inset:-2px; border-radius:inherit; padding:2px; pointer-events:none; background:linear-gradient(110deg,#7cbb8944 25%,#b7f5c3aa 45%,#7cbb8944 65%); background-size:300% 100%; mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; }
+.motion-star-border::before { content:''; position:absolute; inset:-3px; border-radius:inherit; padding:3px; pointer-events:none; background:linear-gradient(110deg,#7cbb8966 20%,#d6eedc 45%,#7cbb89 52%,#7cbb8966 75%); background-size:250% 100%; mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite:exclude; }
 @media (prefers-reduced-motion:no-preference) {
-  .motion-experience .sec-hero-title { animation:motion-hero-title 650ms cubic-bezier(.2,.7,.3,1) both; }
-  .motion-experience .sec-hero-subtitle { animation:motion-arrive 550ms 120ms ease-out both; }
-  .motion-experience .sec-hero-actions { animation:motion-arrive 550ms 220ms ease-out both; }
-  .motion-experience .sec-hero-face-standalone { animation:motion-float 7s ease-in-out infinite; }
-  .motion-experience .motion-star-border::before { animation:motion-star 6s linear infinite; }
+  .motion-experience .sec-hero-title { animation:motion-hero-title 850ms cubic-bezier(.2,.7,.3,1) both; }
+  .motion-experience .sec-hero-subtitle { animation:motion-arrive 650ms 200ms ease-out both; }
+  .motion-experience .sec-hero-actions { animation:motion-arrive 650ms 380ms ease-out both; }
+  .motion-experience .sec-hero-face-standalone { animation:motion-float 6s ease-in-out infinite; }
+  .motion-experience .motion-star-border::before { animation:motion-star 4.5s linear infinite; }
   .motion-experience a,
   .motion-experience button { transition:background-color 180ms ease,color 180ms ease,box-shadow 180ms ease,transform 180ms ease; }
   .motion-experience a:active,
@@ -22,12 +22,12 @@
 }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
   .motion-experience [data-motion-card] { transition:transform 180ms ease-out,box-shadow 180ms ease-out; }
-  .motion-experience [data-motion-card]:hover { box-shadow:0 12px 26px #16182118; }
+  .motion-experience [data-motion-card]:hover { box-shadow:0 18px 34px #1618212b; }
   .motion-experience [data-motion-card]:focus-within { transform:none !important; }
 }
-@keyframes motion-hero-title { from { opacity:0; filter:blur(5px); transform:translateY(8px); } to { opacity:1; filter:blur(0); transform:translateY(0); } }
-@keyframes motion-arrive { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
-@keyframes motion-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
+@keyframes motion-hero-title { from { opacity:0; filter:blur(8px); transform:translateY(14px); } to { opacity:1; filter:blur(0); transform:translateY(0); } }
+@keyframes motion-arrive { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+@keyframes motion-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-8px); } }
 @keyframes motion-star { to { background-position:150% 0; } }
 @media (prefers-reduced-motion:reduce) {
   .motion-experience { scroll-behavior:auto; }

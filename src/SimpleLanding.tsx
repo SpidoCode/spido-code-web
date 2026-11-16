@@ -187,12 +187,17 @@ export default function SimpleLanding() {
             revealed.add(entry.target)
             if (entry.target.contains(document.activeElement)) return
             animations.push(entry.target.animate([
-              { opacity: 0, transform: 'translateY(12px)' },
+              { opacity: 0.15, transform: 'translateY(22px)' },
               { opacity: 1, transform: 'translateY(0)' },
-            ], { duration: 520, easing: 'cubic-bezier(.2,.7,.3,1)' }))
+            ], { duration: 700, easing: 'cubic-bezier(.2,.7,.3,1)' }))
           })
-        }, { threshold: 0.08 })
-        root.querySelectorAll('main > section:not(#inicio)').forEach(section => observer.observe(section))
+        }, { threshold: 0.15 })
+        // Solo contenido: las secciones y sus degradados nunca se vuelven transparentes.
+        root.querySelectorAll([
+          '.sec-section-header', '.game-app-info', '.game-app-icon-slot',
+          '.lightbot-four-title', '.lightbot-four-image-frame',
+          '.lightbot-learn-list-clean', '.sec-download-btn-group', '.lightbot-card',
+        ].join(',')).forEach(content => observer.observe(content))
         cleanups.push(() => observer.disconnect())
       }
       if (pointer.matches) root.querySelectorAll<HTMLElement>('[data-motion-card]').forEach(card => {
@@ -205,7 +210,7 @@ export default function SimpleLanding() {
           const x = Math.max(-1, Math.min(1, (event.clientX - bounds.left) / bounds.width * 2 - 1))
           const y = Math.max(-1, Math.min(1, (event.clientY - bounds.top) / bounds.height * 2 - 1))
           cancelAnimationFrame(frame)
-          frame = requestAnimationFrame(() => { card.style.transform = `perspective(1000px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg)` })
+          frame = requestAnimationFrame(() => { card.style.transform = `perspective(850px) translateY(-3px) rotateX(${-y * 4.5}deg) rotateY(${x * 4.5}deg)` })
         }
         card.addEventListener('pointermove', move)
         card.addEventListener('pointerleave', reset)
@@ -314,7 +319,7 @@ export default function SimpleLanding() {
                   <h3 className="game-app-name">
                     <a href="/spidocode-0">SpidoCode 0</a>
                   </h3>
-                  <span className="game-app-pill"><EncryptedLabel text="Programación con Bloques" /></span>
+                  <span className="game-app-pill">Programación con Bloques</span>
                   <p className="game-app-desc">
                     Una aventura interactiva basada en bloques visuales. Ideal para dar los primeros
                     pasos, conectar órdenes lógicas y resolver acertijos espaciales sin preocuparse por
@@ -343,7 +348,7 @@ export default function SimpleLanding() {
                   <h3 className="game-app-name">
                     <a href="/spidocode">SpidoCode</a>
                   </h3>
-                  <span className="game-app-pill"><EncryptedLabel text="Programación con Código Real" /></span>
+                  <span className="game-app-pill">Programación con Código Real</span>
                   <p className="game-app-desc">
                     El juego educativo completo con lenguaje GDScript en texto. Escribe comandos
                     directos, controla bucles <code>while</code>, condiciones <code>if</code> y
