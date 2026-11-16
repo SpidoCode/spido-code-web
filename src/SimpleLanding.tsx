@@ -189,8 +189,8 @@ export default function SimpleLanding() {
 
         {/* ========================================================
             SECCIÓN 2: CONTENIDO 1 (CUADRADO INTERCALADO TEXTO - FOTO)
-            Fila 1: [Texto] [Foto 1]
-            Fila 2: [Foto 2] [Texto con Descarga Beta]
+            Fila 1: [Texto] [Foto 1: Consola de Código]
+            Fila 2: [Foto 2: Gameplay Cuadrícula] [Texto con Descarga Beta]
             ======================================================== */}
         <section id="descargas" className="sec-download">
           <div className="simple-container">
@@ -201,31 +201,31 @@ export default function SimpleLanding() {
                   ¡Aprende a programar <span>jugando!</span>
                 </h2>
                 <p className="square-cell-desc">
-                  <strong>SPIDOCODE</strong> es un juego educativo de puzzles basado en lógica y
-                  código. Aprenderás programación de forma visual, paso a paso y divertida mientras
-                  guías a Spid a través de misiones en asteroides espaciales.
+                  <strong>SPIDOCODE</strong> es un juego educativo basado en lógica y código real.
+                  Escribe instrucciones como <code>spid.norte()</code>, bucles <code>while</code> y
+                  condiciones para que Spid explore asteroides y recolecte minerales de forma autónoma.
                 </p>
               </div>
 
-              {/* Celda 2 (Arriba Derecha): Primera Foto (Spid en mundo 3D) */}
+              {/* Celda 2 (Arriba Derecha): Foto de la Consola de Código con bordes redondeados */}
               <div className="square-cell square-photo-cell">
                 <img
-                  src="/images/spidocode/screenshot-world.jpg"
-                  alt="Spid en el entorno espacial frente a la estación"
+                  src="/images/spidocode/spid-code-console.png"
+                  alt="Consola de código de Spid con bucles while, condiciones if y comandos de minería"
                   className="square-cell-img"
-                  width="447"
-                  height="379"
+                  width="682"
+                  height="686"
                 />
               </div>
 
-              {/* Celda 3 (Abajo Izquierda): Segunda Foto (Interfaz con A.D.A. y consola) */}
+              {/* Celda 3 (Abajo Izquierda): Foto del Gameplay en la Cuadrícula con bordes redondeados */}
               <div className="square-cell square-photo-cell">
                 <img
-                  src="/images/spidocode/screenshot-ui.jpg"
-                  alt="Interfaz de juego con consola y asistente A.D.A."
+                  src="/images/spidocode/spid-grid-gameplay.jpg"
+                  alt="Spid en la cuadrícula espacial 3D recolectando minerales frente a la estación"
                   className="square-cell-img"
-                  width="869"
-                  height="462"
+                  width="619"
+                  height="668"
                 />
               </div>
 
@@ -279,16 +279,16 @@ export default function SimpleLanding() {
             </div>
 
             <div className="lightbot-showcase-grid">
-              {/* Columna Izquierda: Captura del Puzzle + Spid con diálogo de A.D.A. */}
+              {/* Columna Izquierda: Captura del Menú / Mundo Spid + Spid con diálogo de A.D.A. */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div className="lightbot-card">
                   <div className="lightbot-img-frame">
                     <img
-                      src="/images/spidocode/screenshot-puzzle.jpg"
-                      alt="Modo puzzle con cuadrícula espacial, paleta de bloques y ejecución paso a paso"
+                      src="/images/spidocode/spid-menu-art.jpg"
+                      alt="Spid en el menú oficial sobre el asteroide con cristales espaciales"
                       className="lightbot-img"
-                      width="845"
-                      height="475"
+                      width="1024"
+                      height="542"
                     />
                   </div>
                 </div>
