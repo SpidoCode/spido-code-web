@@ -7,7 +7,7 @@ const BETA_DOWNLOAD_URL =
   'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
 const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
-// Generador de pintas/chispas verdes neón para la Sección 3
+// Generador de pintas y destellos verdes neón para la Sección 3
 function NeonSpeckles({ count = 16 }: { count?: number }) {
   const speckles = useMemo(
     () =>
@@ -115,7 +115,7 @@ function Nav() {
                 disabled={busy}
                 className="simple-btn-ghost"
               >
-                {busy ? 'Saliendo…' : 'Cerrar sesión'}
+                {busy ? 'Cerrando sesión' : 'Cerrar sesión'}
               </button>
             </>
           ) : (
@@ -146,15 +146,17 @@ export default function SimpleLanding() {
       <main id="contenido">
         {/* ========================================================
             SECCIÓN 1: INICIO (HERO)
-            Gris claro + verde suave (paleta de la imagen del usuario)
+            Gris claro + verde suave
+            Cara 1: Spid Feliz (spid-happy.jpg)
             ======================================================== */}
         <section id="inicio" className="sec-hero">
           <div className="simple-container">
             <div className="sec-hero-grid">
               <div className="sec-hero-copy">
-                <span className="sec-hero-badge">
-                  <span>●</span> Videojuego Educativo Espacial
-                </span>
+                <div className="sec-hero-badge">
+                  <span className="sec-hero-badge-dot" />
+                  Videojuego Educativo Espacial
+                </div>
                 <h1 className="sec-hero-title">
                   Aprende a programar <span>explorando el espacio.</span>
                 </h1>
@@ -166,22 +168,22 @@ export default function SimpleLanding() {
 
                 <div className="sec-hero-actions">
                   <a href="#descargas" className="simple-btn-primary" style={{ padding: '14px 26px' }}>
-                    Ir a la Descarga Beta ↓
+                    Ir a la descarga
                   </a>
                   <a href="/docs" className="simple-btn-ghost" style={{ padding: '13px 22px' }}>
-                    📚 Ver Documentación ↗
+                    Ver documentación
                   </a>
                 </div>
 
                 <div className="sec-hero-features-list">
                   <div className="sec-hero-feature-item">
-                    <span>✓</span> Puzzles de lógica y secuencias
+                    <span className="sec-hero-feature-dot" /> Puzzles de lógica y secuencias
                   </div>
                   <div className="sec-hero-feature-item">
-                    <span>✓</span> Bucles y automatización
+                    <span className="sec-hero-feature-dot" /> Bucles y automatización
                   </div>
                   <div className="sec-hero-feature-item">
-                    <span>✓</span> Asistente A.D.A. en misiones
+                    <span className="sec-hero-feature-dot" /> Asistencia de A.D.A. en misiones
                   </div>
                 </div>
               </div>
@@ -194,21 +196,23 @@ export default function SimpleLanding() {
                       <span />
                       <span />
                     </div>
-                    <span>SPIDOCODE / BETA PREVIEW</span>
+                    <span>SPID / COMPAÑERO DE MISIÓN</span>
                   </div>
-                  <div className="sec-hero-image-wrap">
-                    <img
-                      src="/images/spidocode/menu-spid.png"
-                      alt="Spid, el robot de SpidoCode, sobre un asteroide espacial con minerales verdes"
-                      className="sec-hero-image"
-                      width="1672"
-                      height="941"
-                    />
+                  <div className="sec-hero-face-container">
+                    <div className="sec-hero-face-frame">
+                      <img
+                        src="/images/spidocode/spid-happy.jpg"
+                        alt="Spid con expresión alegre y sonriente listo para programar"
+                        className="spid-face-img"
+                        width="1024"
+                        height="787"
+                      />
+                    </div>
                   </div>
                   <div className="sec-hero-card-footer">
                     <div className="sec-hero-card-status">
-                      <span>Misión de Calibración</span>
-                      <small style={{ color: '#717789' }}>Windows x64</small>
+                      <span>Spid Rover activo</span>
+                      <small style={{ color: '#717789' }}>Misión de inicio</small>
                     </div>
                   </div>
                 </div>
@@ -220,6 +224,7 @@ export default function SimpleLanding() {
         {/* ========================================================
             SECCIÓN 2: CONTENIDO 1 (DESCARGA DE LA BETA & PASOS)
             Gris claro continuando con el Botón Principal de la Beta
+            Cara 2: Spid Curioso / Atento (spid-curious.jpg)
             ======================================================== */}
         <section id="descargas" className="sec-download">
           <div className="simple-container">
@@ -227,12 +232,12 @@ export default function SimpleLanding() {
               <span className="sec-section-tag">Acceso Oficial</span>
               <h2 className="sec-section-title">Descarga la Beta de SPIDOCODE</h2>
               <p className="sec-section-desc">
-                La versión oficial preliminar ya está disponible para Windows. Descarga el paquete,
+                La versión preliminar oficial ya está disponible para Windows. Descarga el paquete,
                 descomprímelo y comienza a programar tu primera misión en cuestión de segundos.
               </p>
             </div>
 
-            {/* Caja de descarga protagonista */}
+            {/* Caja de descarga con botón protagonista y Cara 2 */}
             <div className="sec-download-box">
               <div className="sec-download-main">
                 <h3>SPIDOCODE v1.0.0-beta</h3>
@@ -246,7 +251,7 @@ export default function SimpleLanding() {
                     className="btn-download-hero"
                     aria-label="Descargar Beta de SPIDOCODE para Windows x64"
                   >
-                    <span>📥 Descargar Beta para Windows x64</span>
+                    Descargar Beta para Windows x64
                   </a>
                   <a
                     href={BETA_RELEASE_URL}
@@ -254,31 +259,38 @@ export default function SimpleLanding() {
                     rel="noopener noreferrer"
                     className="btn-download-release"
                   >
-                    Ver Release en GitHub ↗
+                    Ver Release en GitHub
                   </a>
                 </div>
               </div>
 
-              <div className="sec-download-specs">
-                <h4>Ficha técnica</h4>
-                <ul>
-                  <li>
-                    <span>Sistema operativo:</span>
-                    <strong>Windows 10 / 11 (64-bit)</strong>
-                  </li>
-                  <li>
-                    <span>Tamaño:</span>
-                    <strong>~100 MB (.zip)</strong>
-                  </li>
-                  <li>
-                    <span>Instalación:</span>
-                    <strong>Portable (sin instalador)</strong>
-                  </li>
-                  <li>
-                    <span>Licencia:</span>
-                    <strong>Educativa / Open Source</strong>
-                  </li>
-                </ul>
+              <div className="sec-download-side">
+                <div className="sec-download-face-wrap">
+                  <img
+                    src="/images/spidocode/spid-curious.jpg"
+                    alt="Spid con expresión atenta y curiosa listo para la descarga"
+                    className="spid-face-img"
+                    width="1024"
+                    height="787"
+                  />
+                </div>
+                <div className="sec-download-specs">
+                  <h4>Ficha técnica</h4>
+                  <ul>
+                    <li>
+                      <span>Sistema operativo:</span>
+                      <strong>Windows 10 / 11 (64-bit)</strong>
+                    </li>
+                    <li>
+                      <span>Tamaño del archivo:</span>
+                      <strong>Aproximadamente 100 MB</strong>
+                    </li>
+                    <li>
+                      <span>Modo de uso:</span>
+                      <strong>Portable (sin instalador)</strong>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
 
@@ -286,10 +298,10 @@ export default function SimpleLanding() {
             <div className="sec-steps-grid">
               <div className="sec-step-card">
                 <span className="sec-step-badge">1</span>
-                <h4>Descarga el archivo</h4>
+                <h4>Descarga el archivo ZIP</h4>
                 <p>
-                  Haz clic en el botón superior para bajar el archivo comprimido ZIP con todo el
-                  juego listo.
+                  Haz clic en el botón superior para bajar el paquete comprimido oficial de la
+                  beta.
                 </p>
               </div>
 
@@ -297,8 +309,8 @@ export default function SimpleLanding() {
                 <span className="sec-step-badge">2</span>
                 <h4>Extrae la carpeta</h4>
                 <p>
-                  Descomprime el archivo en tu escritorio o carpeta de preferencia conservando todos
-                  sus archivos juntos.
+                  Descomprime el archivo en tu escritorio conservando todos sus componentes en la
+                  misma carpeta.
                 </p>
               </div>
 
@@ -306,8 +318,7 @@ export default function SimpleLanding() {
                 <span className="sec-step-badge">3</span>
                 <h4>Ejecuta SpidoCode.exe</h4>
                 <p>
-                  Haz doble clic en <code>SpidoCode.exe</code> y comienza a programar de inmediato con
-                  Spid.
+                  Abre el archivo ejecutable y comienza a resolver tus primeros desafíos junto a Spid.
                 </p>
               </div>
             </div>
@@ -316,7 +327,8 @@ export default function SimpleLanding() {
 
         {/* ========================================================
             SECCIÓN 3: CONTENIDO 2 (MECÁNICAS Y CÓDIGO - DEGRADÉ CON PINTAS VERDES NEÓN)
-            Degradé de gris claro a gris oscuro con pintas verdes neón
+            Degradé de gris claro al oscuro con pintas verdes neón
+            Cara 3: Spid Guiño / Astuto (spid-wink.jpg)
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
           <NeonSpeckles count={20} />
@@ -326,8 +338,8 @@ export default function SimpleLanding() {
               <span className="sec-section-tag">Lógica Educativa</span>
               <h2 className="sec-section-title">De instrucciones simples a algoritmos espaciales</h2>
               <p className="sec-section-desc">
-                Al estilo de juegos como Lightbot, el código no es texto aburrido: es acción directa
-                que cobra vida en pantalla. Aprende computación paso a paso.
+                Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
+                pantalla. Aprende computación paso a paso mediante resolución de problemas.
               </p>
             </div>
 
@@ -377,17 +389,25 @@ export default function SimpleLanding() {
               </div>
             </div>
 
-            {/* Banner resumen hacia Documentación */}
+            {/* Banner resumen didáctico con Cara 3 (Spid Guiño) */}
             <div className="sec-mechanics-summary">
+              <div className="sec-mechanics-summary-face">
+                <img
+                  src="/images/spidocode/spid-wink.jpg"
+                  alt="Spid guiñando el ojo con expresión astuta al resolver el código"
+                  width="1024"
+                  height="787"
+                />
+              </div>
               <div className="sec-mechanics-summary-text">
-                <h5>¿Quieres explorar los conceptos y guías completas?</h5>
+                <h5>Cada instrucción le enseña algo nuevo a Spid</h5>
                 <p>
-                  Visita el Archivo A.D.A. para consultar la documentación didáctica y el glosario de
-                  programación.
+                  Consulta el Archivo A.D.A. para profundizar en la documentación pedagógica, guías
+                  de bucles, condicionales y diseño del juego.
                 </p>
               </div>
               <a href="/docs" className="sec-mechanics-docs-link">
-                Consultar Archivo A.D.A. ↗
+                Consultar Archivo A.D.A.
               </a>
             </div>
           </div>
@@ -409,7 +429,8 @@ export default function SimpleLanding() {
                   Proyecto de código abierto desarrollado para estudiantes y docentes.
                 </p>
                 <div className="sec-footer-status">
-                  <span>●</span> Versión Beta v1.0.0 activa
+                  <span className="sec-footer-status-dot" />
+                  Versión Beta v1.0.0 activa
                 </div>
               </div>
 
@@ -431,7 +452,7 @@ export default function SimpleLanding() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Repositorio en GitHub ↗
+                      Repositorio en GitHub
                     </a>
                   </li>
                 </ul>
@@ -473,7 +494,7 @@ export default function SimpleLanding() {
 
             <div className="sec-footer-bottom">
               <div>
-                © 2026 <strong>SPIDOCODE</strong> · Desarrollado con Godot 4, React y Supabase.
+                © 2026 <strong>SPIDOCODE</strong>. Desarrollado con Godot 4, React y Supabase.
               </div>
               <button
                 type="button"
@@ -481,7 +502,7 @@ export default function SimpleLanding() {
                 onClick={scrollToTop}
                 aria-label="Volver al inicio de la página"
               >
-                Volver arriba ↑
+                Volver al inicio
               </button>
             </div>
           </div>
