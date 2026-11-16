@@ -442,12 +442,101 @@
   margin: 0;
 }
 
-/* Interleaved Square Grid in Section 2 (Texto - Foto / Foto - Texto) */
-.square-interleaved-grid {
+/* ========================================================
+   LIGHTBOT 4-BLOCK INTERLEAVED SHOWCASE
+   (Texto - Foto 16:9 / Foto 16:9 - Lo que aprenderás + Beta)
+   ======================================================== */
+.lightbot-four-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
-  align-items: stretch;
+  gap: 52px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .lightbot-four-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+.lightbot-four-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.lightbot-four-title {
+  font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  line-height: 1.18;
+  font-weight: 700;
+  color: #1e222d;
+  margin: 0 0 18px;
+  letter-spacing: 0.01em;
+}
+
+.lightbot-four-title span {
+  color: var(--color-soft-green-dark);
+}
+
+.lightbot-four-desc {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: #4c515f;
+  margin: 0;
+}
+
+.lightbot-four-image-frame {
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 2px solid rgba(124, 187, 137, 0.45);
+  box-shadow: 0 16px 38px rgba(76, 81, 95, 0.16);
+  background: #090e17;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.lightbot-four-image-frame:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 22px 48px rgba(76, 81, 95, 0.22);
+  border-color: var(--color-soft-green);
+}
+
+.lightbot-four-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lightbot-learn-list-clean {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lightbot-learn-list-clean li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2b3040;
+}
+
+.lightbot-learn-dot-clean {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-soft-green-dark);
+  box-shadow: 0 0 6px rgba(43, 122, 72, 0.4);
+  flex-shrink: 0;
 }
 
 .square-cell {

@@ -266,59 +266,71 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: CÓMO SE JUEGA & DESCARGA BETA
-            Cuadrado 2x2 intercalado (Texto - Foto)
-            Fila 1: [Texto] [Foto 1: Consola de Código]
-            Fila 2: [Foto 2: Gameplay Cuadrícula] [Texto con Descarga Beta]
+            SECCIÓN 3: CÓMO SE JUEGA & LO QUE APRENDERÁS
+            Estructura de 4 bloques estilo Lightbot (Texto - Foto / Foto - Texto)
+            Con las portadas oficiales de SpidoCode 0 y SpidoCode
             ======================================================== */}
         <section id="como-se-juega" className="sec-download">
           <div className="simple-container">
-            <div className="square-interleaved-grid">
-              {/* Celda 1 (Arriba Izquierda): Texto estilo Lightbot */}
-              <div className="square-cell square-text-cell">
-                <h2 className="square-cell-title">
-                  ¡Aprende a programar <span>jugando!</span>
+            <div className="lightbot-four-grid">
+              {/* Bloque 1 (Arriba Izquierda): Texto explicativo estilo Lightbot */}
+              <div className="lightbot-four-text">
+                <h2 className="lightbot-four-title">
+                  ¡Resuelve puzzles usando <span>programación!</span>
                 </h2>
-                <p className="square-cell-desc">
-                  <strong>SPIDOCODE</strong> es un juego educativo basado en lógica y código real.
-                  Escribe instrucciones como <code>spid.norte()</code>, bucles <code>while</code> y
-                  condiciones para que Spid explore asteroides y recolecte minerales de forma autónoma.
+                <p className="lightbot-four-desc">
+                  <strong>SPIDOCODE</strong> es un videojuego educativo basado en lógica y computación.
+                  Te enseña a programar paso a paso de manera divertida mientras guías a Spid,
+                  automatizas tareas y superas desafíos espaciales en cada asteroide.
                 </p>
               </div>
 
-              {/* Celda 2 (Arriba Derecha): Foto de la Consola de Código con bordes redondeados */}
-              <div className="square-cell square-photo-cell">
+              {/* Bloque 2 (Arriba Derecha): Foto Widescreen - Portada SpidoCode 0 */}
+              <div className="lightbot-four-image-frame">
                 <img
-                  src="/images/spidocode/spid-code-console.png"
-                  alt="Consola de código de Spid con bucles while, condiciones if y comandos de minería"
-                  className="square-cell-img"
-                  width="682"
-                  height="686"
+                  src="/images/spidocode/spidocode-0-cover.jpg"
+                  alt="Portada oficial de SpidoCode 0 con Spid y el astronauta en el hangar"
+                  className="lightbot-four-img"
+                  width="1024"
+                  height="576"
                 />
               </div>
 
-              {/* Celda 3 (Abajo Izquierda): Foto del Gameplay en la Cuadrícula con bordes redondeados */}
-              <div className="square-cell square-photo-cell">
+              {/* Bloque 3 (Abajo Izquierda): Foto Widescreen - Portada SpidoCode */}
+              <div className="lightbot-four-image-frame">
                 <img
-                  src="/images/spidocode/spid-grid-gameplay.jpg"
-                  alt="Spid en la cuadrícula espacial 3D recolectando minerales frente a la estación"
-                  className="square-cell-img"
-                  width="619"
-                  height="668"
+                  src="/images/spidocode/spidocode-cover.jpg"
+                  alt="Portada oficial de SpidoCode con Spid sobre el asteroide con cristales"
+                  className="lightbot-four-img"
+                  width="1024"
+                  height="576"
                 />
               </div>
 
-              {/* Celda 4 (Abajo Derecha): Más Texto con Botón de Descarga Beta */}
-              <div className="square-cell square-text-cell square-download-cell">
-                <h3 className="square-cell-title">
-                  Descarga la <span>Beta oficial</span>
+              {/* Bloque 4 (Abajo Derecha): "Lo que aprenderás" + Descarga Beta */}
+              <div className="lightbot-four-text">
+                <h3 className="lightbot-four-title">
+                  Lo que <span>aprenderás</span>
                 </h3>
-                <p className="square-cell-desc">
-                  Versión preliminar <strong>v1.0.0-beta</strong> disponible para Windows x64.
-                  Descarga el archivo ZIP, descomprime la carpeta y ejecuta{' '}
-                  <code>SpidoCode.exe</code> para comenzar a resolver desafíos.
-                </p>
-                <div className="sec-download-btn-group" style={{ marginTop: '22px' }}>
+                <ul className="lightbot-learn-list-clean">
+                  <li>
+                    <span className="lightbot-learn-dot-clean" /> Secuenciación y comandos directos
+                  </li>
+                  <li>
+                    <span className="lightbot-learn-dot-clean" /> Bucles y optimización de repeticiones
+                  </li>
+                  <li>
+                    <span className="lightbot-learn-dot-clean" /> Procedimientos y lógica computacional
+                  </li>
+                  <li>
+                    <span className="lightbot-learn-dot-clean" /> Condicionales y toma de decisiones
+                  </li>
+                  <li>
+                    <span className="lightbot-learn-dot-clean" /> Transición natural de bloques a código real
+                  </li>
+                </ul>
+
+                <div className="sec-download-btn-group" style={{ marginTop: '10px' }}>
                   <a
                     href={BETA_DOWNLOAD_URL}
                     className="btn-download-hero"
@@ -341,8 +353,8 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: CONTENIDO 2 (CONCEPTOS & LO QUE APRENDERÁS)
-            Degradé de gris claro al oscuro con pintas verdes neón
+            SECCIÓN 4: MECÁNICAS EN VIVO & ASISTENTE A.D.A.
+            Degradé suave a oscuro con pintas verdes neón y consola de código
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
           <NeonSpeckles count={20} />
@@ -358,20 +370,18 @@ export default function SimpleLanding() {
             </div>
 
             <div className="lightbot-showcase-grid">
-              {/* Columna Izquierda: Captura del Menú / Mundo Spid + Spid con diálogo de A.D.A. */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-                <div className="lightbot-card">
-                  <div className="lightbot-img-frame">
-                    <img
-                      src="/images/spidocode/spid-menu-art.jpg"
-                      alt="Spid en el menú oficial sobre el asteroide con cristales espaciales"
-                      className="lightbot-img"
-                      width="1024"
-                      height="542"
-                    />
-                  </div>
-                </div>
+              {/* Columna Izquierda: Consola de Código GDScript */}
+              <div className="lightbot-card" style={{ padding: '0', overflow: 'hidden' }}>
+                <img
+                  src="/images/spidocode/spid-code-console.png"
+                  alt="Consola GDScript de SpidoCode con bucles while y condiciones if"
+                  className="square-cell-img"
+                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '18px' }}
+                />
+              </div>
 
+              {/* Columna Derecha: Tarjeta A.D.A. + Información del Editor */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                 <div className="lightbot-card lightbot-companion-card">
                   <div className="lightbot-companion-face">
                     <img
@@ -389,32 +399,26 @@ export default function SimpleLanding() {
                     </p>
                   </div>
                 </div>
-              </div>
 
-              {/* Columna Derecha: Lo que aprenderás estilo Lightbot */}
-              <div className="lightbot-card lightbot-text-card">
-                <h3 className="lightbot-learn-title">Lo que aprenderás</h3>
-                <ul className="lightbot-learn-list">
-                  <li className="lightbot-learn-item">
-                    <span className="lightbot-learn-dot" /> Secuenciación y comandos directos
-                  </li>
-                  <li className="lightbot-learn-item">
-                    <span className="lightbot-learn-dot" /> Bucles y optimización de repeticiones
-                  </li>
-                  <li className="lightbot-learn-item">
-                    <span className="lightbot-learn-dot" /> Procedimientos y automatización
-                  </li>
-                  <li className="lightbot-learn-item">
-                    <span className="lightbot-learn-dot" /> Condicionales y toma de decisiones
-                  </li>
-                  <li className="lightbot-learn-item">
-                    <span className="lightbot-learn-dot" /> Asistencia y orientación en vivo con A.D.A.
-                  </li>
-                </ul>
-
-                <a href="/docs" className="sec-mechanics-docs-link">
-                  Consultar Archivo A.D.A.
-                </a>
+                <div className="lightbot-card" style={{ padding: '28px' }}>
+                  <h3
+                    style={{
+                      fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
+                      fontSize: '24px',
+                      color: 'var(--color-neon-green)',
+                      margin: '0 0 12px',
+                    }}
+                  >
+                    Editor de Código en Vivo
+                  </h3>
+                  <p style={{ color: '#e2e8f0', fontSize: '15px', lineHeight: 1.6, margin: '0 0 20px' }}>
+                    Ejecuta tu código paso a paso para pausar en cada línea, inspeccionar variables y
+                    aprender cómo piensa la computadora en cada decisión algorítmica.
+                  </p>
+                  <a href="/docs" className="sec-mechanics-docs-link">
+                    Consultar Archivo A.D.A.
+                  </a>
+                </div>
               </div>
             </div>
           </div>
