@@ -273,15 +273,15 @@ export default function SimpleLanding() {
         <section id="como-se-juega" className="sec-download">
           <div className="simple-container">
             <div className="lightbot-four-grid">
-              {/* Bloque 1 (Arriba Izquierda): Texto explicativo estilo Lightbot */}
+              {/* Bloque 1 (Arriba Izquierda): Texto explicativo propio de SpidoCode */}
               <div className="lightbot-four-text">
                 <h2 className="lightbot-four-title">
-                  ¡Resuelve puzzles usando <span>programación!</span>
+                  ¡Aprende programación y <span>algoritmos jugando!</span>
                 </h2>
                 <p className="lightbot-four-desc">
-                  <strong>SPIDOCODE</strong> es un videojuego educativo basado en lógica y computación.
-                  Te enseña a programar paso a paso de manera divertida mientras guías a Spid,
-                  automatizas tareas y superas desafíos espaciales en cada asteroide.
+                  En <strong>SPIDOCODE</strong> la programación cobra vida a través de la exploración espacial.
+                  Diseña tus propios algoritmos paso a paso, automatiza las tareas de Spid y
+                  resuelve desafíos lógicos en cada asteroide de manera práctica y divertida.
                 </p>
               </div>
 
