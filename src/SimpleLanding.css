@@ -247,7 +247,7 @@
   position: relative;
   background: linear-gradient(180deg, #d8dde7 0%, #cbd1de 50%, #bec5d4 100%);
   padding: 90px 0 100px;
-  border-top: 1px solid rgba(158, 160, 179, 0.4);
+  border-top: none;
 }
 
 .sec-section-header {
@@ -431,8 +431,22 @@
    ======================================================== */
 .sec-mechanics {
   position: relative;
-  background: linear-gradient(180deg, #bec5d4 0%, #7d8495 25%, #4c515f 60%, #1e222d 100%);
-  padding: 100px 0 110px;
+  background: linear-gradient(
+    180deg,
+    #bec5d4 0%,
+    #aeb5c5 8%,
+    #9ba2b4 18%,
+    #848c9f 30%,
+    #6c7488 43%,
+    #545c70 56%,
+    #3e4557 68%,
+    #2c3242 78%,
+    #1d222e 87%,
+    #151821 94%,
+    #12141a 98%,
+    #12141a 100%
+  );
+  padding: 100px 0 130px;
   color: #f3f5f9;
   overflow: hidden;
 }
@@ -671,7 +685,8 @@
    ======================================================== */
 .sec-footer {
   background: var(--color-footer-bg);
-  border-top: 1px solid #232733;
+  border-top: none;
+  margin-top: -1px;
   padding: 60px 0 36px;
   color: #8c96a8;
   font-size: 14px;
