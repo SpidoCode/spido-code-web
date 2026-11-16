@@ -200,11 +200,11 @@ export default function SimpleLanding() {
                   </div>
                   <div className="sec-hero-face-container">
                     <img
-                      src="/images/spidocode/spid-happy.png"
+                      src="/images/spidocode/spid-smile.png"
                       alt="Spid con expresión alegre y sonriente listo para programar"
                       className="sec-hero-face-img"
                       width="1024"
-                      height="787"
+                      height="788"
                     />
                   </div>
                   <div className="sec-hero-card-footer">
@@ -265,11 +265,11 @@ export default function SimpleLanding() {
               <div className="sec-download-side">
                 <div className="sec-download-face-wrap">
                   <img
-                    src="/images/spidocode/spid-curious.png"
-                    alt="Spid con expresión atenta y curiosa listo para la descarga"
+                    src="/images/spidocode/spid-smile.png"
+                    alt="Spid con expresión alegre listo para la descarga"
                     className="sec-download-face-img"
                     width="1024"
-                    height="787"
+                    height="788"
                   />
                 </div>
                 <div className="sec-download-specs">
@@ -387,15 +387,15 @@ export default function SimpleLanding() {
               </div>
             </div>
 
-            {/* Banner resumen didáctico con Cara 3 (Spid Guiño) */}
+            {/* Banner resumen didáctico con Spid */}
             <div className="sec-mechanics-summary">
               <div className="sec-mechanics-summary-face">
                 <img
-                  src="/images/spidocode/spid-wink.png"
-                  alt="Spid guiñando el ojo con expresión astuta al resolver el código"
+                  src="/images/spidocode/spid-smile.png"
+                  alt="Spid con expresión alegre al resolver el código"
                   className="sec-mechanics-face-img"
                   width="1024"
-                  height="787"
+                  height="788"
                 />
               </div>
               <div className="sec-mechanics-summary-text">
