@@ -199,15 +199,13 @@ export default function SimpleLanding() {
                     <span>SPID / COMPAÑERO DE MISIÓN</span>
                   </div>
                   <div className="sec-hero-face-container">
-                    <div className="sec-hero-face-frame">
-                      <img
-                        src="/images/spidocode/spid-happy.jpg"
-                        alt="Spid con expresión alegre y sonriente listo para programar"
-                        className="spid-face-img"
-                        width="1024"
-                        height="787"
-                      />
-                    </div>
+                    <img
+                      src="/images/spidocode/spid-happy.png"
+                      alt="Spid con expresión alegre y sonriente listo para programar"
+                      className="sec-hero-face-img"
+                      width="1024"
+                      height="787"
+                    />
                   </div>
                   <div className="sec-hero-card-footer">
                     <div className="sec-hero-card-status">
@@ -267,9 +265,9 @@ export default function SimpleLanding() {
               <div className="sec-download-side">
                 <div className="sec-download-face-wrap">
                   <img
-                    src="/images/spidocode/spid-curious.jpg"
+                    src="/images/spidocode/spid-curious.png"
                     alt="Spid con expresión atenta y curiosa listo para la descarga"
-                    className="spid-face-img"
+                    className="sec-download-face-img"
                     width="1024"
                     height="787"
                   />
@@ -393,8 +391,9 @@ export default function SimpleLanding() {
             <div className="sec-mechanics-summary">
               <div className="sec-mechanics-summary-face">
                 <img
-                  src="/images/spidocode/spid-wink.jpg"
+                  src="/images/spidocode/spid-wink.png"
                   alt="Spid guiñando el ojo con expresión astuta al resolver el código"
+                  className="sec-mechanics-face-img"
                   width="1024"
                   height="787"
                 />

@@ -298,21 +298,25 @@
 .sec-hero-card-dots span:nth-child(3) { background: var(--color-soft-green); }
 
 .sec-hero-face-container {
-  padding: 24px;
-  background: linear-gradient(135deg, #f7f9fc 0%, #edf1f7 100%);
+  padding: 36px 24px;
+  background: transparent;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
-.sec-hero-face-frame {
+.sec-hero-face-img {
   width: 100%;
   max-width: 320px;
-  aspect-ratio: 1024 / 787;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 24px rgba(76, 81, 95, 0.12);
-  border: 2px solid #ffffff;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 14px 28px rgba(76, 81, 95, 0.22));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sec-hero-face-img:hover {
+  transform: scale(1.04) translateY(-3px);
+  filter: drop-shadow(0 18px 36px rgba(76, 81, 95, 0.28));
 }
 
 .sec-hero-card-footer {
@@ -459,13 +463,26 @@
 
 .sec-download-face-wrap {
   width: 100%;
-  max-width: 260px;
-  aspect-ratio: 1024 / 787;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 8px 24px rgba(76, 81, 95, 0.15);
-  border: 2px solid #ffffff;
+  max-width: 250px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sec-download-face-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 22px rgba(76, 81, 95, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.sec-download-face-img:hover {
+  transform: scale(1.04);
 }
 
 .sec-download-specs {
@@ -711,20 +728,26 @@
 }
 
 .sec-mechanics-summary-face {
-  width: 90px;
-  aspect-ratio: 1024 / 787;
-  border-radius: 10px;
-  overflow: hidden;
-  border: 1px solid rgba(0, 255, 102, 0.4);
-  box-shadow: 0 0 16px rgba(0, 255, 102, 0.2);
+  width: 95px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.sec-mechanics-summary-face img {
+.sec-mechanics-face-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
+  filter: drop-shadow(0 0 16px rgba(0, 255, 102, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.sec-mechanics-face-img:hover {
+  transform: scale(1.08);
 }
 
 .sec-mechanics-summary-text h5 {
