@@ -157,7 +157,7 @@
    ======================================================== */
 .sec-hero {
   position: relative;
-  background: linear-gradient(180deg, #eef1f6 0%, #f6f8fb 55%, #ffffff 100%);
+  background: linear-gradient(180deg, #eef1f6 0%, #e2e6ee 60%, #d8dde7 100%);
   padding: 70px 0 90px;
   overflow: hidden;
 }
@@ -247,7 +247,9 @@
   position: relative;
   background: #ffffff;
   padding: 95px 0 105px;
-  border-top: none;
+  border-top: 1px solid #c0c8d6;
+  border-bottom: 1px solid #c0c8d6;
+  box-shadow: 0 4px 24px rgba(76, 81, 95, 0.05);
 }
 
 .games-apps-grid {
@@ -402,7 +404,7 @@
    ======================================================== */
 .sec-download {
   position: relative;
-  background: linear-gradient(180deg, #ffffff 0%, #edf1f7 30%, #d8dde7 65%, #9fa6b4 100%);
+  background: linear-gradient(180deg, #d8dde7 0%, #cbd1de 40%, #bec5d4 75%, #9fa6b4 100%);
   padding: 90px 0 100px;
   border-top: none;
 }
