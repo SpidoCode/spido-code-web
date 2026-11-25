@@ -3,7 +3,7 @@ import type { Session } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
 import DocsPage from './docs/DocsPage'
 import PlayerHub from './PlayerHub'
-import WebAuth from './WebAuth'
+import WebAuth, { VerifyEmail } from './WebAuth'
 import SimpleLanding from './SimpleLanding'
 import SpidoCodeZeroPage from './SpidoCodeZeroPage'
 import SpidoCodeGamePage from './SpidoCodeGamePage'
@@ -1577,6 +1577,7 @@ export default function App() {
   if (pathname === '/perfil') return <PlayerHub />
   if (pathname === '/registro') return <WebAuth mode="register" />
   if (pathname === '/login') return <WebAuth mode="login" />
+  if (pathname === '/verificar-correo') return <VerifyEmail />
   if (pathname === '/spidocode-0') return <SpidoCodeZeroPage />
   if (pathname === '/spidocode') return <SpidoCodeGamePage />
   return <SimpleLanding />

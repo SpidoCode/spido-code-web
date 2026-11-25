@@ -4,26 +4,49 @@ import './WebAuth.css'
 
 const VERIFICATION_WAIT_MS = 60_000
 const VERIFICATION_REDIRECT = 'https://www.spidocode.com/login'
+const VERIFICATION_PATH = '/verificar-correo'
+const VERIFICATION_KEY = 'spidocode.pending-verification'
+
+type PendingVerification = { email: string; until: number }
+
+function readVerification(): PendingVerification {
+  try {
+    const pending = JSON.parse(sessionStorage.getItem(VERIFICATION_KEY) ?? 'null')
+    if (typeof pending?.email === 'string' && pending.email.length <= 254 &&
+      Number.isFinite(pending.until)) return pending
+  } catch {
+    // La pantalla también admite visitas sin almacenamiento.
+  }
+  return { email: '', until: 0 }
+}
+
+function saveVerification(pending: PendingVerification) {
+  try {
+    sessionStorage.setItem(VERIFICATION_KEY, JSON.stringify(pending))
+  } catch {
+    // Si el navegador bloquea el almacenamiento, se muestra el acceso sin contexto.
+  }
+}
+
+function openVerification(email: string, wait: number) {
+  const previous = readVerification()
+  const until = Math.max(Date.now() + wait, previous.email === email ? previous.until : 0)
+  saveVerification({ email, until })
+  window.location.assign(VERIFICATION_PATH)
+}
 
 function isRateLimited(error: { status?: number; code?: string }) {
   return error.status === 429 || error.code === 'over_email_send_rate_limit' ||
     error.code === 'over_request_rate_limit'
 }
 
-export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
-  const [confirm,setConfirm] = useState('')
-  const [busy,setBusy] = useState(false)
-  const [status,setStatus] = useState('')
-  const [complete,setComplete] = useState(false)
-  const [verificationEmail, setVerificationEmail] = useState('')
+export function VerifyEmail() {
+  const [{ email, until }] = useState(readVerification)
   const [resending, setResending] = useState(false)
   const [resendStatus, setResendStatus] = useState('')
-  const [seconds, setSeconds] = useState(0)
-  const cooldownUntil = useRef(0)
+  const [seconds, setSeconds] = useState(() => Math.max(0, Math.ceil((until - Date.now()) / 1000)))
+  const cooldownUntil = useRef(until)
   const requestActive = useRef(false)
-  const registering = mode === 'register'
 
   useEffect(() => {
     if (!seconds) return
@@ -35,11 +58,12 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
 
   function startCooldown() {
     cooldownUntil.current = Date.now() + VERIFICATION_WAIT_MS
+    saveVerification({ email, until: cooldownUntil.current })
     setSeconds(60)
   }
 
   async function resendVerification() {
-    if (!supabase || !verificationEmail || verificationEmail !== email.trim() ||
+    if (!supabase || !email ||
       requestActive.current || Date.now() < cooldownUntil.current) return
 
     requestActive.current = true
@@ -48,7 +72,7 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
     try {
       const { error } = await supabase.auth.resend({
         type: 'signup',
-        email: verificationEmail,
+        email,
         options: { emailRedirectTo: VERIFICATION_REDIRECT },
       })
       if (error && isRateLimited(error)) {
@@ -68,12 +92,47 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
     }
   }
 
+  const isGmail = /@(?:gmail|googlemail)\.com$/i.test(email)
+  return (
+    <main className="spido-verify-page">
+      <a href="/" className="spido-verify-logo" aria-label="SPIDOCODE, inicio">SPIDO<span>CODE</span></a>
+      <section className="spido-verify-card" aria-labelledby="verification-title">
+        <span className="spido-verify-icon" aria-hidden="true">✉</span>
+        <h1 id="verification-title">Verifica tu correo electrónico</h1>
+        {email ? <>
+          <p>Si hay una verificación pendiente para <strong>{email}</strong>, abre el enlace de confirmación. Revisa también la carpeta de Spam o correo no deseado.</p>
+          {isGmail && <a className="spido-verify-gmail" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer">Abrir Gmail <span aria-label="(se abre en una pestaña nueva)">↗</span></a>}
+          {supabase ? (
+            <div className="spido-auth-verification" aria-busy={resending}>
+              <button type="button" disabled={resending || seconds > 0} onClick={() => void resendVerification()}
+                aria-describedby={seconds > 0 ? 'verification-wait' : undefined}>
+                {resending ? 'Procesando solicitud…' : 'Reenviar correo de verificación'}
+              </button>
+              {seconds > 0 && <p id="verification-wait">Disponible en {seconds} s.</p>}
+            </div>
+          ) : <p>El reenvío no está disponible en este entorno.</p>}
+          <p role="status">{resendStatus}</p>
+        </> : <p>Abre esta pantalla desde el registro o el inicio de sesión para solicitar otro enlace.</p>}
+        <a href="/login" className="spido-verify-back">Volver a iniciar sesión</a>
+      </section>
+    </main>
+  )
+}
+
+export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
+  const [confirm,setConfirm] = useState('')
+  const [busy,setBusy] = useState(false)
+  const [status,setStatus] = useState('')
+  const [complete,setComplete] = useState(false)
+  const requestActive = useRef(false)
+  const registering = mode === 'register'
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!supabase || requestActive.current) return
     setStatus('')
-    setVerificationEmail('')
-    setResendStatus('')
     if(registering && password!==confirm){setStatus('Las contraseñas no coinciden.');return}
     if(registering && password.length<6){setStatus('La contraseña debe tener al menos 6 caracteres.');return}
     const submittedEmail = email.trim()
@@ -81,26 +140,24 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
     setBusy(true)
     try{
       if(registering){
-        // Volver al dominio actual tras confirmar el correo.
         const {data,error}=await supabase.auth.signUp({
           email:submittedEmail,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/login`,
+            emailRedirectTo: VERIFICATION_REDIRECT,
           },
         })
         if(error) throw error
         if (!data.session) {
-          setVerificationEmail(submittedEmail)
-          startCooldown()
+          openVerification(submittedEmail, VERIFICATION_WAIT_MS)
+          return
         }
         setComplete(true)
-        setStatus(data.session ? 'Cuenta creada. Vuelve a SpidoCode e inicia sesión con las mismas credenciales.' : 'Solicitud recibida. Si es una cuenta nueva, revisa tu correo para confirmar el registro. Después vuelve a SpidoCode e inicia sesión.')
+        setStatus('Cuenta creada. Vuelve a SpidoCode e inicia sesión con las mismas credenciales.')
       }else{
         const {error}=await supabase.auth.signInWithPassword({email:submittedEmail,password})
         if (error?.code === 'email_not_confirmed') {
-          setVerificationEmail(submittedEmail)
-          setStatus('Revisa tu correo para confirmar el acceso o solicita otro enlace de verificación.')
+          openVerification(submittedEmail, 0)
           return
         }
         if(error) throw error
@@ -120,23 +177,13 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
         <h2>{registering?'Crear una cuenta':'Iniciar sesión'}</h2>
         {!supabase?<p role="alert">La autenticación web todavía no está configurada. No es posible crear cuentas en este entorno.</p>:complete?<div role="status"><p>{status}</p><a className="spido-auth-primary" href={registering ? '/login' : '/perfil'}>{registering ? 'Ir a iniciar sesión' : 'Ir a mi perfil ↗'}</a></div>:<>
           <form onSubmit={submit} aria-busy={busy}>
-            <label>Correo electrónico<input type="email" autoComplete="email" value={email} disabled={busy || resending} onChange={e=>{setEmail(e.target.value);setVerificationEmail('');setResendStatus('');setStatus('')}} required maxLength={254}/></label>
+            <label>Correo electrónico<input type="email" autoComplete="email" value={email} disabled={busy} onChange={e=>{setEmail(e.target.value);setStatus('')}} required maxLength={254}/></label>
             <label>Contraseña<input type="password" autoComplete={registering?'new-password':'current-password'} minLength={registering ? 6 : undefined} value={password} onChange={e=>setPassword(e.target.value)} required/></label>
             {registering&&<label>Repetir contraseña<input type="password" autoComplete="new-password" minLength={6} value={confirm} onChange={e=>setConfirm(e.target.value)} required/></label>}
-            <button className="spido-auth-primary" disabled={busy || resending} type="submit">{busy?'Procesando…':registering?'Crear cuenta':'Entrar'}</button>
+            <button className="spido-auth-primary" disabled={busy} type="submit">{busy?'Procesando…':registering?'Crear cuenta':'Entrar'}</button>
           </form>
           {status&&<p role="alert" className="spido-auth-error">{status}</p>}
         </>}
-        {verificationEmail && verificationEmail === email.trim() && (
-          <div className="spido-auth-verification">
-            <button type="button" disabled={busy || resending || seconds > 0} onClick={() => void resendVerification()}
-              aria-describedby={seconds > 0 ? 'verification-wait' : undefined}>
-              {resending ? 'Procesando solicitud…' : 'Reenviar correo de verificación'}
-            </button>
-            {seconds > 0 && <p id="verification-wait">Disponible en {seconds} s.</p>}
-            <p role="status">{resendStatus}</p>
-          </div>
-        )}
         <p className="spido-auth-switch">{registering?<>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></>:<>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></>}</p>
         <p className="spido-auth-hint">Tu cuenta se gestiona mediante Supabase Auth. Nunca compartimos la contraseña con el videojuego por URL.</p>
       </section>
