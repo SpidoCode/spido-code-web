@@ -30,7 +30,7 @@
 .spido-auth-intro h1 { margin: 0 0 14px; font: 700 clamp(2.2rem, 5vw, 4rem)/1.13 'Spido Pixel', monospace; }
 .spido-auth-intro h1 span { color: #4b8b58; }
 .spido-auth-intro p { color: #4c515f; line-height: 1.65; }
-.spido-auth-spid { display: block; width: min(62%, 290px); height: auto; margin-top: 14px; filter: drop-shadow(0 12px 18px #4c515f24); }
+.spido-auth-spid { display: block; width: min(70%, 326px); height: auto; margin: 12px auto 0; filter: drop-shadow(0 12px 18px #4c515f24); }
 .spido-auth-card {
   min-width: 0;
   padding: clamp(20px, 4vw, 34px);
@@ -53,6 +53,24 @@
   color: #1e222d;
   font: 400 16px/1.4 'Poppins', sans-serif;
 }
+.spido-auth-password { display: grid; gap: 6px; }
+.spido-auth-password-control { position: relative; }
+.spido-auth-password-control input { padding-inline-end: 52px; }
+.spido-auth-eye {
+  position: absolute;
+  inset: 1px 1px 1px auto;
+  width: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #4c515f;
+  cursor: pointer;
+}
+.spido-auth-eye:hover { color: #285837; background: #d6eedc; }
+.spido-web-auth .spido-auth-eye:focus-visible { outline-offset: -3px; }
+.spido-auth-card input:focus { border-color: #4b8b58; }
 .spido-auth-primary {
   display: inline-flex;
   align-items: center;
@@ -78,9 +96,19 @@
 .spido-auth-skip { position: absolute; top: -100px; left: 12px; padding: 12px; background: #d6eedc; color: #1e222d; }
 .spido-auth-skip:focus { top: 12px; z-index: 20; }
 @media (prefers-reduced-motion: no-preference) {
+  .spido-auth-intro h1 { animation: spido-auth-arrive 420ms ease-out; }
+  .spido-auth-intro p { animation: spido-auth-arrive 420ms ease-out 85ms both; }
+  .spido-auth-card { animation: spido-auth-card-arrive 360ms ease-out; }
+  .spido-auth-card:focus-within { animation: none; }
+  .spido-auth-spid { animation: spido-auth-float 3.8s ease-in-out 1s 1; }
+  .spido-auth-card input { transition: border-color 160ms ease; }
+  .spido-auth-eye { transition: background-color 160ms ease, color 160ms ease; }
   .spido-auth-primary:active:not(:disabled) { transform: translateY(1px); }
   .spido-web-auth .spido-auth-primary { transition: background-color 160ms ease, transform 160ms ease; }
 }
+@keyframes spido-auth-arrive { from { opacity: 0; transform: translateY(8px); } }
+@keyframes spido-auth-card-arrive { from { opacity: .92; transform: translateY(5px); } }
+@keyframes spido-auth-float { 50% { transform: translateY(-5px); } }
 @media (max-width: 700px) {
   .spido-web-auth .spido-auth-main { grid-template-columns: minmax(0, 1fr); max-width: 480px; gap: 20px; }
   .spido-auth-intro h1 { margin-bottom: 8px; }

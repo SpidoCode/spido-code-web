@@ -119,6 +119,46 @@ export function VerifyEmail() {
   )
 }
 
+function PasswordField({ id, label, value, onChange, registering }: {
+  id: string
+  label: string
+  value: string
+  onChange: (value: string) => void
+  registering: boolean
+}) {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <div className="spido-auth-password">
+      <label htmlFor={id}>{label}</label>
+      <div className="spido-auth-password-control">
+        <input
+          id={id}
+          type={visible ? 'text' : 'password'}
+          autoComplete={registering ? 'new-password' : 'current-password'}
+          minLength={registering ? 6 : undefined}
+          value={value}
+          onChange={event => onChange(event.target.value)}
+          required
+        />
+        <button
+          className="spido-auth-eye"
+          type="button"
+          aria-label={`${visible ? 'Ocultar' : 'Mostrar'} ${label.toLowerCase()}`}
+          aria-controls={id}
+          onClick={() => setVisible(previous => !previous)}
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" />
+            <circle cx="12" cy="12" r="2.5" />
+            {visible && <path d="m3 3 18 18" />}
+          </svg>
+        </button>
+      </div>
+    </div>
+  )
+}
+
 export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
   const [email,setEmail] = useState('')
   const [password,setPassword] = useState('')
@@ -174,7 +214,7 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
     <main id="auth-main" className="spido-auth-container spido-auth-main">
       <div className="spido-auth-intro">
         <h1>{registering ? 'Únete a la' : 'Bienvenido de'} <span>{registering ? 'misión.' : 'vuelta.'}</span></h1>
-        <p>Usa la misma cuenta en la web y en el videojuego.</p>
+        <p>Aprende a programar con Spid.</p>
         <img className="spido-auth-spid" src="/images/spidocode/spid-smile.png" alt="" width="1024" height="788" />
       </div>
       <section className="spido-auth-card" aria-label={registering?'Crear cuenta':'Iniciar sesión'}>
@@ -182,14 +222,14 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
         {!supabase?<p role="alert">La autenticación web todavía no está configurada. No es posible crear cuentas en este entorno.</p>:complete?<div role="status"><p>{status}</p><a className="spido-auth-primary" href={registering ? '/login' : '/perfil'}>{registering ? 'Ir a iniciar sesión' : 'Ir a mi perfil ↗'}</a></div>:<>
           <form onSubmit={submit} aria-busy={busy}>
             <label>Correo electrónico<input type="email" autoComplete="email" value={email} disabled={busy} onChange={e=>{setEmail(e.target.value);setStatus('')}} required maxLength={254}/></label>
-            <label>Contraseña<input type="password" autoComplete={registering?'new-password':'current-password'} minLength={registering ? 6 : undefined} value={password} onChange={e=>setPassword(e.target.value)} required/></label>
-            {registering&&<label>Repetir contraseña<input type="password" autoComplete="new-password" minLength={6} value={confirm} onChange={e=>setConfirm(e.target.value)} required/></label>}
+            <PasswordField id="auth-password" label="Contraseña" value={password} onChange={setPassword} registering={registering} />
+            {registering && <PasswordField id="auth-password-confirm" label="Repetir contraseña" value={confirm} onChange={setConfirm} registering />}
             <button className="spido-auth-primary" disabled={busy} type="submit">{busy?'Procesando…':registering?'Crear cuenta':'Entrar'}</button>
           </form>
           {status&&<p role="alert" className="spido-auth-error">{status}</p>}
         </>}
         <p className="spido-auth-switch">{registering?<>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></>:<>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></>}</p>
-        <p className="spido-auth-hint">Tu cuenta se gestiona mediante Supabase Auth. Nunca compartimos la contraseña con el videojuego por URL.</p>
+        <p className="spido-auth-hint">Una sola cuenta para aprender, jugar y explorar</p>
       </section>
     </main>
   </div>
