@@ -1,47 +1,81 @@
-/* Archivo A.D.A. uses the official SpidoCode colors and PixelifySans from the landing. */
-.spido-docs-page{min-height:100vh;background:radial-gradient(circle at 82% 5%,#15304c 0,transparent 36%),#070e1c;color:#f3f7fa;font-family:Inter,sans-serif}
-.spido-docs-page *{box-sizing:border-box}
-.spido-docs-container{width:min(1160px,calc(100% - 48px));margin-inline:auto}
-.spido-docs-page :is(a,button,input):focus-visible{outline:2px solid #b1f878;outline-offset:4px}
-.spido-docs-skip{position:absolute;left:12px;top:-90px;z-index:100;background:#b1f878;color:#061122;padding:12px}.spido-docs-skip:focus{top:12px}
-.spido-docs-header{position:sticky;top:0;z-index:20;background:#070e1ced;border-bottom:1px solid #26354a;backdrop-filter:blur(12px)}
-.spido-docs-header-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:78px}
-.spido-docs-logo{font:700 28px 'Spido Pixel',monospace;color:#edffe0;text-decoration:none;text-shadow:2px 2px #574384}.spido-docs-logo span{color:#b1f878}
-.spido-docs-header nav{display:flex;gap:24px;flex-wrap:wrap}.spido-docs-header nav a{font-size:13px;color:#c1cfdf;text-decoration:none}.spido-docs-header nav a:hover,.spido-docs-footer a:hover{color:#b1f878}
-.spido-docs-hero{padding:88px 0 78px;border-bottom:1px solid #293751;position:relative}.spido-docs-kicker,.spido-docs-section-heading>p{font:11px/1.6 'JetBrains Mono',monospace;color:#b1f878;letter-spacing:.14em}
-.spido-docs-hero h1{font:700 clamp(2.4rem,5vw,4.3rem)/1.13 'Space Grotesk',sans-serif;margin:17px 0 20px}.spido-docs-hero h1 span{color:#b1f878}
-.spido-docs-hero>p{max-width:690px;font-size:16px;line-height:1.8;color:#b9c7d9}
-.spido-docs-signal{display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:25px;padding:12px 18px;background:#101c30;border:1px solid #325248;border-radius:8px;font:11px 'JetBrains Mono',monospace;color:#b1f878}
-.spido-docs-count{color:#b8c7d8;border-left:1px solid #38495a;padding-left:12px}
-.spido-docs-library,.spido-docs-results{padding:70px 0 16px}.spido-docs-section-heading{margin-bottom:26px}.spido-docs-section-heading h2{font:700 clamp(1.6rem,3vw,2.2rem) 'Space Grotesk',sans-serif;margin:10px 0}.spido-docs-section-heading>span{color:#acb9cb;font-size:14px}
-.spido-docs-categories{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
-.spido-docs-category{text-align:left;display:flex;flex-direction:column;align-items:flex-start;min-height:190px;border:1px solid #293e4c;border-radius:12px;background:linear-gradient(140deg,#101d33,#0a1527);color:#f3f7fa;padding:21px;cursor:pointer;transition:border-color .2s,background .2s}
-.spido-docs-category:hover,.spido-docs-category[aria-pressed=true]{border-color:#b1f878;background:#12293a}
-.spido-docs-category-icon{font-size:25px;color:#6ce6da;margin-bottom:11px}.spido-docs-category strong{font:650 17px 'Space Grotesk',sans-serif}.spido-docs-category>span:not(.spido-docs-category-icon){font-size:12px;color:#b5c1d1;margin:9px 0 16px;line-height:1.6}.spido-docs-category small{margin-top:auto;color:#b1f878;font:11px 'JetBrains Mono',monospace}
-.spido-docs-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.spido-docs-toolbar label{font-size:13px;color:#c6d1dd}.spido-docs-toolbar input{flex:1;min-width:170px;padding:13px 15px;color:#fff;background:#0b172a;border:1px solid #34475b;border-radius:8px}
-.spido-docs-toolbar button{color:#b1f878;border:1px solid #46604c;background:#101c30;padding:12px;border-radius:8px;cursor:pointer}
-.spido-docs-result-count{color:#abbccc;font:12px 'JetBrains Mono',monospace;margin:20px 0}
-.spido-docs-empty{text-align:center;border:1px dashed #435269;border-radius:13px;padding:55px 24px;background:#0b1627}.spido-docs-empty>div{font-size:36px;color:#6ce6da}.spido-docs-empty h3{font:600 22px 'Space Grotesk',sans-serif;margin:12px 0}.spido-docs-empty p{max-width:540px;margin:auto;color:#adbdcc;line-height:1.7;font-size:14px}
-.spido-docs-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.spido-docs-item{border:1px solid #30455a;border-radius:12px;padding:24px;background:#0b182c}.spido-docs-item>span,.spido-docs-item small{font:11px 'JetBrains Mono',monospace;color:#6ce6da}.spido-docs-item h3{font-size:20px;margin:12px 0}.spido-docs-item p{color:#bfcbdb;font-size:14px;line-height:1.6}.spido-docs-item-actions{display:flex;gap:18px;margin-top:20px}.spido-docs-item a{color:#b1f878;font-size:13px}
-.spido-docs-guidance{margin:56px 0 88px;padding:25px 30px;border-left:3px solid #6ce6da;background:#0c1c2b}.spido-docs-guidance strong{color:#b1f878;font:11px 'JetBrains Mono',monospace}.spido-docs-guidance p{color:#b9c8d7;font-size:14px;line-height:1.7;margin-bottom:0}
-.spido-docs-footer{border-top:1px solid #293751;padding:30px 0;color:#abbacd;font:11px 'JetBrains Mono',monospace}.spido-docs-footer>div{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}.spido-docs-footer a{color:#c0d3e2;text-decoration:none}
-@media(max-width:850px){.spido-docs-categories{grid-template-columns:repeat(2,minmax(0,1fr))}.spido-docs-hero{padding:70px 0 60px}}
-@media(max-width:480px){.spido-docs-container{width:calc(100% - 32px)}.spido-docs-header-inner{min-height:68px;flex-wrap:wrap;padding:10px 0}.spido-docs-header nav{gap:12px}.spido-docs-header nav a{font-size:11px}.spido-docs-logo{font-size:23px}.spido-docs-hero{padding:48px 0}.spido-docs-library,.spido-docs-results{padding-top:50px}.spido-docs-categories{grid-template-columns:1fr}.spido-docs-category{min-height:150px}.spido-docs-items{grid-template-columns:1fr}.spido-docs-signal{font-size:10px}.spido-docs-count{border:0;padding:0}.spido-docs-guidance{margin-bottom:55px}}
-@media(prefers-reduced-motion:reduce){.spido-docs-category{transition:none}}
-
-/* Guías de aprendizaje enlazables desde el juego */
-.spido-docs-learning-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-.spido-docs-learning-card{display:flex;flex-direction:column;gap:11px;min-height:175px;padding:19px;border:1px solid #294359;border-radius:10px;background:#0e1b30;color:#f3f7fa;text-decoration:none}
-.spido-docs-learning-card:hover,.spido-docs-learning-card[aria-current=true]{border-color:#b1f878;background:#122738}
-.spido-docs-learning-card small{color:#6ce6da;font:11px 'JetBrains Mono',monospace}
-.spido-docs-learning-card strong{font:650 19px 'Space Grotesk',sans-serif}
-.spido-docs-learning-card span{color:#b7c6d7;font-size:12px;line-height:1.6}
-.spido-docs-learning-card b{margin-top:auto;color:#b1f878;font-size:12px}
-.spido-docs-learning-detail{padding:25px;background:#0b1c2b;border:1px solid #4b8064;border-radius:12px;margin-bottom:22px;scroll-margin-top:100px}
-.spido-docs-learning-detail h3{font:650 26px 'Space Grotesk',sans-serif;margin:12px 0}
-.spido-docs-learning-detail p{color:#c3d0dc;line-height:1.7}
-.spido-docs-learning-detail pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#061322;color:#aef1c4;padding:20px;border-radius:8px;line-height:1.7;font-size:13px}
-.spido-docs-learning-detail a{color:#b1f878}
-#guias{scroll-margin-top:80px}
-@media(max-width:900px){.spido-docs-learning-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.spido-docs-learning-grid{grid-template-columns:1fr}}
+.spido-docs-page {
+  --ink: #2b3040;
+  --muted: #4c515f;
+  --green: #285837;
+  --edge: #cbd2dc;
+  --shadow: 0 10px 26px #2b30400d;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at 85% 5%, #dcece2, transparent 26%), linear-gradient(#eef1f6, #e1e6ee);
+  color: var(--ink);
+  font-family: Poppins, sans-serif;
+}
+.spido-docs-container { width: min(1140px, calc(100% - 32px)); margin-inline: auto; }
+.spido-docs-page :is(a, button, input):focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.spido-docs-skip { position: absolute; top: 12px; left: 12px; transform: translateY(-150%); padding: 12px; background: white; z-index: 2; }
+.spido-docs-skip:focus { transform: none; }
+.spido-docs-header { background: #eef1f6; border-bottom: 1px solid var(--edge); }
+.spido-docs-header-inner, .spido-docs-footer > div { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px 20px; }
+.spido-docs-header-inner { min-height: 70px; padding-block: 10px; }
+.spido-docs-header nav { display: flex; gap: 12px; flex-wrap: wrap; }
+.spido-docs-header nav a { font-size: .85rem; color: var(--muted); font-weight: 600; text-decoration: none; }
+.spido-docs-header nav a:is(:hover, [aria-current]) { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.spido-docs-logo, .spido-docs-page :is(h1, h2, h3), .spido-docs-learning-card strong { font-family: 'Spido Pixel', 'Pixelify Sans', monospace; font-weight: 700; line-height: 1.14; }
+.spido-docs-logo { color: var(--ink); font-size: clamp(1.5rem, 4vw, 2rem); text-decoration: none; }
+.spido-docs-logo span { color: #7cbb89; }
+.spido-docs-hero { padding-block: clamp(32px, 7vw, 80px) clamp(28px, 5vw, 54px); }
+.spido-docs-hero h1 { font-size: clamp(2rem, 6vw, 4.25rem); margin: 10px 0 14px; }
+.spido-docs-hero h1 span { color: #386c46; }
+.spido-docs-hero > p { max-width: 66ch; }
+.spido-docs-kicker, .spido-docs-section-heading > p { color: var(--green); font-weight: 700; font-size: .75rem; letter-spacing: .08em; }
+.spido-docs-hero > p, .spido-docs-section-heading > span, .spido-docs-learning-detail p, .spido-docs-item p, .spido-docs-guidance p, .spido-docs-empty p { color: var(--muted); line-height: 1.65; }
+.spido-docs-signal { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding: 8px 12px; background: #e0f0e4; border-radius: 12px; color: var(--green); font-size: .75rem; font-weight: 600; }
+.spido-docs-count { color: var(--muted); }
+.spido-docs-library, .spido-docs-results { margin-bottom: 28px; }
+.spido-docs-library#guias { scroll-margin-top: 16px; padding: clamp(16px, 4vw, 32px); background: #e8f3eb; border: 1px solid #b9d0bf; border-radius: 24px; }
+.spido-docs-library:not(#guias) { margin-top: clamp(32px, 6vw, 64px); }
+.spido-docs-section-heading { margin-bottom: 16px; }
+.spido-docs-section-heading h2 { font-size: clamp(1.5rem, 4vw, 2.25rem); margin: 5px 0 8px; }
+.spido-docs-section-heading > span { font-size: .9rem; }
+.spido-docs-categories, .spido-docs-learning-grid, .spido-docs-items { display: grid; gap: 14px; }
+.spido-docs-categories, .spido-docs-learning-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.spido-docs-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.spido-docs-page :is(.spido-docs-category, .spido-docs-learning-card, .spido-docs-learning-detail, .spido-docs-item) { min-width: 0; background: white; border: 1px solid var(--edge); border-radius: 16px; box-shadow: var(--shadow); padding: clamp(14px, 2vw, 20px); }
+.spido-docs-category, .spido-docs-learning-card { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; color: var(--ink); text-align: left; cursor: pointer; text-decoration: none; }
+.spido-docs-category { font: inherit; }
+.spido-docs-page :is(.spido-docs-category, .spido-docs-learning-card):hover { border-color: #659372; }
+.spido-docs-page :is(.spido-docs-category[aria-pressed="true"], .spido-docs-learning-card[aria-current="true"]) { border-color: #4b8b58; background: #f1f8f2; box-shadow: inset 0 0 0 1px #4b8b58; }
+.spido-docs-category-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 10px; background: #e0f0e4; color: var(--green); font-size: 1.2rem; }
+.spido-docs-category > span:not(.spido-docs-category-icon), .spido-docs-learning-card > span { color: var(--muted); line-height: 1.55; font-size: .84rem; }
+.spido-docs-category small, .spido-docs-learning-card small, .spido-docs-learning-card b, .spido-docs-item > span, .spido-docs-item small { color: var(--green); font-size: .76rem; font-weight: 600; }
+.spido-docs-category small, .spido-docs-learning-card b { margin-top: auto; }
+.spido-docs-learning-card strong { font-size: 1.22rem; }
+.spido-docs-learning-detail { margin-bottom: 18px; scroll-margin-top: 16px; display: grid; gap: 10px; }
+.spido-docs-learning-detail h3, .spido-docs-item h3, .spido-docs-empty h3 { font-size: clamp(1.25rem, 3vw, 1.7rem); }
+.spido-docs-learning-detail pre { min-width: 0; margin: 0; padding: 16px; border: 1px solid #b9d0bf; border-radius: 10px; background: #edf5ef; color: #21452c; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.65; font-size: .875rem; }
+.spido-docs-learning-detail a { justify-self: start; }
+.spido-docs-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.spido-docs-toolbar label { flex-basis: 100%; color: var(--ink); font-size: .85rem; font-weight: 600; }
+.spido-docs-toolbar input { flex: 1 1 200px; min-width: 0; min-height: 46px; border: 1px solid #808999; border-radius: 10px; background: white; padding: 10px 14px; font: inherit; font-size: 16px; }
+.spido-docs-toolbar button { border: 0; min-height: 44px; border-radius: 10px; padding: 10px 14px; background: #2b7a48; color: white; font: inherit; font-weight: 600; cursor: pointer; }
+.spido-docs-toolbar button:hover { background: #216139; }
+.spido-docs-result-count { color: var(--muted); margin: 14px 0; font-size: .84rem; }
+.spido-docs-empty { text-align: center; padding: clamp(20px, 5vw, 44px); background: #f7f9fc; border: 1px dashed #8e99a7; border-radius: 16px; }
+.spido-docs-empty > div { color: var(--green); font-size: 2rem; }
+.spido-docs-empty h3 { margin: 8px 0; }
+.spido-docs-empty p { margin-inline: auto; max-width: 55ch; font-size: .875rem; }
+.spido-docs-item h3 { margin: 8px 0; }
+.spido-docs-item-actions { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 16px; }
+.spido-docs-page :is(.spido-docs-learning-detail, .spido-docs-item, .spido-docs-footer) a { color: var(--green); font-size: .875rem; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.spido-docs-guidance { margin: 28px 0 clamp(32px, 6vw, 64px); border-left: 3px solid #7cbb89; padding: 16px 18px; border-radius: 0 12px 12px 0; background: #ecf4ee; font-size: .85rem; }
+.spido-docs-guidance strong { color: var(--green); }
+.spido-docs-footer { padding: 24px 0; border-top: 1px solid var(--edge); color: var(--muted); font-size: .8rem; }
+@media (max-width: 900px) { .spido-docs-categories, .spido-docs-learning-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .spido-docs-categories, .spido-docs-learning-grid, .spido-docs-items { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-reduced-motion: no-preference) {
+  .spido-docs-hero > * { animation: spido-docs-enter 420ms ease-out; }
+  .spido-docs-page :is(button, .spido-docs-learning-card) { transition: background-color 170ms ease, border-color 170ms ease; }
+  @supports (animation-timeline: view()) {
+    .spido-docs-section-heading { animation: spido-docs-enter linear both; animation-timeline: view(); animation-range: entry 0% entry 45%; }
+  }
+}
+@keyframes spido-docs-enter { from { opacity: .86; transform: translateY(7px); } }
