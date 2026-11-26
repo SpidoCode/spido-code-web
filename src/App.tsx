@@ -1,9 +1,9 @@
-import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
 import DocsPage from './docs/DocsPage'
 import PlayerHub from './PlayerHub'
-import WebAuth, { VerifyEmail } from './WebAuth'
+import WebAuth, { RequestPasswordRecovery, ResetPasswordPage, VerifyEmail } from './WebAuth'
 import SimpleLanding from './SimpleLanding'
 import SpidoCodeZeroPage from './SpidoCodeZeroPage'
 import SpidoCodeGamePage from './SpidoCodeGamePage'
@@ -1360,187 +1360,6 @@ function Footer() {
   )
 }
 
-function PasswordField({
-  label,
-  value,
-  onChange,
-  autoComplete,
-}: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  autoComplete: string
-}) {
-  const [visible, setVisible] = useState(false)
-  return (
-    <label className="block">
-      <span className="reset-label">{label}</span>
-      <div className="relative">
-        <input
-          className="reset-input pr-20!"
-          type={visible ? 'text' : 'password'}
-          value={value}
-          minLength={6}
-          autoComplete={autoComplete}
-          onChange={(event) => onChange(event.target.value)}
-          required
-        />
-        <button type="button" className="password-toggle" onClick={() => setVisible((old) => !old)}>
-          {visible ? 'Ocultar' : 'Mostrar'}
-        </button>
-      </div>
-    </label>
-  )
-}
-
-function ResetPasswordPage() {
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [status, setStatus] = useState<'checking' | 'ready' | 'submitting' | 'success' | 'invalid'>('checking')
-  const [message, setMessage] = useState('Validando enlace de recuperación…')
-
-  useEffect(() => {
-    const client = supabase
-    if (!client) {
-      setStatus('invalid')
-      setMessage('La página todavía no tiene configuradas las variables públicas de Supabase.')
-      return
-    }
-
-    let active = true
-    const validateSession = async () => {
-      const { data, error } = await client.auth.getSession()
-      if (!active) return
-      if (error || !data.session) {
-        setStatus('invalid')
-        setMessage('El enlace no contiene una sesión de recuperación válida o ya expiró.')
-      } else {
-        setStatus('ready')
-        setMessage('Crea una contraseña nueva para tu cuenta de SPIDOCODE.')
-      }
-    }
-
-    const { data: listener } = client.auth.onAuthStateChange((event, session) => {
-      if (!active) return
-      if (event === 'PASSWORD_RECOVERY' && session) {
-        setStatus('ready')
-        setMessage('Crea una contraseña nueva para tu cuenta de SPIDOCODE.')
-      }
-    })
-    void validateSession()
-    return () => {
-      active = false
-      listener.subscription.unsubscribe()
-    }
-  }, [])
-
-  async function submit(event: FormEvent) {
-    event.preventDefault()
-    if (status !== 'ready') return
-
-    if (password.length < 6) {
-      setMessage('La contraseña debe tener al menos 6 caracteres.')
-      return
-    }
-    if (password !== confirmPassword) {
-      setMessage('Las contraseñas no coinciden.')
-      return
-    }
-
-    if (!supabase) {
-      setStatus('invalid')
-      setMessage('La página todavía no tiene configuradas las variables públicas de Supabase.')
-      return
-    }
-
-    setStatus('submitting')
-    setMessage('Actualizando contraseña…')
-
-    try {
-      const { error } = await supabase.auth.updateUser({ password })
-      if (error) throw error
-
-      window.history.replaceState({}, document.title, '/reset-password')
-      setStatus('success')
-      setMessage('Tu contraseña fue actualizada correctamente. Ya puedes volver a SPIDOCODE e iniciar sesión.')
-      setPassword('')
-      setConfirmPassword('')
-    } catch (error) {
-      setStatus('ready')
-      const raw = error instanceof Error ? error.message : 'No fue posible actualizar la contraseña.'
-      if (/expired|invalid.*token|jwt/i.test(raw)) {
-        setStatus('invalid')
-        setMessage('El enlace expiró o ya no es válido. Solicita un correo de recuperación nuevo desde SPIDOCODE.')
-      } else {
-        setMessage('No pudimos actualizar la contraseña. Inténtalo nuevamente en unos segundos.')
-      }
-    }
-  }
-
-  return (
-    <main
-      className="relative min-h-screen overflow-hidden flex items-center justify-center px-4 py-16"
-      style={{ background: brand.bg }}
-    >
-      <StarField count={150} />
-      <div className="absolute inset-0 nebula-bg" />
-      <div className="absolute inset-0 grid-bg opacity-50" />
-      <div className="absolute top-8 right-6 font-mono text-[10px] hidden sm:flex items-center gap-2 text-green-400">
-        <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" /> AUTH CHANNEL ONLINE
-      </div>
-
-      <section className="reset-card relative z-10 w-full max-w-md">
-        <div className="font-mono text-[10px] tracking-[.18em] uppercase text-green-400">
-          SECURE RECOVERY // SPIDOCODE
-        </div>
-        <h1 className="font-display font-bold text-3xl sm:text-4xl mt-3 text-white">Restablecer contraseña</h1>
-        <p className="mt-3 text-sm leading-6 text-slate-400">{message}</p>
-
-        {status === 'success' ? (
-          <div className="mt-7 rounded-lg border border-green-500/30 bg-green-500/10 p-5">
-            <div className="font-display font-semibold text-green-400">Contraseña actualizada ✓</div>
-            <p className="text-sm mt-2 leading-6 text-slate-300">Puedes cerrar esta pestaña y volver al juego.</p>
-          </div>
-        ) : status === 'invalid' ? (
-          <div className="mt-7 rounded-lg border border-red-500/30 bg-red-500/10 p-5">
-            <div className="font-display font-semibold text-red-300">Enlace no disponible</div>
-            <p className="text-sm mt-2 leading-6 text-slate-300">
-              Vuelve a SPIDOCODE y solicita "¿Olvidaste tu contraseña?" nuevamente.
-            </p>
-          </div>
-        ) : (
-          <form className="mt-7 space-y-5" onSubmit={submit}>
-            <PasswordField label="Nueva contraseña" value={password} onChange={setPassword} autoComplete="new-password" />
-            <PasswordField
-              label="Confirmar contraseña"
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              autoComplete="new-password"
-            />
-            <div className="text-[11px] font-mono text-slate-500">
-              MIN_LENGTH: 6 // CREDENTIALS ENCRYPTED IN TRANSIT
-            </div>
-            <button
-              className="btn-primary w-full justify-center"
-              type="submit"
-              disabled={status === 'checking' || status === 'submitting'}
-            >
-              <span>{status === 'submitting' ? 'Actualizando…' : 'Actualizar contraseña'}</span>
-            </button>
-          </form>
-        )}
-
-        <div className="mt-7 pt-5 border-t border-slate-800 flex justify-between gap-3 font-mono text-[10px] text-slate-500">
-          <span>SUPABASE AUTH</span>
-          <a href="/" className="hover:text-cyan-300 underline">
-            Volver a la Misión
-          </a>
-        </div>
-      </section>
-    </main>
-  )
-}
-
 function LandingPage() {
   return (
     <div className="spido-site">
@@ -1572,7 +1391,9 @@ function LandingPage() {
 
 export default function App() {
   const pathname = window.location.pathname.replace(/\/+$/, '') || '/'
-  if (pathname === '/reset-password') return <ResetPasswordPage />
+  if (pathname === '/recuperar-contrasena') return <RequestPasswordRecovery />
+  if (pathname === '/confirmar-recuperacion') return <ResetPasswordPage />
+  if (pathname === '/reset-password') return <ResetPasswordPage legacy />
   if (pathname === '/docs') return <DocsPage />
   if (pathname === '/perfil') return <PlayerHub />
   if (pathname === '/registro') return <WebAuth mode="register" />

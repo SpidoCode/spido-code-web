@@ -1,7 +1,31 @@
 {
+  "headers": [
+    {
+      "source": "/confirmar-recuperacion",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
+      "source": "/reset-password",
+      "headers": [
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    }
+  ],
   "rewrites": [
     {
+      "source": "/confirmar-recuperacion",
+      "destination": "/index.html"
+    },
+    {
       "source": "/verificar-correo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/recuperar-contrasena",
       "destination": "/index.html"
     },
     {
