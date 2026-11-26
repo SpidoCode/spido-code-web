@@ -1,4 +1,91 @@
-.spido-web-auth{min-height:100vh;background:radial-gradient(ellipse at 78% 8%,#1d3151,transparent 42%),#070e1c;color:#f3f7fa;font-family:Inter,sans-serif}.spido-auth-container{width:min(1050px,calc(100% - 40px));margin:auto}.spido-web-auth :is(a,button,input):focus-visible{outline:2px solid #b1f878;outline-offset:4px}.spido-auth-skip{position:absolute;top:-80px;left:12px;padding:12px;background:#b1f878;color:#07111f}.spido-auth-skip:focus{top:12px;z-index:20}.spido-auth-header{border-bottom:1px solid #314156;background:#081222}.spido-auth-header>.spido-auth-container{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}.spido-auth-logo{font:700 28px 'Spido Pixel',monospace;color:#f2ffe5;text-decoration:none;text-shadow:2px 2px #654599}.spido-auth-logo span{color:#b1f878}.spido-auth-header nav{display:flex;gap:20px}.spido-auth-header nav a{font-size:13px;color:#c4d5e0;text-decoration:none}.spido-auth-main{padding:80px 0 110px;display:grid;grid-template-columns:1fr minmax(310px,430px);align-items:start;gap:45px}.spido-auth-kicker{font:11px 'JetBrains Mono',monospace;letter-spacing:.12em;color:#b1f878}.spido-auth-intro h1{font:700 clamp(2.5rem,5vw,4rem)/1.15 'Space Grotesk',sans-serif;margin:18px 0}.spido-auth-intro h1 span{color:#b1f878}.spido-auth-intro>p:last-child,.spido-auth-help p{color:#b7c7d6;line-height:1.8}.spido-auth-card{padding:30px;border:1px solid #385465;border-radius:12px;background:#102035}.spido-auth-card h2{font:650 25px 'Space Grotesk',sans-serif;margin:0 0 22px}.spido-auth-card form{display:grid;gap:16px}.spido-auth-card label{display:grid;gap:8px;color:#ccd8e3;font-size:13px}.spido-auth-card input{width:100%;min-height:44px;padding:12px;border:1px solid #4a6578;border-radius:6px;background:#061324;color:white}.spido-auth-primary{display:inline-flex;justify-content:center;align-items:center;min-height:46px;padding:11px 20px;border:0;border-radius:5px;background:#b1f878;color:#07151c;font-weight:700;text-decoration:none;cursor:pointer}.spido-auth-primary:disabled{opacity:.65;cursor:wait}.spido-auth-switch{font-size:13px;color:#c2d0da}.spido-auth-switch a{color:#b1f878}.spido-auth-hint{font-size:11px;color:#aebecf;line-height:1.7}.spido-auth-error{color:#ffb3a7;font-size:13px}.spido-auth-help{grid-column:1/-1;padding:22px 25px;border-left:3px solid #6ce6da;background:#0b1d30}.spido-auth-help strong{color:#b1f878}.spido-auth-help p{margin-bottom:0}@media(max-width:750px){.spido-auth-main{grid-template-columns:1fr;gap:20px;padding:52px 0 70px}.spido-auth-help{grid-column:1}.spido-auth-header>.spido-auth-container{flex-wrap:wrap;padding:14px 0}.spido-auth-logo{font-size:24px}}
+.spido-web-auth {
+  min-height: 100vh;
+  color: #1e222d;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg, #eef1f6 0%, #e2e6ee 65%, #d8dde7 100%);
+}
+.spido-web-auth .spido-auth-container { width: min(1140px, calc(100% - 32px)); margin-inline: auto; }
+.spido-web-auth .spido-auth-header { background: #eef1f6; border-bottom: 1px solid #9ea0b359; }
+.spido-auth-header > .spido-auth-container {
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding-block: 10px;
+}
+.spido-auth-logo { font: 700 clamp(24px, 4vw, 32px) 'Spido Pixel', monospace; color: #2b3040; text-decoration: none; }
+.spido-auth-logo span { color: #7cbb89; }
+.spido-auth-header nav { display: flex; flex-wrap: wrap; gap: 14px; }
+.spido-auth-header nav a { color: #4c515f; font-size: 13px; font-weight: 600; text-decoration: none; }
+.spido-auth-header nav a:hover { text-decoration: underline; }
+.spido-web-auth .spido-auth-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 440px);
+  align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  padding-block: clamp(28px, 6vw, 72px);
+}
+.spido-auth-intro h1 { margin: 0 0 14px; font: 700 clamp(2.2rem, 5vw, 4rem)/1.13 'Spido Pixel', monospace; }
+.spido-auth-intro h1 span { color: #4b8b58; }
+.spido-auth-intro p { color: #4c515f; line-height: 1.65; }
+.spido-auth-spid { display: block; width: min(62%, 290px); height: auto; margin-top: 14px; filter: drop-shadow(0 12px 18px #4c515f24); }
+.spido-auth-card {
+  min-width: 0;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid #cbd2dc;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 12px 30px #2b304014;
+}
+.spido-auth-card h2 { margin: 0 0 18px; font: 700 1.6rem/1.2 'Spido Pixel', monospace; }
+.spido-auth-card form { display: grid; gap: 14px; }
+.spido-auth-card label { display: grid; gap: 6px; color: #4c515f; font-size: 13px; font-weight: 600; }
+.spido-auth-card input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #808999;
+  border-radius: 10px;
+  background: #fff;
+  color: #1e222d;
+  font: 400 16px/1.4 'Poppins', sans-serif;
+}
+.spido-auth-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: #2b7a48;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.spido-auth-primary:hover:not(:disabled) { background: #216139; }
+.spido-auth-primary:disabled { background: #d6eedc; color: #285837; cursor: wait; }
+.spido-auth-card [role="status"] > p { margin-bottom: 14px; }
+.spido-auth-switch { margin: 18px 0 8px; font-size: 13px; color: #4c515f; }
+.spido-auth-switch a { color: #285837; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.spido-auth-hint { color: #4c515f; font-size: 12px; line-height: 1.6; }
+.spido-auth-error { margin-top: 14px; padding: 10px 12px; border-radius: 8px; color: #892633; background: #fdf0f1; font-size: 13px; }
+.spido-web-auth :is(a, button, input):focus-visible { outline: 3px solid #285837; outline-offset: 3px; }
+.spido-auth-skip { position: absolute; top: -100px; left: 12px; padding: 12px; background: #d6eedc; color: #1e222d; }
+.spido-auth-skip:focus { top: 12px; z-index: 20; }
+@media (prefers-reduced-motion: no-preference) {
+  .spido-auth-primary:active:not(:disabled) { transform: translateY(1px); }
+  .spido-web-auth .spido-auth-primary { transition: background-color 160ms ease, transform 160ms ease; }
+}
+@media (max-width: 700px) {
+  .spido-web-auth .spido-auth-main { grid-template-columns: minmax(0, 1fr); max-width: 480px; gap: 20px; }
+  .spido-auth-intro h1 { margin-bottom: 8px; }
+  .spido-auth-spid { display: none; }
+}
 .spido-auth-verification {
   display: grid;
   gap: 8px;

@@ -172,7 +172,11 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
     <a className="spido-auth-skip" href="#auth-main">Saltar al contenido</a>
     <header className="spido-auth-header"><div className="spido-auth-container"><a className="spido-auth-logo" href="/">SPIDO<span>CODE</span></a><nav aria-label="Navegación"><a href="/">Inicio</a><a href="/perfil">Mi progreso</a></nav></div></header>
     <main id="auth-main" className="spido-auth-container spido-auth-main">
-      <div className="spido-auth-intro"><p className="spido-auth-kicker">CUENTA DE EXPLORADOR // SPIDOCODE</p><h1>{registering?'Únete a la':'Bienvenido de'} <span>{registering?'misión.':'vuelta.'}</span></h1><p>La misma cuenta funciona en el videojuego y en tu perfil web. No necesitas registrarte dos veces.</p></div>
+      <div className="spido-auth-intro">
+        <h1>{registering ? 'Únete a la' : 'Bienvenido de'} <span>{registering ? 'misión.' : 'vuelta.'}</span></h1>
+        <p>Usa la misma cuenta en la web y en el videojuego.</p>
+        <img className="spido-auth-spid" src="/images/spidocode/spid-smile.png" alt="" width="1024" height="788" />
+      </div>
       <section className="spido-auth-card" aria-label={registering?'Crear cuenta':'Iniciar sesión'}>
         <h2>{registering?'Crear una cuenta':'Iniciar sesión'}</h2>
         {!supabase?<p role="alert">La autenticación web todavía no está configurada. No es posible crear cuentas en este entorno.</p>:complete?<div role="status"><p>{status}</p><a className="spido-auth-primary" href={registering ? '/login' : '/perfil'}>{registering ? 'Ir a iniciar sesión' : 'Ir a mi perfil ↗'}</a></div>:<>
@@ -187,7 +191,6 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
         <p className="spido-auth-switch">{registering?<>¿Ya tienes cuenta? <a href="/login">Inicia sesión</a></>:<>¿Aún no tienes cuenta? <a href="/registro">Regístrate</a></>}</p>
         <p className="spido-auth-hint">Tu cuenta se gestiona mediante Supabase Auth. Nunca compartimos la contraseña con el videojuego por URL.</p>
       </section>
-      <aside className="spido-auth-help"><strong>¿Vienes del videojuego?</strong><p>Tras registrarte y confirmar tu correo si se solicita, vuelve a SpidoCode y utiliza las mismas credenciales en «Iniciar sesión».</p></aside>
     </main>
   </div>
 }
