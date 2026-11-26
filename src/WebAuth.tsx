@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { supabase } from './lib/supabase'
+import { useEffect, useLayoutEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { closeRecoveryClient, exchangeRecoveryLink, recoveryLinkClient, supabase, verifyRecoveryHash, type RecoveryClient } from './lib/supabase'
 import './WebAuth.css'
 
 const VERIFICATION_WAIT_MS = 60_000
@@ -224,6 +224,7 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
             <label>Correo electrónico<input type="email" autoComplete="email" value={email} disabled={busy} onChange={e=>{setEmail(e.target.value);setStatus('')}} required maxLength={254}/></label>
             <PasswordField id="auth-password" label="Contraseña" value={password} onChange={setPassword} registering={registering} />
             {registering && <PasswordField id="auth-password-confirm" label="Repetir contraseña" value={confirm} onChange={setConfirm} registering />}
+            {!registering && <a className="spido-auth-recovery-link" href={RECOVERY_PATH}>¿Olvidaste tu contraseña?</a>}
             <button className="spido-auth-primary" disabled={busy} type="submit">{busy?'Procesando…':registering?'Crear cuenta':'Entrar'}</button>
           </form>
           {status&&<p role="alert" className="spido-auth-error">{status}</p>}
@@ -233,4 +234,237 @@ export default function WebAuth({ mode }: { mode: 'register' | 'login' }) {
       </section>
     </main>
   </div>
+}
+
+const RECOVERY_PATH = '/recuperar-contrasena'
+const RECOVERY_REDIRECT = 'https://www.spidocode.com/reset-password'
+const RECOVERY_WAIT_MS = 60_000
+
+function RecoveryCard({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <main className="spido-web-auth spido-auth-recovery">
+      <section className="spido-auth-card" aria-labelledby="recovery-title">
+        <a className="spido-auth-logo" href="/">SPIDO<span>CODE</span></a>
+        <h1 id="recovery-title">{title}</h1>
+        {children}
+        <a className="spido-auth-recovery-link" href="/login">Volver a iniciar sesión</a>
+      </section>
+    </main>
+  )
+}
+
+export function RequestPasswordRecovery() {
+  const [email, setEmail] = useState('')
+  const [requestedEmail, setRequestedEmail] = useState('')
+  const [remaining, setRemaining] = useState(0)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+  const requesting = useRef(false)
+  const deadline = useRef(0)
+
+  useEffect(() => {
+    const tick = () => setRemaining(Math.max(0, Math.ceil((deadline.current - Date.now()) / 1000)))
+    const timer = window.setInterval(tick, 500)
+    return () => window.clearInterval(timer)
+  }, [])
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!recoveryLinkClient || requesting.current || Date.now() < deadline.current) return
+    requesting.current = true
+    setBusy(true)
+    setError('')
+    const address = requestedEmail || email.trim()
+    try {
+      const { error: requestError } = await recoveryLinkClient.auth.resetPasswordForEmail(
+        address, { redirectTo: RECOVERY_REDIRECT },
+      )
+      if (requestError && isRateLimited(requestError)) {
+        setError('Hay demasiadas solicitudes. Espera antes de volver a intentarlo.')
+      } else {
+        // SMTP and account-specific outcomes get the same response as an accepted request.
+        setRequestedEmail(address)
+      }
+    } catch {
+      setRequestedEmail(address)
+    } finally {
+      deadline.current = Date.now() + RECOVERY_WAIT_MS
+      setRemaining(60)
+      requesting.current = false
+      setBusy(false)
+    }
+  }
+
+  return (
+    <RecoveryCard title={requestedEmail ? 'Revisa tu correo' : 'Recupera tu contraseña'}>
+      {requestedEmail ? <>
+        <p role="status">Si podemos tramitar tu solicitud, recibirás un enlace. Revisa también la carpeta Spam.</p>
+        <p>Abre el enlace del correo y pulsa Continuar para verificarlo.</p>
+        {/@gmail\.com$/i.test(requestedEmail) && (
+          <a className="spido-auth-recovery-link" href="https://mail.google.com/" target="_blank" rel="noopener noreferrer">Abrir Gmail (nueva pestaña)</a>
+        )}
+      </> : <p>Introduce el correo asociado a tu cuenta de SPIDOCODE.</p>}
+      {!recoveryLinkClient && <p role="alert" className="spido-auth-error">La recuperación no está disponible en este entorno.</p>}
+      <form onSubmit={submit} aria-busy={busy}>
+        {!requestedEmail && (
+          <label>Correo electrónico
+            <input type="email" autoComplete="email" required maxLength={254} value={email}
+              disabled={busy} onChange={event => setEmail(event.target.value)} />
+          </label>
+        )}
+        <button type="submit" className="spido-auth-primary" disabled={!recoveryLinkClient || busy || remaining > 0}>
+          {busy ? 'Procesando…' : requestedEmail ? 'Reenviar enlace de recuperación' : 'Enviar enlace de recuperación'}
+        </button>
+      </form>
+      {remaining > 0 && <p>Podrás volver a intentarlo en {remaining} s.</p>}
+      {error && <p role="alert" className="spido-auth-error">{error}</p>}
+    </RecoveryCard>
+  )
+}
+
+export function ResetPasswordPage({ legacy = false }: { legacy?: boolean }) {
+  const [status, setStatus] = useState<'checking' | 'confirm' | 'verifying' | 'ready' | 'submitting' | 'success' | 'invalid'>('checking')
+  const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [error, setError] = useState('')
+  const clientRef = useRef<RecoveryClient | null>(null)
+  const pendingHash = useRef('')
+  const initialized = useRef(false)
+  const active = useRef(false)
+  const busy = useRef(false)
+
+  useLayoutEffect(() => {
+    active.current = true
+    if (!initialized.current) {
+      initialized.current = true
+      const url = new URL(window.location.href)
+      if (legacy && url.searchParams.has('code')) {
+        setStatus('confirm')
+      } else {
+        if (!legacy) pendingHash.current = new URLSearchParams(url.hash.slice(1)).get('token_hash') ?? ''
+        window.history.replaceState(window.history.state, '', url.pathname)
+        setStatus(pendingHash.current ? 'confirm' : 'invalid')
+      }
+    }
+
+    function stop() {
+      active.current = false
+      const client = clientRef.current
+      clientRef.current = null
+      if (client) void closeRecoveryClient(client)
+    }
+
+    function leavePage() {
+      pendingHash.current = ''
+      setPassword('')
+      setConfirm('')
+      setStatus(previous => previous === 'success' ? previous : 'invalid')
+      stop()
+    }
+
+    window.addEventListener('pagehide', leavePage)
+    return () => {
+      window.removeEventListener('pagehide', leavePage)
+      stop()
+      // Strict Mode repeats effect setup before this microtask runs.
+      queueMicrotask(() => { if (!active.current) pendingHash.current = '' })
+    }
+  }, [legacy])
+
+  async function verify() {
+    if (!active.current || busy.current || status !== 'confirm') return
+    busy.current = true
+    setStatus('verifying')
+    const hash = pendingHash.current
+    pendingHash.current = ''
+
+    try {
+      const client = legacy ? await exchangeRecoveryLink() : await verifyRecoveryHash(hash)
+      if (!active.current) {
+        if (client) await closeRecoveryClient(client)
+        return
+      }
+      clientRef.current = client
+      setStatus(client ? 'ready' : 'invalid')
+    } catch {
+      if (active.current) setStatus('invalid')
+    } finally {
+      busy.current = false
+    }
+  }
+
+  function clearPasswords() {
+    setPassword('')
+    setConfirm('')
+  }
+
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const client = clientRef.current
+    if (!active.current || status !== 'ready' || !client || busy.current) return
+    setError('')
+    if (password !== confirm) {
+      setError('Las contraseñas no coinciden.')
+      return
+    }
+    busy.current = true
+    setStatus('submitting')
+    try {
+      const { error: updateError } = await client.auth.updateUser({ password })
+      if (!active.current) return
+      if (updateError) {
+        if (updateError.status === 401 || ['session_not_found', 'session_expired', 'bad_jwt'].includes(updateError.code ?? '')) {
+          clientRef.current = null
+          clearPasswords()
+          void closeRecoveryClient(client)
+          setStatus('invalid')
+          return
+        }
+        setError(updateError.code === 'weak_password' ? 'La contraseña no cumple los requisitos de seguridad. Elige una más segura.' :
+          updateError.code === 'same_password' ? 'Elige una contraseña distinta de la anterior.' :
+          'No pudimos actualizar la contraseña. Inténtalo nuevamente.')
+        setStatus('ready')
+        return
+      }
+
+      clientRef.current = null
+      clearPasswords()
+      const closed = await closeRecoveryClient(client)
+      if (!active.current) return
+      if (!closed) setError('No se pudo revocar la sesión temporal. El cambio de contraseña ya se realizó.')
+      setStatus('success')
+    } catch {
+      if (!active.current) return
+      setError('No pudimos actualizar la contraseña. Inténtalo nuevamente.')
+      setStatus('ready')
+    } finally {
+      busy.current = false
+    }
+  }
+
+  return (
+    <RecoveryCard title="Restablecer contraseña">
+      {(status === 'checking' || status === 'verifying') && <p role="status">Validando enlace de recuperación…</p>}
+      {status === 'confirm' && <>
+        <p>Verifica el enlace del correo para elegir una nueva contraseña.</p>
+        <button type="button" className="spido-auth-primary" onClick={() => void verify()}>Continuar</button>
+      </>}
+      {status === 'invalid' && <>
+        <p role="alert">No pudimos verificar el enlace. Puede haber vencido o haberse usado. Solicita un enlace nuevo.</p>
+        <a className="spido-auth-recovery-link" href={RECOVERY_PATH}>Solicitar un enlace nuevo</a>
+      </>}
+      {status === 'success' && <p role="status">Tu contraseña se actualizó. Ya puedes iniciar sesión con la nueva contraseña.</p>}
+      {(status === 'ready' || status === 'submitting') && <>
+        <p>Crea una contraseña nueva para tu cuenta de SPIDOCODE.</p>
+        <form onSubmit={submit} aria-busy={status === 'submitting'}>
+          <PasswordField id="recovery-password" label="Nueva contraseña" value={password} onChange={setPassword} registering />
+          <PasswordField id="recovery-confirm" label="Repetir contraseña" value={confirm} onChange={setConfirm} registering />
+          <button className="spido-auth-primary" type="submit" disabled={status === 'submitting'}>
+            {status === 'submitting' ? 'Actualizando…' : 'Actualizar contraseña'}
+          </button>
+        </form>
+      </>}
+      {error && <p role="alert" className="spido-auth-error">{error}</p>}
+    </RecoveryCard>
+  )
 }

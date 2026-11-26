@@ -196,3 +196,29 @@
   text-underline-offset: 3px;
 }
 .spido-verify-page :is(a, button):focus-visible { outline: 2px solid #285837; outline-offset: 4px; }
+
+.spido-auth-recovery {
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 5vw, 56px) 16px;
+}
+.spido-auth-recovery .spido-auth-card {
+  width: min(100%, 460px);
+  display: grid;
+  gap: 14px;
+  overflow-wrap: anywhere;
+}
+.spido-auth-recovery h1 {
+  margin: 0;
+  font: 700 clamp(1.65rem, 5vw, 2.35rem)/1.12 'Spido Pixel', monospace;
+}
+.spido-auth-recovery p { margin: 0; color: #4c515f; font-size: 14px; line-height: 1.6; }
+.spido-auth-recovery p.spido-auth-error { color: #892633; }
+.spido-auth-recovery-link {
+  justify-self: start;
+  color: #285837;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
