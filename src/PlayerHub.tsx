@@ -16,6 +16,26 @@ type Progress = {
 const safeList = (value: unknown): string[] => Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : []
 const readable = (id: string) => id.replace(/_/g, ' ')
 
+const iconPaths = {
+  account: 'M4 21v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2 M16 7a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z',
+  mission: 'M12 2v4m0 12v4M2 12h4m12 0h4M20 12a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z',
+  completed: 'm5 12 4 4L19 6M4 21h16',
+  ship: 'm12 3 7 4v8l-7 6-7-6V7Z m-7 4 7 5 7-5m-7 5v9',
+  spid: 'm12 3 8 9-8 9-8-9Z M4 12h16m-8-9v18',
+  map: 'm3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3Z M9 3v15m6-12v15',
+  guides: 'M4 4h6a2 2 0 0 1 2 2v15a3 3 0 0 0-3-3H4Zm16 0h-6a2 2 0 0 0-2 2v15a3 3 0 0 1 3-3h5Z',
+  unlocked: 'M8 11V7a4 4 0 0 1 8 0 M6 11h12v10H6Zm6 4v2',
+  locked: 'M8 11V7a4 4 0 0 1 8 0v4 M6 11h12v10H6Zm6 4v2',
+}
+
+function HubIcon({ name }: { name: keyof typeof iconPaths }) {
+  return <span className="spido-hub-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+      <path d={iconPaths[name]} />
+    </svg>
+  </span>
+}
+
 export default function PlayerHub() {
   const [user, setUser] = useState<User | null>(null)
   const [checking, setChecking] = useState(true)
@@ -91,11 +111,16 @@ export default function PlayerHub() {
       <nav aria-label="Navegación"><a href="/">Inicio</a><a href="/docs">Archivo A.D.A.</a></nav>
     </div></header>
     <main id="hub-content" className="spido-hub-container spido-hub-main">
-      <p className="spido-hub-kicker">CENTRO DE CONTROL // PERFIL DEL JUGADOR</p>
-      <h1>Tu aventura, <span>tu progreso.</span></h1>
-      <p className="spido-hub-lead">Consulta los datos guardados de tu partida de SpidoCode. Este panel no modifica misiones, minerales ni inventario.</p>
+      <section className="spido-hub-hero" aria-labelledby="hub-title">
+        <div>
+          <p className="spido-hub-kicker">PERFIL DEL JUGADOR</p>
+          <h1 id="hub-title">Tu aventura, <span>tu progreso.</span></h1>
+          <p className="spido-hub-lead">Consulta los datos guardados de tu partida de SpidoCode. Este panel no modifica misiones, minerales ni inventario.</p>
+        </div>
+        <img src="/images/spidocode/spid-smile.png" alt="" width="1024" height="788" />
+      </section>
       {!supabase ? <section className="spido-hub-panel" role="status"><h2>Configuración pendiente</h2><p>El portal aún no tiene configuradas sus variables públicas de Supabase. No se puede acceder al perfil.</p></section>
-      : checking ? <p role="status">Comprobando sesión…</p>
+      : checking ? <p className="spido-hub-panel" role="status">Comprobando sesión…</p>
       : !user ? <section className="spido-hub-panel spido-hub-auth">
           <h2>Inicia sesión</h2><p>Usa la misma cuenta que utilizas en el videojuego.</p>
           <form onSubmit={signIn}>
@@ -106,18 +131,18 @@ export default function PlayerHub() {
           <p className="spido-hub-note">Las credenciales se procesan mediante Supabase Auth. Nunca aparecen en la URL ni se registran en esta página.</p>
         </section>
       : <section aria-label="Progreso del jugador">
-          <div className="spido-hub-account"><div><small>CUENTA CONECTADA</small><strong>{user.email ?? 'Cuenta de jugador'}</strong></div><button type="button" disabled={authBusy} onClick={signOut}>Cerrar sesión</button></div>
-          {loadingProgress ? <p role="status">Cargando progreso…</p>
+          <div className="spido-hub-account"><HubIcon name="account" /><div><small>CUENTA CONECTADA</small><strong>{user.email ?? 'Cuenta de jugador'}</strong></div><button type="button" disabled={authBusy} onClick={signOut}>Cerrar sesión</button></div>
+          {loadingProgress ? <p className="spido-hub-panel" role="status">Cargando progreso…</p>
           : progressError ? <div className="spido-hub-panel" role="alert"><h2>Progreso no disponible</h2><p>{progressError}</p></div>
           : !progress ? <div className="spido-hub-panel" role="status"><h2>Sin partida sincronizada</h2><p>Esta cuenta todavía no tiene una partida remota registrada. Abre SpidoCode con esa cuenta para generar progreso.</p></div>
           : <>
               <div className="spido-hub-stats">
-                <article><small>MISIÓN ACTUAL</small><strong>{progress.current_mission_id ? readable(progress.current_mission_id) : 'Sin datos'}</strong></article>
-                <article><small>MISIONES COMPLETADAS</small><strong>{safeList(progress.completed_missions).length}</strong></article>
-                <article><small>MINERALES EN NAVE</small><strong>{progress.minerals_ship ?? 'Sin datos'}</strong></article>
-                <article><small>MINERALES DE SPID</small><strong>{progress.minerals_spid ?? 'Sin datos'}</strong></article>
-                <article><small>NIVEL DEL MAPA</small><strong>{progress.map_tier ?? 'Sin datos'}</strong></article>
-                <article><small>CONOCIMIENTOS</small><strong>{safeList(progress.unlocked_knowledge).length}</strong></article>
+                <article><HubIcon name="mission" /><small>MISIÓN ACTUAL</small><strong>{progress.current_mission_id ? readable(progress.current_mission_id) : 'Sin datos'}</strong></article>
+                <article><HubIcon name="completed" /><small>MISIONES COMPLETADAS</small><strong>{safeList(progress.completed_missions).length}</strong></article>
+                <article><HubIcon name="ship" /><small>MINERALES EN NAVE</small><strong>{progress.minerals_ship ?? 'Sin datos'}</strong></article>
+                <article><HubIcon name="spid" /><small>MINERALES DE SPID</small><strong>{progress.minerals_spid ?? 'Sin datos'}</strong></article>
+                <article><HubIcon name="map" /><small>NIVEL DEL MAPA</small><strong>{progress.map_tier ?? 'Sin datos'}</strong></article>
+                <article><HubIcon name="guides" /><small>CONOCIMIENTOS</small><strong>{safeList(progress.unlocked_knowledge).length}</strong></article>
               </div>
               <section className="spido-hub-panel" aria-labelledby="hub-codex-heading">
                 <div className="spido-hub-codex-heading">
@@ -129,7 +154,7 @@ export default function PlayerHub() {
                   {learningGuides.map((guide) => {
                     const unlocked = safeList(progress.unlocked_knowledge).includes(guide.id)
                     return <article key={guide.id} className={`spido-hub-codex-card ${unlocked ? 'is-unlocked' : 'is-locked'}`}>
-                      <span>{guide.group} · {unlocked ? 'Desbloqueado' : 'Pendiente en el juego'}</span>
+                      <span><HubIcon name={unlocked ? 'unlocked' : 'locked'} />{guide.group} · {unlocked ? 'Desbloqueado' : 'Pendiente en el juego'}</span>
                       <h3>{guide.title}</h3>
                       <p>{unlocked ? guide.summary : 'Continúa avanzando en SpidoCode para desbloquear este conocimiento.'}</p>
                       {unlocked && <a href={`/docs?tema=${encodeURIComponent(guide.id)}#guias`}>Estudiar con A.D.A. ↗</a>}

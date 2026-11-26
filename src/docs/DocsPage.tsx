@@ -31,14 +31,14 @@ export default function DocsPage() {
       </header>
       <main id="archivo-contenido" className="spido-docs-container">
         <section className="spido-docs-hero">
-          <div className="spido-docs-kicker">ARCHIVO A.D.A. // BASE DE CONOCIMIENTO</div>
+          <div className="spido-docs-kicker">ARCHIVO A.D.A.</div>
           <h1>Documentación <span>SpidoCode</span></h1>
           <p>Explora el diseño, desarrollo y aprendizaje detrás del videojuego. Los documentos estarán disponibles después de su revisión para publicación.</p>
           <div className="spido-docs-signal"><span aria-hidden="true">●</span> PORTAL EN PREPARACIÓN <span className="spido-docs-count">{publicDocuments.length} documentos publicados</span></div>
         </section>
         <section id="guias" className="spido-docs-library" aria-labelledby="learning-guides-title">
           <div className="spido-docs-section-heading">
-            <p>00 / APRENDE CON SPID</p>
+            <p>APRENDE CON SPID</p>
             <h2 id="learning-guides-title">Guías conectadas al videojuego</h2>
             <span>Conceptos del códice de SpidoCode. Puedes abrir cada guía directamente desde su enlace.</span>
           </div>
@@ -58,7 +58,7 @@ export default function DocsPage() {
         </section>
         <section className="spido-docs-library" aria-labelledby="docs-categories-title">
           <div className="spido-docs-section-heading">
-            <p>01 / EXPLORAR ARCHIVO</p>
+            <p>ARCHIVO DEL PROYECTO</p>
             <h2 id="docs-categories-title">Áreas de documentación</h2>
             <span>Selecciona una categoría para filtrar los archivos disponibles.</span>
           </div>
@@ -76,7 +76,7 @@ export default function DocsPage() {
         </section>
         <section className="spido-docs-results" aria-labelledby="docs-results-title">
           <div className="spido-docs-section-heading">
-            <p>02 / DOCUMENTOS PÚBLICOS</p>
+            <p>DOCUMENTOS PÚBLICOS</p>
             <h2 id="docs-results-title">{selectedTitle ?? 'Todos los documentos'}</h2>
             <span>Solo se muestran versiones aprobadas y archivos realmente disponibles.</span>
           </div>
