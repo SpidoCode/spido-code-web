@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react'
 import type { User } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
-import { learningGuides } from './docs/learningGuides'
+import { learningGuides } from './learningGuides'
 import './PlayerHub.css'
 
 type Progress = {
@@ -108,7 +108,7 @@ export default function PlayerHub() {
     <a className="spido-hub-skip" href="#hub-content">Saltar al contenido</a>
     <header className="spido-hub-header"><div className="spido-hub-container spido-hub-nav">
       <a href="/" className="spido-hub-logo">SPIDO<span>CODE</span></a>
-      <nav aria-label="Navegación"><a href="/">Inicio</a><a href="/docs">Archivo A.D.A.</a></nav>
+      <nav aria-label="Navegación"><a href="/">Inicio</a></nav>
     </div></header>
     <main id="hub-content" className="spido-hub-container spido-hub-main">
       <section className="spido-hub-hero" aria-labelledby="hub-title">
@@ -146,10 +146,10 @@ export default function PlayerHub() {
               </div>
               <section className="spido-hub-panel" aria-labelledby="hub-codex-heading">
                 <div className="spido-hub-codex-heading">
-                  <div><p className="spido-hub-kicker">ARCHIVO A.D.A. // SINCRONIZADO</p><h2 id="hub-codex-heading">Tu Códice de programación</h2></div>
+                  <div><p className="spido-hub-kicker">CONOCIMIENTOS // SINCRONIZADO</p><h2 id="hub-codex-heading">Tu Códice de programación</h2></div>
                   <span className="spido-hub-codex-total">{learningGuides.filter((guide) => safeList(progress.unlocked_knowledge).includes(guide.id)).length} / {learningGuides.length} guías disponibles</span>
                 </div>
-                <p>Los conocimientos desbloqueados se leen de tu partida. Puedes estudiar sus guías sin modificar el progreso del juego.</p>
+                <p>Los conocimientos desbloqueados se leen de tu partida sin modificar el progreso del juego.</p>
                 <div className="spido-hub-codex-grid">
                   {learningGuides.map((guide) => {
                     const unlocked = safeList(progress.unlocked_knowledge).includes(guide.id)
@@ -157,7 +157,6 @@ export default function PlayerHub() {
                       <span><HubIcon name={unlocked ? 'unlocked' : 'locked'} />{guide.group} · {unlocked ? 'Desbloqueado' : 'Pendiente en el juego'}</span>
                       <h3>{guide.title}</h3>
                       <p>{unlocked ? guide.summary : 'Continúa avanzando en SpidoCode para desbloquear este conocimiento.'}</p>
-                      {unlocked && <a href={`/docs?tema=${encodeURIComponent(guide.id)}#guias`}>Estudiar con A.D.A. ↗</a>}
                     </article>
                   })}
                 </div>

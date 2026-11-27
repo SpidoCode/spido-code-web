@@ -163,7 +163,6 @@ export function Nav() {
         <nav className="simple-nav-links" aria-label="Navegación principal">
           <a href="/#inicio">Inicio</a>
           <a href="/#juegos">Juegos</a>
-          <a href="/docs">A.D.A</a>
         </nav>
 
         <div className="simple-nav-cta-group">
@@ -463,9 +462,6 @@ export default function SimpleLanding() {
                     Ejecuta tu código paso a paso para pausar en cada línea, inspeccionar variables y
                     aprender cómo piensa la computadora en cada decisión algorítmica.
                   </p>
-                  <a href="/docs" className="sec-mechanics-docs-link">
-                    Consultar Archivo A.D.A.
-                  </a>
                 </div>
               </div>
             </div>
@@ -522,24 +518,6 @@ export function Footer() {
                 >
                   Repositorio en GitHub
                 </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="sec-footer-col">
-            <h5>A.D.A</h5>
-            <ul>
-              <li>
-                <a href="/docs">Archivo A.D.A.</a>
-              </li>
-              <li>
-                <a href="/docs?topic=bucles">Guía de Bucles</a>
-              </li>
-              <li>
-                <a href="/docs?topic=condicionales">Guía de Condicionales</a>
-              </li>
-              <li>
-                <a href="/docs?topic=arquitectura">Arquitectura del Juego</a>
               </li>
             </ul>
           </div>

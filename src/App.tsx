@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
-import DocsPage from './docs/DocsPage'
 import PlayerHub from './PlayerHub'
 import WebAuth, { RequestPasswordRecovery, ResetPasswordPage, VerifyEmail } from './WebAuth'
 import SimpleLanding from './SimpleLanding'
@@ -135,7 +134,6 @@ function Nav() {
     ['El juego', '#juego'],
     ['Cómo se juega', '#como-jugar'],
     ['Misiones', '#misiones'],
-    ['Documentación', '/docs'],
     ['Equipo', '#equipo'],
   ]
   return (
@@ -153,7 +151,7 @@ function Nav() {
             }
           }}>
           <nav aria-label="Navegación principal" className="spido-nav-links">
-            {links.filter(([, href]) => !session || href !== '/docs').map(([label, href]) => <a key={href} href={href} onClick={closeNavigation}>{label}</a>)}
+            {links.map(([label, href]) => <a key={href} href={href} onClick={closeNavigation}>{label}</a>)}
             <span className="spido-nav-status"><span aria-hidden="true">●</span> En desarrollo</span>
           </nav>
           <div className="spido-nav-account" onBlur={(event) => {
@@ -163,7 +161,6 @@ function Nav() {
               <button ref={accountButton} type="button" aria-expanded={accountOpen} aria-controls="landing-account-links" onClick={() => setAccountOpen(!accountOpen)}>Mi perfil <span aria-hidden="true">▼</span></button>
               <div id="landing-account-links" className="spido-account-links" hidden={!accountOpen}>
                 <a href="/perfil" onClick={closeNavigation}>Mi progreso</a>
-                <a href="/docs" onClick={closeNavigation}>Códice A.D.A.</a>
                 <button type="button" disabled={busy} onClick={() => void signOut()}>{busy ? 'Cerrando sesión…' : 'Cerrar sesión'}</button>
               </div>
             </> : <><a className="spido-account-login" href="/login" onClick={closeNavigation}>Iniciar sesión</a><a className="spido-account-cta" href="/registro" onClick={closeNavigation}>Comenzar ahora</a></>}
@@ -260,7 +257,6 @@ function Hero() {
         <div className="spido-actions">
           <a href={BETA_DOWNLOAD_URL} className="spido-button" aria-label="Descargar Beta de SPIDOCODE para Windows x64, archivo ZIP">Descargar Beta <span aria-hidden="true">↓</span></a>
           <a href="#descargas" className="spido-button spido-button-secondary">Ver los juegos <span aria-hidden="true">↓</span></a>
-          <a href="/docs" className="spido-button spido-button-docs" aria-label="Abrir Archivo A.D.A., centro de documentación de SpidoCode">📚 Ver documentación <span aria-hidden="true">↗</span></a>
         </div>
             <p className="spido-game-availability" role="note">Beta v1.0.0-beta disponible para Windows x64 · Aproximadamente 100 MB. Descarga, extrae el ZIP y ejecuta SpidoCode.exe.</p>
             <div className="spido-hero-companion"><span>SPID / TU COMPAÑERO</span><p>Un pequeño robot con aspecto de computador y patas. Una gran aventura por descubrir.</p></div>
@@ -325,17 +321,6 @@ function GameExperience() {
         </div>
       </section>
     </>
-  )
-}
-
-function DocumentationNotice() {
-  return (
-    <section id="documentacion" className="spido-container spido-section">
-      <div className="spido-docs">
-        <div><p className="spido-eyebrow">04 / ARCHIVO A.D.A.</p><h2>Detrás del juego,<br />un proyecto por descubrir.</h2><p>Explora el centro de documentación de SpidoCode: proyecto, arquitectura, Scrum, diagramas, pruebas y diseño del juego.</p></div>
-        <div className="spido-docs-status"><span className="spido-status-label">CENTRO DE DOCUMENTACIÓN</span><strong>Archivo A.D.A. disponible</strong><p>El portal está abierto. Los documentos PDF se incorporarán después de revisar su contenido y privacidad.</p><a href="/docs">Explorar Archivo A.D.A. <span aria-hidden="true">↗</span></a></div>
-      </div>
-    </section>
   )
 }
 
@@ -1370,7 +1355,6 @@ function LandingPage() {
         <GameDownloads />
         <GameExperience />
         <div className="spido-campaign"><HowToPlayAndMissionsSection /></div>
-        <DocumentationNotice />
         <TeamAndTechnology />
         <section id="notas-tecnicas" className="spido-container spido-reference">
           <details>
@@ -1394,7 +1378,6 @@ export default function App() {
   if (pathname === '/recuperar-contrasena') return <RequestPasswordRecovery />
   if (pathname === '/confirmar-recuperacion') return <ResetPasswordPage />
   if (pathname === '/reset-password') return <ResetPasswordPage legacy />
-  if (pathname === '/docs') return <DocsPage />
   if (pathname === '/perfil') return <PlayerHub />
   if (pathname === '/registro') return <WebAuth mode="register" />
   if (pathname === '/login') return <WebAuth mode="login" />
