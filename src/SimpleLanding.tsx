@@ -424,8 +424,8 @@ export default function SimpleLanding() {
               <span className="sec-section-tag"><EncryptedLabel text="Soporte Táctico // A.D.A." /></span>
               <h2 className="sec-section-title"><EncryptedLabel text="Sistema A.D.A" duration={650} title /></h2>
               <p className="sec-section-desc">
-                En SpidoCode el error es parte del aprendizaje. Cuando tu código falla, A.D.A. activa
-                pistas pedagógicas escalonadas en 3 niveles para guiar tu razonamiento sin frustración.
+                En SpidoCode el error es parte del aprendizaje. Cuando tu código falla, con A.D.A.
+                podrás guiar tu razonamiento sin frustración.
               </p>
             </div>
 
