@@ -798,47 +798,363 @@
   margin: 0 auto;
 }
 
-.sec-mechanics-console-card {
-  padding: 0 !important;
+/* ========================================================
+   SECCIÓN 3: COPILOTO TÁCTICO A.D.A. & CONSOLA INTERACTIVA
+   ======================================================== */
+.ada-showcase-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(20px, 3vw, 36px);
+  align-items: stretch;
+}
+
+@media (max-width: 900px) {
+  .ada-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Columna Izquierda: Consola GDScript */
+.ada-terminal-card {
+  background: #090d16;
+  border: 1px solid rgba(0, 255, 102, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.45);
   overflow: hidden;
-  max-height: clamp(260px, 46vh, 430px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.3s ease;
+}
+
+.ada-terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 18px;
+  background: rgba(18, 24, 36, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ada-terminal-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ada-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ada-dot-red { background: #ff5f56; }
+.ada-dot-yellow { background: #ffbd2e; }
+.ada-dot-green { background: #27c93f; }
+
+.ada-terminal-title {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.04em;
+  margin-left: 8px;
+}
+
+.ada-terminal-modes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ada-mode-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ada-mode-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.ada-mode-btn.is-active.is-error {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #fca5a5;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.25);
+}
+
+.ada-mode-btn.is-active.is-success {
+  background: rgba(0, 255, 102, 0.18);
+  border-color: var(--color-neon-green);
+  color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 255, 102, 0.25);
+}
+
+.ada-terminal-body {
+  padding: clamp(16px, 2.5vh, 22px);
+  background: #060910;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.ada-code-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: clamp(12.5px, 1.25vw, 14px);
+  line-height: 1.6;
+  color: #cbd5e1;
+}
+
+.ada-code-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: pre;
+}
+
+.ada-line-num {
+  color: #475569;
+  width: 16px;
+  text-align: right;
+  user-select: none;
+  font-size: 11.5px;
+}
+
+.ada-kw {
+  color: #c084fc;
+  font-weight: 700;
+}
+
+.ada-comment {
+  color: #64748b;
+  font-style: italic;
+}
+
+.ada-error-tag {
+  color: #f87171;
+  font-weight: 700;
+}
+
+.ada-code-line-error {
+  background: rgba(239, 68, 68, 0.14);
+  border-left: 3px solid #ef4444;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ada-code-line-success {
+  background: rgba(0, 255, 102, 0.1);
+  border-left: 3px solid var(--color-neon-green);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.ada-terminal-status {
+  padding: 10px 18px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ada-terminal-status.is-error {
+  background: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  border-top-color: rgba(239, 68, 68, 0.3);
+}
+
+.ada-terminal-status.is-success {
+  background: rgba(0, 255, 102, 0.1);
+  color: #86efac;
+  border-top-color: rgba(0, 255, 102, 0.3);
+}
+
+/* Columna Derecha: Tarjeta A.D.A. con Avatar de Spid */
+.ada-companion-card {
+  background: rgba(22, 26, 36, 0.85);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(0, 255, 102, 0.28);
+  border-radius: 20px;
+  padding: clamp(18px, 2.4vh, 24px) clamp(20px, 2.4vw, 26px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.4);
+  gap: 14px;
+}
+
+.ada-companion-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ada-avatar-frame {
+  width: clamp(58px, 6vw, 70px);
+  height: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 14px rgba(0, 255, 102, 0.45));
+  transition: transform 0.3s ease;
+}
+
+.ada-avatar-frame:hover {
+  transform: scale(1.05);
+}
+
+.ada-avatar-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.ada-companion-tag {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-neon-green);
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.ada-companion-title {
+  font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
+  font-size: clamp(20px, 2vw, 24px);
+  color: #ffffff;
+  margin: 0;
+}
+
+.ada-hint-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.ada-hint-btn {
+  background: rgba(18, 24, 36, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 8px 6px;
+  color: #94a3b8;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(11px, 1.15vw, 12.5px);
+  font-weight: 600;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #090d16;
+  gap: 6px;
+  transition: all 0.2s ease;
 }
 
-.sec-mechanics-console-img {
-  width: 100%;
-  height: 100%;
-  max-height: clamp(260px, 46vh, 430px);
-  object-fit: contain;
-  display: block;
-  border-radius: 18px;
+.ada-hint-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
-.sec-mechanics-right-col {
+.ada-hint-btn.is-active {
+  background: rgba(0, 255, 102, 0.16);
+  border-color: var(--color-neon-green);
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 255, 102, 0.2);
+}
+
+.ada-hint-step {
+  display: inline-block;
+  font-size: 10px;
+  background: rgba(0, 255, 102, 0.22);
+  color: var(--color-neon-green);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.ada-hint-box {
+  background: rgba(10, 14, 22, 0.9);
+  border: 1px solid rgba(0, 255, 102, 0.2);
+  border-radius: 14px;
+  padding: clamp(14px, 2vh, 18px);
+  min-height: clamp(110px, 15vh, 135px);
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 1.8vh, 18px);
+  justify-content: center;
 }
 
-.sec-mechanics-editor-card {
-  padding: clamp(16px, 2.2vh, 22px) !important;
-}
-
-.sec-mechanics-editor-card h3 {
-  font-family: 'Spido Pixel', 'Pixelify Sans', monospace;
-  font-size: clamp(20px, 2.2vw, 24px);
+.ada-hint-pill {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
   color: var(--color-neon-green);
-  margin: 0 0 8px;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
 }
 
-.sec-mechanics-editor-card p {
+.ada-hint-content p {
   color: #e2e8f0;
-  font-size: clamp(13px, 1.3vw, 14.5px);
+  font-size: clamp(12.5px, 1.25vw, 13.5px);
   line-height: 1.55;
-  margin: 0 0 14px;
+  margin: 0;
+}
+
+.ada-hint-content strong {
+  color: var(--color-neon-green);
+}
+
+.ada-hint-code {
+  background: #05080e;
+  border: 1px solid rgba(0, 255, 102, 0.25);
+  border-radius: 8px;
+  padding: 6px 12px;
+  color: #00ff66;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12.5px;
+  margin: 6px 0 0;
+  display: inline-block;
+}
+
+.ada-pedagogy-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ada-pedagogy-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-neon-green);
+  box-shadow: 0 0 10px var(--color-neon-green);
+  flex-shrink: 0;
+}
+
+.ada-pedagogy-footer p {
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.ada-pedagogy-footer strong {
+  color: #d1d7e2;
 }
 
 /* Pintas verdes neón alrededor */

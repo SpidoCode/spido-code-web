@@ -280,6 +280,10 @@ export default function SimpleLanding() {
     pointer.addEventListener('change', setup)
     return () => { dispose(); reduced.removeEventListener('change', setup); pointer.removeEventListener('change', setup) }
   }, [])
+
+  const [adaHintLevel, setAdaHintLevel] = useState<1 | 2 | 3>(1)
+  const [adaCodeMode, setAdaCodeMode] = useState<'error' | 'success'>('error')
+
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -408,59 +412,156 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: MECÁNICAS EN VIVO & ASISTENTE A.D.A.
-            Degradé suave a oscuro con pintas verdes neón y consola de código
+            SECCIÓN 3: COPILOTO TÁCTICO A.D.A.
+            Pistas escalonadas y simulación de código interactivo
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
           <NeonSpeckles count={20} />
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="sec-section-header">
-              <span className="sec-section-tag"><EncryptedLabel text="Lógica Educativa" /></span>
-              <h2 className="sec-section-title"><EncryptedLabel text="De instrucciones simples a algoritmos espaciales" duration={650} title /></h2>
+              <span className="sec-section-tag"><EncryptedLabel text="Soporte Táctico // A.D.A." /></span>
+              <h2 className="sec-section-title"><EncryptedLabel text="A.D.A. como Copiloto Táctico" duration={650} title /></h2>
               <p className="sec-section-desc">
-                Al estilo de juegos como Lightbot, el código es acción directa que cobra vida en
-                pantalla. Aprende computación paso a paso mediante resolución de problemas.
+                En SpidoCode el error es parte del aprendizaje. Cuando tu código falla, A.D.A. activa
+                pistas pedagógicas escalonadas en 3 niveles para guiar tu razonamiento sin frustración.
               </p>
             </div>
 
-            <div className="lightbot-showcase-grid">
-              {/* Columna Izquierda: Consola de Código GDScript */}
-              <div className="lightbot-card sec-mechanics-console-card" data-motion-card="2.5">
-                <img
-                  src="/images/spidocode/spid-code-console.png"
-                  alt="Consola GDScript de SpidoCode con bucles while y condiciones if"
-                  className="sec-mechanics-console-img"
-                />
-              </div>
-
-              {/* Columna Derecha: Tarjeta A.D.A. + Información del Editor */}
-              <div className="sec-mechanics-right-col">
-                <div className="lightbot-card lightbot-companion-card motion-info-block">
-                  <div className="lightbot-companion-face" data-motion-card="2.5">
-                    <img
-                      src="/images/spidocode/spid-smile.png"
-                      alt="Spid sonriendo listo para resolver misiones"
-                      width="1024"
-                      height="788"
-                    />
+            <div className="ada-showcase-grid">
+              {/* Columna Izquierda: Consola Interactiva de GDScript */}
+              <div className="ada-terminal-card" data-motion-card="2.5">
+                <div className="ada-terminal-header">
+                  <div className="ada-terminal-dots">
+                    <span className="ada-dot ada-dot-red" />
+                    <span className="ada-dot ada-dot-yellow" />
+                    <span className="ada-dot ada-dot-green" />
+                    <span className="ada-terminal-title">CONSOLA SPID // GDScript</span>
                   </div>
-                  <div className="lightbot-speech-bubble">
-                    <strong>Pista de A.D.A.:</strong>
-                    <p>
-                      ¡Usa las instrucciones para avanzar por la cuadrícula y recolectar las piezas
-                      antes de que se agote la energía!
-                    </p>
+                  <div className="ada-terminal-modes">
+                    <button
+                      type="button"
+                      className={`ada-mode-btn ${adaCodeMode === 'error' ? 'is-active is-error' : ''}`}
+                      onClick={() => { setAdaCodeMode('error'); setAdaHintLevel(1) }}
+                    >
+                      Error Detectado
+                    </button>
+                    <button
+                      type="button"
+                      className={`ada-mode-btn ${adaCodeMode === 'success' ? 'is-active is-success' : ''}`}
+                      onClick={() => { setAdaCodeMode('success'); setAdaHintLevel(3) }}
+                    >
+                      Código Corregido
+                    </button>
                   </div>
                 </div>
 
-                <div className="lightbot-card motion-info-block sec-mechanics-editor-card">
-                  <h3>
-                    Editor de Código en Vivo
-                  </h3>
+                <div className="ada-terminal-body">
+                  <div className="ada-code-lines">
+                    {adaCodeMode === 'error' ? (
+                      <>
+                        <div className="ada-code-line"><span className="ada-line-num">1</span><span className="ada-comment"># MISIÓN: EXTRACCIÓN EN ASTEROIDE 2X3</span></div>
+                        <div className="ada-code-line"><span className="ada-line-num">2</span><span className="ada-kw">while</span> spid.tiene_espacio():</div>
+                        <div className="ada-code-line ada-code-line-error"><span className="ada-line-num">3</span>    spid.minar() <span className="ada-error-tag"># [!] ERROR: CASILLA ESTÉRIL</span></div>
+                        <div className="ada-code-line"><span className="ada-line-num">4</span>    spid.norte(1)</div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="ada-code-line"><span className="ada-line-num">1</span><span className="ada-comment"># MISIÓN: EXTRACCIÓN EN ASTEROIDE 2X3</span></div>
+                        <div className="ada-code-line"><span className="ada-line-num">2</span><span className="ada-kw">while</span> spid.tiene_espacio():</div>
+                        <div className="ada-code-line ada-code-line-success"><span className="ada-line-num">3</span>    <span className="ada-kw">if</span> spid.hay_mineral():</div>
+                        <div className="ada-code-line ada-code-line-success"><span className="ada-line-num">4</span>        spid.minar() <span className="ada-comment"># ✓ Muestra extraída</span></div>
+                        <div className="ada-code-line"><span className="ada-line-num">5</span>    spid.norte(1)</div>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <div className={`ada-terminal-status ${adaCodeMode === 'error' ? 'is-error' : 'is-success'}`}>
+                  {adaCodeMode === 'error' ? (
+                    <span>⚠️ <strong>ALERTA SENSOR:</strong> Perforación sin mineral detectado. Actuador en riesgo.</span>
+                  ) : (
+                    <span>✓ <strong>MISIÓN COMPLETADA:</strong> Sensor reactivo activo. 20 Minerales recolectados.</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Columna Derecha: Tarjeta A.D.A. con el Avatar de Spid y Pistas Escalonadas */}
+              <div className="ada-companion-card" data-motion-card="2.5">
+                <div className="ada-companion-header">
+                  <div className="ada-avatar-frame">
+                    <img
+                      src="/images/spidocode/spid-smile.png"
+                      alt="Cara de Spid sonriente en monitor espacial"
+                      className="ada-avatar-img"
+                      width="80"
+                      height="62"
+                    />
+                  </div>
+                  <div>
+                    <span className="ada-companion-tag">ASISTENTE DIGITAL AVANZADO</span>
+                    <h3 className="ada-companion-title">Pistas Progresivas de A.D.A.</h3>
+                  </div>
+                </div>
+
+                <div className="ada-hint-selector">
+                  <button
+                    type="button"
+                    className={`ada-hint-btn ${adaHintLevel === 1 ? 'is-active' : ''}`}
+                    onClick={() => setAdaHintLevel(1)}
+                  >
+                    <span className="ada-hint-step">01</span> Concepto
+                  </button>
+                  <button
+                    type="button"
+                    className={`ada-hint-btn ${adaHintLevel === 2 ? 'is-active' : ''}`}
+                    onClick={() => setAdaHintLevel(2)}
+                  >
+                    <span className="ada-hint-step">02</span> Dónde mirar
+                  </button>
+                  <button
+                    type="button"
+                    className={`ada-hint-btn ${adaHintLevel === 3 ? 'is-active' : ''}`}
+                    onClick={() => setAdaHintLevel(3)}
+                  >
+                    <span className="ada-hint-step">03</span> Solución guiada
+                  </button>
+                </div>
+
+                <div className="ada-hint-box">
+                  {adaHintLevel === 1 && (
+                    <div className="ada-hint-content">
+                      <span className="ada-hint-pill">Nivel 1 · Andamiaje Conceptual</span>
+                      <p>
+                        "Los depósitos minerales en este asteroide son <strong>estocásticos</strong> (aleatorios). Si perforas a ciegas sin verificar con tus sensores, Spid dañará su actuador y desperdiciará energía. Antes de actuar, pregúntate si hay mineral en la casilla."
+                      </p>
+                    </div>
+                  )}
+                  {adaHintLevel === 2 && (
+                    <div className="ada-hint-content">
+                      <span className="ada-hint-pill">Nivel 2 · Detección de Línea</span>
+                      <p>
+                        "Revisa la acción de minado en la línea 3. Antes de llamar a <code>spid.minar()</code>, necesitas evaluar una condición previa usando el sensor <code>spid.hay_mineral()</code>."
+                      </p>
+                    </div>
+                  )}
+                  {adaHintLevel === 3 && (
+                    <div className="ada-hint-content">
+                      <span className="ada-hint-pill">Nivel 3 · Estructura Recomendada</span>
+                      <p>
+                        "Envuelve la orden dentro de una condición para activar el ciclo percepción-acción:"
+                      </p>
+                      <pre className="ada-hint-code">
+                        <code>{`if spid.hay_mineral():\n    spid.minar()`}</code>
+                      </pre>
+                    </div>
+                  )}
+                </div>
+
+                <div className="ada-pedagogy-footer">
+                  <span className="ada-pedagogy-dot" />
                   <p>
-                    Ejecuta tu código paso a paso para pausar en cada línea, inspeccionar variables y
-                    aprender cómo piensa la computadora en cada decisión algorítmica.
+                    <strong>Metodología de Andamiaje:</strong> A.D.A. entrena tu intuición lógica paso a paso sin resolverte el desafío.
                   </p>
                 </div>
               </div>
