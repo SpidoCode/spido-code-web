@@ -56,9 +56,6 @@ export default function SpidoCodeZeroPage() {
                 >
                   Ver Release en GitHub
                 </a>
-                <a href="/spidocode" className="simple-btn-ghost">
-                  Ver SpidoCode (Código Real)
-                </a>
               </div>
             </div>
           </div>

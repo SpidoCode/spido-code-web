@@ -56,9 +56,6 @@ export default function SpidoCodeGamePage() {
                 >
                   Ver Release en GitHub
                 </a>
-                <a href="/spidocode-0" className="simple-btn-ghost">
-                  Ver SpidoCode 0 (Bloques)
-                </a>
               </div>
             </div>
           </div>
