@@ -427,17 +427,16 @@ export default function SimpleLanding() {
 
             <div className="lightbot-showcase-grid">
               {/* Columna Izquierda: Consola de Código GDScript */}
-              <div className="lightbot-card" data-motion-card="2.5" style={{ padding: '0', overflow: 'hidden' }}>
+              <div className="lightbot-card sec-mechanics-console-card" data-motion-card="2.5">
                 <img
                   src="/images/spidocode/spid-code-console.png"
                   alt="Consola GDScript de SpidoCode con bucles while y condiciones if"
-                  className="square-cell-img"
-                  style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '18px' }}
+                  className="sec-mechanics-console-img"
                 />
               </div>
 
               {/* Columna Derecha: Tarjeta A.D.A. + Información del Editor */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div className="sec-mechanics-right-col">
                 <div className="lightbot-card lightbot-companion-card motion-info-block">
                   <div className="lightbot-companion-face" data-motion-card="2.5">
                     <img
@@ -456,18 +455,11 @@ export default function SimpleLanding() {
                   </div>
                 </div>
 
-                <div className="lightbot-card motion-info-block" style={{ padding: '28px' }}>
-                  <h3
-                    style={{
-                      fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
-                      fontSize: '24px',
-                      color: 'var(--color-neon-green)',
-                      margin: '0 0 12px',
-                    }}
-                  >
+                <div className="lightbot-card motion-info-block sec-mechanics-editor-card">
+                  <h3>
                     Editor de Código en Vivo
                   </h3>
-                  <p style={{ color: '#e2e8f0', fontSize: '15px', lineHeight: 1.6, margin: '0 0 20px' }}>
+                  <p>
                     Ejecuta tu código paso a paso para pausar en cada línea, inspeccionar variables y
                     aprender cómo piensa la computadora en cada decisión algorítmica.
                   </p>
