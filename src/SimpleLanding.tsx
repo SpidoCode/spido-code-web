@@ -421,7 +421,7 @@ export default function SimpleLanding() {
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
             <div className="sec-section-header">
               <span className="sec-section-tag"><EncryptedLabel text="Soporte Táctico // A.D.A." /></span>
-              <h2 className="sec-section-title"><EncryptedLabel text="A.D.A. como Copiloto Táctico" duration={650} title /></h2>
+              <h2 className="sec-section-title"><EncryptedLabel text="Sistema A.D.A" duration={650} title /></h2>
               <p className="sec-section-desc">
                 En SpidoCode el error es parte del aprendizaje. Cuando tu código falla, A.D.A. activa
                 pistas pedagógicas escalonadas en 3 niveles para guiar tu razonamiento sin frustración.
