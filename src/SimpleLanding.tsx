@@ -100,7 +100,17 @@ function Nav() {
   const [session, setSession] = useState<Session | null>(null)
   const [checking, setChecking] = useState(true)
   const [busy, setBusy] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const mounted = useRef(false)
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 15)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     mounted.current = true
@@ -144,7 +154,7 @@ function Nav() {
   }
 
   return (
-    <header className="simple-nav">
+    <header className={`simple-nav ${scrolled ? 'simple-nav-scrolled' : ''}`}>
       <div className="simple-container simple-nav-inner">
         <a href="#inicio" className="simple-brand" aria-label="SPIDOCODE" data-motion-card="2">
           SPIDO<span>CODE</span>
