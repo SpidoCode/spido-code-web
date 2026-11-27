@@ -3,9 +3,9 @@ import type { Session } from '@supabase/supabase-js'
 import { supabase } from './lib/supabase'
 import './SimpleLanding.css'
 
-const BETA_DOWNLOAD_URL =
+export const BETA_DOWNLOAD_URL =
   'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
-const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
+export const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
 // El texto real siempre permanece en el árbol accesible; solo cambia su copia decorativa.
 function EncryptedLabel({ text, duration = 405, immediate = false, title = false }: {
@@ -62,7 +62,7 @@ function EncryptedLabel({ text, duration = 405, immediate = false, title = false
 }
 
 // Generador de pintas y destellos verdes neón para la Sección 3
-function NeonSpeckles({ count = 16 }: { count?: number }) {
+export function NeonSpeckles({ count = 16 }: { count?: number }) {
   const speckles = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => ({
@@ -96,7 +96,7 @@ function NeonSpeckles({ count = 16 }: { count?: number }) {
   )
 }
 
-function Nav() {
+export function Nav() {
   const [session, setSession] = useState<Session | null>(null)
   const [checking, setChecking] = useState(true)
   const [busy, setBusy] = useState(false)
@@ -156,14 +156,14 @@ function Nav() {
   return (
     <header className={`simple-nav ${scrolled ? 'simple-nav-scrolled' : ''}`}>
       <div className="simple-container simple-nav-inner">
-        <a href="#inicio" className="simple-brand" aria-label="SPIDOCODE" data-motion-card="2">
+        <a href="/#inicio" className="simple-brand" aria-label="SPIDOCODE" data-motion-card="2">
           SPIDO<span>CODE</span>
         </a>
 
         <nav className="simple-nav-links" aria-label="Navegación principal">
-          <a href="#inicio">Inicio</a>
-          <a href="#juegos">Juegos</a>
-          <a href="#como-se-juega">Cómo se juega</a>
+          <a href="/#inicio">Inicio</a>
+          <a href="/#juegos">Juegos</a>
+          <a href="/#como-se-juega">Cómo se juega</a>
           <a href="/docs">A.D.A</a>
         </nav>
 
@@ -575,97 +575,107 @@ export default function SimpleLanding() {
             SECCIÓN 4: FOOTER (COMPLETAMENTE GRIS OSCURA)
             Gris oscuro profundo y uniforme (#12141a)
             ======================================================== */}
-        <footer className="sec-footer">
-          <div className="simple-container">
-            <div className="sec-footer-top">
-              <div className="sec-footer-brand">
-                <h4>
-                  SPIDO<span>CODE</span>
-                </h4>
-                <p>
-                  Videojuego educativo para aprender lógica y programación explorando el espacio.
-                  Proyecto de código abierto desarrollado para estudiantes y docentes.
-                </p>
-                <div className="sec-footer-status">
-                  <span className="sec-footer-status-dot" />
-                  Versión Beta v1.0.0 activa
-                </div>
-              </div>
-
-              <div className="sec-footer-col">
-                <h5>Juegos</h5>
-                <ul>
-                  <li>
-                    <a href="#inicio">Inicio</a>
-                  </li>
-                  <li>
-                    <a href="#juegos">Juegos</a>
-                  </li>
-                  <li>
-                    <a href="#como-se-juega">Cómo se juega</a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://github.com/SpidoCode/spido-code"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Repositorio en GitHub
-                    </a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="sec-footer-col">
-                <h5>A.D.A</h5>
-                <ul>
-                  <li>
-                    <a href="/docs">Archivo A.D.A.</a>
-                  </li>
-                  <li>
-                    <a href="/docs?topic=bucles">Guía de Bucles</a>
-                  </li>
-                  <li>
-                    <a href="/docs?topic=condicionales">Guía de Condicionales</a>
-                  </li>
-                  <li>
-                    <a href="/docs?topic=arquitectura">Arquitectura del Juego</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="sec-footer-col">
-                <h5>Comunidad</h5>
-                <ul>
-                  <li>
-                    <a href="/perfil">Mi Perfil y Códice</a>
-                  </li>
-                  <li>
-                    <a href="/login">Iniciar sesión</a>
-                  </li>
-                  <li>
-                    <a href="/registro">Registrarse</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="sec-footer-bottom">
-              <div>
-                © 2026 <strong>SPIDOCODE</strong>
-              </div>
-              <button
-                type="button"
-                className="btn-back-to-top"
-                onClick={scrollToTop}
-                aria-label="Volver al inicio de la página"
-              >
-                Volver al inicio
-              </button>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </div>
+  )
+}
+
+export function Footer() {
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <footer className="sec-footer">
+      <div className="simple-container">
+        <div className="sec-footer-top">
+          <div className="sec-footer-brand">
+            <h4>
+              SPIDO<span>CODE</span>
+            </h4>
+            <p>
+              Videojuego educativo para aprender lógica y programación explorando el espacio.
+              Proyecto de código abierto desarrollado para estudiantes y docentes.
+            </p>
+            <div className="sec-footer-status">
+              <span className="sec-footer-status-dot" />
+              Versión Beta v1.0.0 activa
+            </div>
+          </div>
+
+          <div className="sec-footer-col">
+            <h5>Juegos</h5>
+            <ul>
+              <li>
+                <a href="/#inicio">Inicio</a>
+              </li>
+              <li>
+                <a href="/#juegos">Juegos</a>
+              </li>
+              <li>
+                <a href="/#como-se-juega">Cómo se juega</a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/SpidoCode/spido-code"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Repositorio en GitHub
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="sec-footer-col">
+            <h5>A.D.A</h5>
+            <ul>
+              <li>
+                <a href="/docs">Archivo A.D.A.</a>
+              </li>
+              <li>
+                <a href="/docs?topic=bucles">Guía de Bucles</a>
+              </li>
+              <li>
+                <a href="/docs?topic=condicionales">Guía de Condicionales</a>
+              </li>
+              <li>
+                <a href="/docs?topic=arquitectura">Arquitectura del Juego</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="sec-footer-col">
+            <h5>Comunidad</h5>
+            <ul>
+              <li>
+                <a href="/perfil">Mi Perfil y Códice</a>
+              </li>
+              <li>
+                <a href="/login">Iniciar sesión</a>
+              </li>
+              <li>
+                <a href="/registro">Registrarse</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="sec-footer-bottom">
+          <div>
+            © 2026 <strong>SPIDOCODE</strong>
+          </div>
+          <button
+            type="button"
+            className="btn-back-to-top"
+            onClick={scrollToTop}
+            aria-label="Volver al inicio de la página"
+          >
+            Volver al inicio
+          </button>
+        </div>
+      </div>
+    </footer>
   )
 }

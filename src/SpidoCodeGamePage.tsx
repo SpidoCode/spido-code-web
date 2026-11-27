@@ -1,239 +1,180 @@
+import { Nav, Footer, NeonSpeckles, BETA_DOWNLOAD_URL, BETA_RELEASE_URL } from './SimpleLanding'
 import './SimpleLanding.css'
-
-const BETA_DOWNLOAD_URL =
-  'https://github.com/SpidoCode/spido-code/releases/download/v1.0.0-beta/SPIDOCODE-Windows-x64-v1.0.0-beta.zip'
-const BETA_RELEASE_URL = 'https://github.com/SpidoCode/spido-code/releases/tag/v1.0.0-beta'
 
 export default function SpidoCodeGamePage() {
   return (
     <div className="simple-site">
-      <header className="simple-nav">
-        <div className="simple-container simple-nav-inner">
-          <a href="/" className="simple-brand" aria-label="SPIDOCODE">
-            SPIDO<span>CODE</span>
-          </a>
+      <Nav />
 
-          <nav className="simple-nav-links" aria-label="Navegación SpidoCode">
-            <a href="/">Volver a Inicio</a>
-            <a href="/spidocode-0">SpidoCode 0 (Bloques)</a>
-            <a href="/docs">A.D.A</a>
-          </nav>
-
-          <div className="simple-nav-cta-group">
-            <a href={BETA_DOWNLOAD_URL} className="simple-btn-primary">
-              Descargar Beta
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <main>
-        {/* Banner Hero SpidoCode */}
-        <section
-          className="sec-hero"
-          style={{
-            background: 'linear-gradient(180deg, #eef1f6 0%, #e2e7ef 50%, #d4dae6 100%)',
-            padding: '70px 0 85px',
-          }}
-        >
+      <main id="contenido">
+        {/* ========================================================
+            HERO: TARJETA CENTRAL DESTACADA DE SPIDOCODE
+            Fondo gris claro con degradé suave y tarjeta centrada
+            ======================================================== */}
+        <section className="game-hero-section">
           <div className="simple-container">
-            <div className="sec-hero-grid">
-              <div className="sec-hero-copy">
-                <span className="sec-section-tag" style={{ color: '#2b7a48' }}>
-                  Programación con Código Escrito Real
-                </span>
-                <h1 className="sec-hero-title">
-                  Spido<span>Code</span>
-                </h1>
-                <p className="sec-hero-subtitle">
-                  La experiencia completa de ingeniería y computación. Escribe código real en
-                  GDScript, automatiza tareas espaciales y pon a prueba tus algoritmos en un entorno
-                  tridimensional.
-                </p>
+            <div className="game-central-card">
+              <span className="game-central-badge">
+                Programación con Sintaxis y Bucles (Código Real)
+              </span>
 
-                <div className="sec-hero-actions">
-                  <a href={BETA_DOWNLOAD_URL} className="simple-btn-primary" style={{ padding: '14px 26px' }}>
-                    Descargar Beta Windows x64
-                  </a>
-                  <a href="/spidocode-0" className="simple-btn-ghost" style={{ padding: '13px 22px' }}>
-                    Ver SpidoCode 0 (Bloques)
-                  </a>
-                </div>
-              </div>
+              <h1 className="game-central-title">
+                SPIDO<span>CODE</span>
+              </h1>
 
-              <div className="sec-hero-visual">
-                {/* Espacio reservado para el icono oficial de SpidoCode */}
-                <div
-                  style={{
-                    width: '240px',
-                    height: '240px',
-                    borderRadius: '40px',
-                    background: 'linear-gradient(135deg, #ffffff 0%, #eef3fa 100%)',
-                    border: '3px dashed rgba(124, 187, 137, 0.7)',
-                    boxShadow: '0 20px 48px rgba(76, 81, 95, 0.16)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '12px',
-                    padding: '20px',
-                    textAlign: 'center',
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
-                      fontSize: '54px',
-                      color: '#2b7a48',
-                      lineHeight: 1,
-                    }}
-                  >
-                    &lt;/&gt;
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Poppins', sans-serif",
-                      fontSize: '13px',
-                      fontWeight: 700,
-                      color: '#4c515f',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    Icono SpidoCode
-                  </span>
-                  <span style={{ fontSize: '11px', color: '#717789' }}>
-                    (Espacio listo para la imagen)
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Sección de Capturas y Detalles del Código */}
-        <section
-          style={{
-            background: 'linear-gradient(180deg, #d4dae6 0%, #c4cbd8 50%, #b2bac9 100%)',
-            padding: '85px 0 95px',
-          }}
-        >
-          <div className="simple-container">
-            <div className="sec-section-header">
-              <span className="sec-section-tag">Código Auténtico</span>
-              <h2 className="sec-section-title">Escribe lógica como en un editor profesional</h2>
-              <p className="sec-section-desc">
-                En SpidoCode no memorizas teoría abstracta: cada línea de código que escribes mueve
-                los servos de Spid en tiempo real.
+              <p className="game-central-tagline">
+                El siguiente paso en tu viaje de ingeniería espacial. Domina el código escrito en
+                GDScript, automatiza rutinas complejas con bucles <code>while</code> y programa
+                a <strong>Spid</strong> para superar desafíos autónomos en asteroides 3D.
               </p>
-            </div>
 
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                gap: '32px',
-                marginTop: '40px',
-                alignItems: 'center',
-              }}
-            >
-              <div
-                style={{
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                  border: '2px solid rgba(124, 187, 137, 0.45)',
-                  boxShadow: '0 16px 40px rgba(76, 81, 95, 0.16)',
-                }}
-              >
+              {/* Parte para la foto: Portada oficial de SpidoCode en proporción panorámica 16:9 */}
+              <div className="game-central-photo-frame">
                 <img
-                  src="/images/spidocode/spid-code-console.png"
-                  alt="Consola de código de SpidoCode"
-                  style={{ width: '100%', height: 'auto', display: 'block' }}
+                  src="/images/spidocode/spidocode-cover.jpg"
+                  alt="Portada oficial de SpidoCode con el rover Spid sobre un asteroide mirando al espacio"
+                  className="game-central-photo-img"
+                  width="1024"
+                  height="576"
                 />
               </div>
 
-              <div
-                style={{
-                  background: 'rgba(255, 255, 255, 0.88)',
-                  backdropFilter: 'blur(10px)',
-                  borderRadius: '20px',
-                  padding: '36px 32px',
-                  boxShadow: '0 12px 32px rgba(76, 81, 95, 0.1)',
-                  border: '1px solid rgba(158, 160, 179, 0.35)',
-                }}
-              >
-                <h3
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontSize: '22px',
-                    fontWeight: 700,
-                    color: '#1e222d',
-                    marginBottom: '16px',
-                  }}
-                >
-                  Funciones y Lógica en GDScript
-                </h3>
-                <ul
-                  style={{
-                    listStyle: 'none',
-                    padding: 0,
-                    margin: '0 0 24px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '12px',
-                    fontSize: '15px',
-                    color: '#374151',
-                  }}
-                >
-                  <li>
-                    <strong>Comandos de dirección:</strong> <code>spid.norte()</code>,{' '}
-                    <code>spid.sur()</code>, <code>spid.este()</code>, <code>spid.oeste()</code>.
-                  </li>
-                  <li>
-                    <strong>Interacción:</strong> <code>spid.minar()</code> y{' '}
-                    <code>spid.transferir()</code>.
-                  </li>
-                  <li>
-                    <strong>Estructuras de control:</strong> Bucles <code>while</code> y condiciones{' '}
-                    <code>if</code> con sensores en vivo.
-                  </li>
-                  <li>
-                    <strong>Depuración paso a paso:</strong> Pausa y ejecuta instrucción a instrucción
-                    para entender el flujo de control.
-                  </li>
-                </ul>
-
+              {/* Links de descarga y acciones */}
+              <div className="game-central-actions">
                 <a
                   href={BETA_DOWNLOAD_URL}
-                  className="simple-btn-primary"
-                  style={{ padding: '14px 24px', display: 'inline-block' }}
+                  className="btn-download-hero"
+                  aria-label="Descargar Beta de SpidoCode para Windows x64"
                 >
                   Descargar Beta para Windows x64
+                </a>
+                <a
+                  href={BETA_RELEASE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-download-release"
+                >
+                  Ver Release en GitHub
+                </a>
+                <a href="/spidocode-0" className="simple-btn-ghost">
+                  Ver SpidoCode 0 (Bloques)
                 </a>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Footer simple */}
-        <footer className="sec-footer" style={{ borderTop: 'none', marginTop: '-1px' }}>
-          <div className="simple-container" style={{ textAlign: 'center' }}>
-            <p style={{ margin: '0 0 16px', color: '#8c96a8' }}>
-              © 2026 <strong>SPIDOCODE</strong> — Videojuego educativo de programación en código real
-            </p>
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
-              <a href="/" style={{ color: '#00ff66', textDecoration: 'none', fontWeight: 600 }}>
-                Volver al Inicio
-              </a>
-              <a href="/spidocode-0" style={{ color: '#ffffff', textDecoration: 'none' }}>
-                SpidoCode 0 (Bloques)
-              </a>
-              <a href={BETA_RELEASE_URL} target="_blank" rel="noopener noreferrer" style={{ color: '#8c96a8', textDecoration: 'none' }}>
-                Releases en GitHub
-              </a>
+        {/* ========================================================
+            SECCIÓN EXPLICATIVA: SINTAXIS Y BUCLES
+            Explicación detallada de código real y automatización
+            ======================================================== */}
+        <section className="game-explanation-section">
+          <div className="simple-container">
+            <div className="sec-section-header">
+              <span className="sec-section-tag" style={{ color: '#2b7a48' }}>
+                Metodología Educativa: Código Escrito
+              </span>
+              <h2 className="sec-section-title">
+                Aprender mediante Sintaxis y Bucles
+              </h2>
+              <p className="sec-section-desc">
+                SpidoCode lleva la lógica algorítmica al siguiente nivel introduciendo sintaxis real y
+                estructuras de control de flujo. Diseñado para que la transición de bloques visuales a
+                programación profesional sea intuitiva, estimulante y natural.
+              </p>
+            </div>
+
+            <div className="game-features-grid">
+              {/* Feature 1: Sintaxis Real */}
+              <div className="game-feature-box">
+                <div className="game-feature-icon">01</div>
+                <h3 className="game-feature-title">Sintaxis Real en GDScript</h3>
+                <p className="game-feature-desc">
+                  Escribe instrucciones directas en la consola como <code>spid.norte()</code>,{' '}
+                  <code>spid.minar()</code> y <code>spid.transferir()</code>. Aprenderás las convenciones
+                  de la programación moderna: llamadas a métodos con paréntesis, parámetros y sangrías
+                  estructuradas sin ambigüedades.
+                </p>
+              </div>
+
+              {/* Feature 2: El Poder de los Bucles */}
+              <div className="game-feature-box">
+                <div className="game-feature-icon">02</div>
+                <h3 className="game-feature-title">El Poder de los Bucles (Loops)</h3>
+                <p className="game-feature-desc">
+                  Automatiza la exploración utilizando estructuras de repetición como{' '}
+                  <code>while spid.minerales_en_nave() &lt; 20:</code>. Los bucles permiten que Spid
+                  ejecute tareas repetitivas de forma autónoma sin necesidad de reescribir código manualmente.
+                </p>
+              </div>
+
+              {/* Feature 3: Condicionales y Sensores */}
+              <div className="game-feature-box">
+                <div className="game-feature-icon">03</div>
+                <h3 className="game-feature-title">Condicionales y Sensores en Tiempo Real</h3>
+                <p className="game-feature-desc">
+                  Evalúa el entorno del asteroide con sentencias <code>if spid.hay_mineral():</code> y
+                  lecturas de sensores frontales. Tu código toma decisiones inteligentes en tiempo real según
+                  el terreno y los recursos disponibles.
+                </p>
+              </div>
             </div>
           </div>
-        </footer>
+        </section>
+
+        {/* ========================================================
+            SECCIÓN INFERIOR: DEGRADÉ A OSCURO CON NEÓN & PUENTE A SPIDOCODE 0
+            ======================================================== */}
+        <section className="game-deep-section">
+          <NeonSpeckles count={20} />
+
+          <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
+            <div className="game-switch-card">
+              <div>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    fontFamily: "'Poppins', sans-serif",
+                    fontSize: '11px',
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    color: 'var(--color-neon-green)',
+                    marginBottom: '8px',
+                  }}
+                >
+                  Fundamentos Visuales
+                </span>
+                <h3
+                  style={{
+                    fontFamily: "'Spido Pixel', 'Pixelify Sans', monospace",
+                    fontSize: '28px',
+                    color: '#ffffff',
+                    margin: '0 0 10px',
+                  }}
+                >
+                  ¿Prefieres comenzar desde las bases?
+                </h3>
+                <p style={{ color: '#d1d7e2', fontSize: '15px', lineHeight: 1.6, margin: 0, maxWidth: '580px' }}>
+                  Si nunca has programado o quieres una experiencia más visual antes de escribir código en texto,
+                  prueba <strong>SpidoCode 0</strong>. Conecta órdenes lógicas y resuelve acertijos mediante bloques
+                  interactivos sin errores de sintaxis.
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap' }}>
+                <a href="/spidocode-0" className="simple-btn-primary" style={{ padding: '14px 24px' }}>
+                  Conocer SpidoCode 0
+                </a>
+                <a href="/#inicio" className="simple-btn-ghost" style={{ padding: '13px 20px' }}>
+                  Volver a Inicio
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <Footer />
       </main>
     </div>
   )
