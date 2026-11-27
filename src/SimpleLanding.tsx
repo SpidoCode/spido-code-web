@@ -163,7 +163,6 @@ export function Nav() {
         <nav className="simple-nav-links" aria-label="Navegación principal">
           <a href="/#inicio">Inicio</a>
           <a href="/#juegos">Juegos</a>
-          <a href="/#como-se-juega">Cómo se juega</a>
           <a href="/docs">A.D.A</a>
         </nav>
 
@@ -313,9 +312,6 @@ export default function SimpleLanding() {
                   <a href="#juegos" className="simple-btn-primary" style={{ padding: '14px 26px' }}>
                     Ver Juegos
                   </a>
-                  <a href="#como-se-juega" className="simple-btn-ghost" style={{ padding: '13px 22px' }}>
-                    Cómo se juega
-                  </a>
                 </div>
               </div>
 
@@ -413,94 +409,7 @@ export default function SimpleLanding() {
         </section>
 
         {/* ========================================================
-            SECCIÓN 3: CÓMO SE JUEGA & LO QUE APRENDERÁS
-            Estructura de 4 bloques estilo Lightbot (Texto - Foto / Foto - Texto)
-            Con las portadas oficiales de SpidoCode 0 y SpidoCode
-            ======================================================== */}
-        <section id="como-se-juega" className="sec-download">
-          <div className="simple-container">
-            <div className="lightbot-four-grid">
-              {/* Bloque 1 (Arriba Izquierda): Texto explicativo propio de SpidoCode */}
-              <div className="lightbot-four-text motion-info-block">
-                <h2 className="lightbot-four-title">
-                  <EncryptedLabel text="¡Aprende programación y" duration={650} title /> <span><EncryptedLabel text="algoritmos jugando!" duration={650} title /></span>
-                </h2>
-                <p className="lightbot-four-desc">
-                  En <strong>SPIDOCODE</strong> la programación cobra vida a través de la exploración espacial.
-                  Diseña tus propios algoritmos paso a paso, automatiza las tareas de Spid y
-                  resuelve desafíos lógicos en cada asteroide de manera práctica y divertida.
-                </p>
-              </div>
-
-              {/* Bloque 2 (Arriba Derecha): Foto Widescreen - Portada SpidoCode 0 */}
-              <div className="lightbot-four-image-frame" data-motion-card="2.5">
-                <img
-                  src="/images/spidocode/spidocode-0-cover.jpg"
-                  alt="Portada oficial de SpidoCode 0 con Spid y el astronauta en el hangar"
-                  className="lightbot-four-img"
-                  width="1024"
-                  height="576"
-                />
-              </div>
-
-              {/* Bloque 3 (Abajo Izquierda): Foto Widescreen - Portada SpidoCode */}
-              <div className="lightbot-four-image-frame" data-motion-card="2.5">
-                <img
-                  src="/images/spidocode/spidocode-cover.jpg"
-                  alt="Portada oficial de SpidoCode con Spid sobre el asteroide con cristales"
-                  className="lightbot-four-img"
-                  width="1024"
-                  height="576"
-                />
-              </div>
-
-              {/* Bloque 4 (Abajo Derecha): "Lo que aprenderás" + Descarga Beta */}
-              <div className="lightbot-four-text motion-info-block">
-                <h3 className="lightbot-four-title">
-                  Lo que <span>aprenderás</span>
-                </h3>
-                <ul className="lightbot-learn-list-clean">
-                  <li>
-                    <span className="lightbot-learn-dot-clean" /> Secuenciación y comandos directos
-                  </li>
-                  <li>
-                    <span className="lightbot-learn-dot-clean" /> Bucles y optimización de repeticiones
-                  </li>
-                  <li>
-                    <span className="lightbot-learn-dot-clean" /> Procedimientos y lógica computacional
-                  </li>
-                  <li>
-                    <span className="lightbot-learn-dot-clean" /> Condicionales y toma de decisiones
-                  </li>
-                  <li>
-                    <span className="lightbot-learn-dot-clean" /> Transición natural de bloques a código real
-                  </li>
-                </ul>
-
-                <div className="sec-download-btn-group" style={{ marginTop: '10px' }}>
-                  <a
-                    href={BETA_DOWNLOAD_URL}
-                    className="btn-download-hero motion-star-border"
-                    aria-label="Descargar Beta de SPIDOCODE para Windows x64"
-                  >
-                    Descargar Beta para Windows x64
-                  </a>
-                  <a
-                    href={BETA_RELEASE_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-download-release"
-                  >
-                    Ver Release en GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ========================================================
-            SECCIÓN 4: MECÁNICAS EN VIVO & ASISTENTE A.D.A.
+            SECCIÓN 3: MECÁNICAS EN VIVO & ASISTENTE A.D.A.
             Degradé suave a oscuro con pintas verdes neón y consola de código
             ======================================================== */}
         <section id="mecanicas" className="sec-mechanics">
@@ -612,9 +521,6 @@ export function Footer() {
               </li>
               <li>
                 <a href="/#juegos">Juegos</a>
-              </li>
-              <li>
-                <a href="/#como-se-juega">Cómo se juega</a>
               </li>
               <li>
                 <a
