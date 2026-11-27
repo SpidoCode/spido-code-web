@@ -163,6 +163,7 @@ export function Nav() {
         <nav className="simple-nav-links" aria-label="Navegación principal">
           <a href="/#inicio">Inicio</a>
           <a href="/#juegos">Juegos</a>
+          <a href="/#ada">A.D.A</a>
         </nav>
 
         <div className="simple-nav-cta-group">
@@ -415,7 +416,7 @@ export default function SimpleLanding() {
             SECCIÓN 3: COPILOTO TÁCTICO A.D.A.
             Pistas escalonadas y simulación de código interactivo
             ======================================================== */}
-        <section id="mecanicas" className="sec-mechanics">
+        <section id="ada" className="sec-mechanics">
           <NeonSpeckles count={20} />
 
           <div className="simple-container" style={{ position: 'relative', zIndex: 2 }}>
@@ -603,13 +604,16 @@ export function Footer() {
           </div>
 
           <div className="sec-footer-col">
-            <h5>Juegos</h5>
+            <h5>Explorar</h5>
             <ul>
               <li>
                 <a href="/#inicio">Inicio</a>
               </li>
               <li>
                 <a href="/#juegos">Juegos</a>
+              </li>
+              <li>
+                <a href="/#ada">Sistema A.D.A</a>
               </li>
               <li>
                 <a
