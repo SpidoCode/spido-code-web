@@ -339,7 +339,7 @@ export default function SimpleLanding() {
           <div className="simple-container">
             <div className="sec-section-header">
               <span className="sec-section-tag">Nuestras Experiencias</span>
-              <h2 className="sec-section-title"><EncryptedLabel text="Juegos SpidoCode" duration={650} title /></h2>
+              <h2 className="sec-section-title"><EncryptedLabel text="Juegos" duration={650} title /></h2>
               <p className="sec-section-desc">
                 Explora nuestras dos modalidades de aprendizaje: desde la lógica visual con bloques
                 hasta la programación real con código escrito.
